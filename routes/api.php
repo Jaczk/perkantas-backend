@@ -28,6 +28,6 @@ Route::name('auth.')->group(function () {
 Route::prefix('loan')->middleware('auth:sanctum')->name('loan.')->group(function () {
     Route::get('/', [LoanController::class, 'fetch'])->name('fetch');
     Route::post('/', [LoanController::class, 'create'])->name('create');
-    Route::put('update/{id}', [LoanController::class, 'update'])->name('update');
-    Route::delete('/{id}', [LoanController::class, 'delete'])->name('delete');
+    Route::put('/{id}', [LoanController::class, 'update'])->name('update');
+    Route::delete('/{id}', [LoanController::class, 'destroy'])->name('delete');
 });
