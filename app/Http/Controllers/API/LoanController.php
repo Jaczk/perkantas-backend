@@ -111,7 +111,7 @@ class LoanController extends Controller
     {
         try {
             //Get Loan by ID
-            $loan = Loan::findOrFail($id);
+            $loan = Loan::find($id);
 
             if (!$loan) {
                 return ResponseFormatter::error(

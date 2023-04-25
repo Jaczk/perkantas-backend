@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LoanController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\ProcurementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,11 @@ Route::prefix('loan')->middleware('auth:sanctum')->name('loan.')->group(function
     Route::post('/', [LoanController::class, 'create'])->name('create');
     Route::put('/{id}', [LoanController::class, 'update'])->name('update');
     Route::delete('/{id}', [LoanController::class, 'destroy'])->name('delete');
+});
+
+Route::prefix('procurement')->middleware('auth:sanctum')->name('procurement.')->group(function () {
+    Route::get('/', [ProcurementController::class, 'fetch'])->name('fetch');
+    Route::post('/', [ProcurementController::class, 'create'])->name('create');
+    // Route::put('/{id}', [ProcurementController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ProcurementController::class, 'destroy'])->name('delete');
 });
