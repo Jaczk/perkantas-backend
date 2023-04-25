@@ -17,7 +17,7 @@ class GoodFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_category' => $this->faker->numberBetween(1, 6),
+            'category_id' => $this->faker->numberBetween(1, 6),
             'goods_name' => $this->faker->name(),
             'condition' => $this->faker->randomElement(['new', 'used', 'broken']),
             'is_available' => $this->faker->boolean(),

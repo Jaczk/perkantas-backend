@@ -11,8 +11,8 @@ class Item_Loan extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_loan',
-        'id_good',
+        'loan_id',
+        'good_id',
     ];
 
     public function loan()

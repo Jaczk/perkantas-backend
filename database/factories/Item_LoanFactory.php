@@ -17,8 +17,8 @@ class Item_LoanFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_loan' => $this->faker->numberBetween(1, 10),
-            'id_good' => $this->faker->numberBetween(1, 30),
+            'loan_id' => $this->faker->numberBetween(1, 10),
+            'good_id' => $this->faker->numberBetween(1, 30),
         ];
     }
 }

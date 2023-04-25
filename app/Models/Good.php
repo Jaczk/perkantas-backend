@@ -11,7 +11,7 @@ class Good extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_category',
+        'category_id',
         'goods_name',
         'condition',
         'is_available',
