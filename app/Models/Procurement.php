@@ -11,11 +11,11 @@ class Procurement extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_user',
+        'user_id',
         'goods_name',
         'goods_amount',
-        'period',
         'description',
+        'period',
     ];
 
     public function user()

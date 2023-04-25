@@ -12,7 +12,7 @@ class Item_Loan extends Model
 
     protected $fillable = [
         'id_loan',
-        'id_goods',
+        'id_good',
     ];
 
     public function loan()

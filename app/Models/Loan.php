@@ -11,10 +11,11 @@ class Loan extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_user',
-        'id_item_loan',
-        'loan_date',
+        'user_id',
         'return_date',
+        'due_date',
+        'period',
+        'is_returned',
         'status',
     ];
 
