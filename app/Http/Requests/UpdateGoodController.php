@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CreateProcurementController extends FormRequest
+class UpdateGoodController extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class CreateProcurementController extends FormRequest
     {
         return [
             'goods_name' => 'required|string|max:255',
-            'goods_amount' => 'required|integer',
-            'period' => 'required|integer',
+            'condition' => 'required|string|max:255',
+            'is_available' => 'required|boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string|max:255',
         ];
     }

@@ -23,10 +23,10 @@ class UpdateProcurementController extends FormRequest
     public function rules(): array
     {
         return [
-            'goods_name' => 'required|string',
+            'goods_name' => 'required|string|max:255',
             'goods_amount' => 'required|integer',
             'period' => 'required|integer',
-            'description' => 'required|string',
+            'description' => 'required|string|max:255',
         ];
     }
 }

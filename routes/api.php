@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\GoodController;
 use App\Http\Controllers\API\LoanController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CategoryController;
@@ -46,4 +47,11 @@ Route::prefix('category')->middleware('auth:sanctum')->name('category.')->group(
     Route::post('/', [CategoryController::class, 'create'])->name('create');
     Route::post('/update/{id}', [CategoryController::class, 'update'])->name('update');
     Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('delete');
+});
+
+Route::prefix('goods')->middleware('auth:sanctum')->name('goods.')->group(function () {
+    Route::get('/', [GoodController::class, 'fetch'])->name('fetch');
+    Route::post('/', [GoodController::class, 'create'])->name('create');
+    Route::put('/{id}', [GoodController::class, 'update'])->name('update');
+    Route::delete('/{id}', [GoodController::class, 'destroy'])->name('delete');
 });
