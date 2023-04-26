@@ -14,12 +14,12 @@ class GoodController extends Controller
     {
         try {
             $id = $request->input('id');
-            $goods = $request->input('goods_name');
+            $goods_name = $request->input('goods_name');
             $condition = $request->input('condition');
             $available = $request->input('is_available');
             $limit = $request->input('limit', 10);
 
-            $goodQuery = Good::query()->with(['category']);
+            $goodQuery = Good::query()->has('category');
 
             //Get Single Good data
             if ($id) {
@@ -41,8 +41,8 @@ class GoodController extends Controller
             //Get All Good data
             $goods = $goodQuery;
 
-            if ($goods) {
-                $goods->where('goods_name', $goods);
+            if ($goods_name) {
+                $goods->where('goods_name', $goods_name);
             }
 
             if ($condition) {

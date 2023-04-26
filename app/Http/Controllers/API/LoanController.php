@@ -64,7 +64,7 @@ class LoanController extends Controller
             //Create Loan
             $loan = Loan::create([
                 'user_id' => Auth::user()->id,
-                'return_date' => $request->input('return_date'),
+                'return_date' => Carbon::now()->addDays(7),
                 'due_date' => Carbon::now()->addDays(14),
                 'period' => Carbon::now()->format('Ym'),
             ]);
@@ -92,7 +92,7 @@ class LoanController extends Controller
 
             //Update Loan
             $loan->update([
-                'return_date' => $request->input('return_date'),
+                'return_date' => Carbon::now()->addDays(2),
                 'due_date' => Carbon::now()->addDays(5),
                 'period' => Carbon::now()->format('Ym'),
             ]);
