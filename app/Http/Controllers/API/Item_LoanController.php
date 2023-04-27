@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class Item_LoanController extends Controller
 {
-    //TODO: Benerin param loan_id sama good_id
     public function fetch(Request $request)
     {
         try {
@@ -45,8 +44,8 @@ class Item_LoanController extends Controller
             $item_loans = $item_loanQuery;
 
             if ($good_id) {
-                $item_loans->where('id', $good_id);
-            };
+                $item_loans->where('good_id', $good_id);
+            }
 
             //where('good_id', $good_id)
             if ($loan_id) {
@@ -54,7 +53,6 @@ class Item_LoanController extends Controller
             }
 
             //return Response
-
             return ResponseFormatter::success(
                 $item_loans->paginate($limit),
                 'Data list item peminjaman berhasil diambil'
