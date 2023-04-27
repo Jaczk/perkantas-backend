@@ -19,7 +19,7 @@ class GoodController extends Controller
             $available = $request->input('is_available');
             $limit = $request->input('limit', 10);
 
-            $goodQuery = Good::query()->has('category');
+            $goodQuery = Good::query()->withWhereHas('category');
 
             //Get Single Good data
             if ($id) {

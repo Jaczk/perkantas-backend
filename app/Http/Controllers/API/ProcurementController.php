@@ -95,14 +95,6 @@ class ProcurementController extends Controller
         try {
             $procurement = Procurement::find($id);
 
-            if (!$procurement) {
-                return ResponseFormatter::error(
-                    null,
-                    'Data pengadaan tidak ditemukan',
-                    404
-                );
-            }
-
             $procurement->update(
                 [
                     'goods_name' => $request->input('goods_name'),
@@ -111,6 +103,14 @@ class ProcurementController extends Controller
                     'description' => $request->input('description'),
                 ]
             );
+
+            if (!$procurement) {
+                return ResponseFormatter::error(
+                    null,
+                    'Data pengadaan tidak ditemukan',
+                    404
+                );
+            }
 
             return ResponseFormatter::success(
                 $procurement,

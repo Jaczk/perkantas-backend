@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\GoodController;
 use App\Http\Controllers\API\LoanController;
+use App\Http\Controllers\API\Item_LoanController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProcurementController;
@@ -54,4 +55,11 @@ Route::prefix('goods')->middleware('auth:sanctum')->name('goods.')->group(functi
     Route::post('/', [GoodController::class, 'create'])->name('create');
     Route::post('/update/{id}', [GoodController::class, 'update'])->name('update');
     Route::delete('/{id}', [GoodController::class, 'destroy'])->name('delete');
+});
+
+Route::prefix('items')->middleware('auth:sanctum')->name('items.')->group(function () {
+    Route::get('/', [Item_LoanController::class, 'fetch'])->name('fetch');
+    Route::post('/', [Item_LoanController::class, 'create'])->name('create');
+    Route::post('/update/{id}', [Item_LoanController::class, 'update'])->name('update');
+    Route::delete('/{id}', [Item_LoanController::class, 'destroy'])->name('delete');
 });
