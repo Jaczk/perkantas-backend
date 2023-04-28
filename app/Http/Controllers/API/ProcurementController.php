@@ -45,7 +45,7 @@ class ProcurementController extends Controller
             $procurements = $procurementQuery;
 
             if ($goods) {
-                $procurements->where('goods_name', $goods);
+                $procurements->where('goods_name', 'like', '%', $goods, '%');
             }
 
             if ($period) {

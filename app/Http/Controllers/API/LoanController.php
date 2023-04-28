@@ -49,7 +49,7 @@ class LoanController extends Controller
         }
 
         if ($status) {
-            $loans->where('status', $status);
+            $loans->where('status', 'like', '%', $status, '%');
         }
 
         return ResponseFormatter::success(

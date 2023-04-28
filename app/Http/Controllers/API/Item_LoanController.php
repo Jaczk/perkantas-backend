@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\ResponseFormatter;
-use App\Models\Item_Loan;
-use App\Http\Controllers\Controller;
 use Exception;
+use App\Models\Item_Loan;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseFormatter;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class Item_LoanController extends Controller
 {
@@ -15,12 +16,35 @@ class Item_LoanController extends Controller
         try {
             //Get Input User
             $id = $request->input('id');
+            //$userID = Auth::user()->id;
             $good_id = $request->input('good_id');
             $loan_id = $request->input('loan_id');
             $limit = $request->input('limit', 10);
 
             //Query get
+
             $item_loanQuery = Item_Loan::query()->withWhereHas('loan')->withWhereHas('good');
+
+            // $item_loanQuery = Item_Loan::query()->withWhereHas('good')->with(['loan'])->whereHas('loan', function ($q){
+            //     $q->where('user_id', Auth::user()->id);
+            // });
+
+            // $item_loanQuery = Item_Loan::with('loan')->whereHas('loan', function ($q){
+            //     $q->where('user_id', Auth::user()->id);
+            // });
+            // with(['loan'])->whereHas('loan', function ($query) {$query->where('user_id', Auth::user()->id)})
+
+            // $item_loanQuery = Item_Loan::query()->with('loan')->whereHas('loan', function ($query) {
+            //     $query->where('user_id', Auth::user()->id);
+            // })->withWhereHas('good');
+            
+            // $item_loanQuery = Item_Loan::query()->with('loan')->whereHas('loan', function ($q) {
+            //     $q->where('user_id', Auth::user()->id);
+            // });
+
+            // $companyQuery = Company::with(['users'])->whereHas('users', function ($query) {
+            //     $query->where('user_id', Auth::user()->id);
+            // });
 
             //Get Single Item Loan data
             if ($id) {
@@ -95,7 +119,7 @@ class Item_LoanController extends Controller
         try {
             //Get Input User
             $item_loan = Item_Loan::find($id);
-            
+
             $item_loan->update([
                 'good_id' => $request->input('good_id'),
                 'loan_id' => $request->input('loan_id'),

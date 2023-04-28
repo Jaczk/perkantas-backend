@@ -42,11 +42,11 @@ class GoodController extends Controller
             $goods = $goodQuery;
 
             if ($goods_name) {
-                $goods->where('goods_name', $goods_name);
+                $goods->where('goods_name', 'like', '%', $goods_name, '%');
             }
 
             if ($condition) {
-                $goods->where('condition', $condition);
+                $goods->where('condition', 'like', '%', $condition, '%');
             }
 
             if ($available) {

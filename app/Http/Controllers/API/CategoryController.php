@@ -40,7 +40,7 @@ class CategoryController extends Controller
             $categories = $categoryQuery;
 
             if ($category_name) {
-                $categories->where('category_name', $category_name);
+                $categories->where('category_name', 'like', '%', $category_name, '%');
             }
 
             return ResponseFormatter::success(
