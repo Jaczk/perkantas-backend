@@ -16,8 +16,9 @@ class GoodController extends Controller
             $id = $request->input('id');
             $goods_name = $request->input('goods_name');
             $condition = $request->input('condition');
-            $available = $request->input('is_available');
-            $limit = $request->input('limit', 10);
+            $is_available = $request->input('is_available');
+            $category_id = $request->input('category_id');
+            $limit = $request->input('limit', 100);
 
             $goodQuery = Good::query()->withWhereHas('category');
 
@@ -49,8 +50,12 @@ class GoodController extends Controller
                 $goods->where('condition', 'like', '%', $condition, '%');
             }
 
-            if ($available) {
-                $goods->where('is_available', $available);
+            if ($category_id) {
+                $goods->where('category_id', $category_id);
+            }
+
+            if ($is_available) {
+                $goods->where('is_available', $is_available);
             }
 
             return ResponseFormatter::success(

@@ -39,7 +39,7 @@ Route::prefix('loan')->middleware('auth:sanctum')->name('loan.')->group(function
 Route::prefix('procurement')->middleware('auth:sanctum')->name('procurement.')->group(function () {
     Route::get('/', [ProcurementController::class, 'fetch'])->name('fetch');
     Route::post('/', [ProcurementController::class, 'create'])->name('create');
-    Route::put('/{id}', [ProcurementController::class, 'update'])->name('update');
+    //Route::put('/{id}', [ProcurementController::class, 'update'])->name('update');
     Route::delete('/{id}', [ProcurementController::class, 'destroy'])->name('delete');
 });
 

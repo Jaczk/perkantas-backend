@@ -15,37 +15,36 @@ class UserController extends Controller
 {
 
 
+
     public function register(Request $request)
     {
         try {
-            //Validate request
+            //Validate Request
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], //unique:users means that the email must be unique in the users table
-                'password' => ['required', 'string', new Password], //confirmed means that the password must be confirmed
+                'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
+                'password' => ['required', 'string', new Password],
             ]);
 
             //Create User
             $user = User::create([
-                'name' => $request->name, //name is the name of the column in the users table
-                'email' => $request->email, //email is the name of the column in the users table
-                'password' => Hash::make($request->password), //password is the name of the column in the users table
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
             ]);
 
             //Generate Token
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
             //Return Response
-            return ResponseFormatter::success(
-                [
-                    'access_token' => $tokenResult,
-                    'token_type' => 'Bearer', //Bearer is the type of token
-                    'user' => $user,
-                ],
-                'User Registered'
-            );
-        } catch (Exception $e) {
-            return ResponseFormatter::error($e->getMessage(), 'Authentication Failed', 500);
+            return ResponseFormatter::success([
+                'access_token' => $tokenResult,
+                'token_type' => 'Bearer',
+                'user' => $user,
+            ], 'Register Success');
+        } catch (Exception $error) {
+            //Return Error Response
+            return ResponseFormatter::error($error->getMessage(), 401);
         }
     }
 
@@ -98,7 +97,7 @@ class UserController extends Controller
         //Return Response
         return ResponseFormatter::success($token, 'Logout Success');
     }
-    
+
     public function fetch(Request $request)
     {
         $user = $request->user();

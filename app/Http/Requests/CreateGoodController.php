@@ -25,7 +25,7 @@ class CreateGoodController extends FormRequest
         return [
             'goods_name' => 'required|string|max:255',
             'condition' => 'required|string|max:255',
-            'is_available' => 'required|boolean',
+            'is_available' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string|max:255',
         ];
