@@ -44,6 +44,13 @@
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
+                                                <form method="post" action="{{ route('admin.category.destroy', $category->id) }}">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
