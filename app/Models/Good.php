@@ -28,4 +28,9 @@ class Good extends Model
     {
         return $this->hasMany(Item_Loan::class);
     }
+
+    public function loan()
+    {
+        return $this->hasManyThrough(Item_Loan::class, Loan::class);
+    }
 }

@@ -18,7 +18,8 @@ class LoanController extends Controller
         $id = $request->input('id');
         $period = $request->input('period');
         $status = $request->input('status');
-        $limit = $request->input('limit', 10);
+        $returned = $request->input('is_returned');
+        $limit = $request->input('limit', 1000);
 
         $loanQuery = Loan::with(['user'])->whereHas('user', function ($query) {
             $query->where('user_id', Auth::user()->id);
@@ -50,6 +51,10 @@ class LoanController extends Controller
 
         if ($status) {
             $loans->where('status', 'like', '%', $status, '%');
+        }
+
+        if ($returned) {
+            $loans->where('is_returned', $returned);
         }
 
         return ResponseFormatter::success(
@@ -104,6 +109,28 @@ class LoanController extends Controller
             );
         } catch (Exception $e) {
             return ResponseFormatter::error($e->getMessage(), 'Update Loan Failed', 500);
+        }
+    }
+
+    public function userUpdate(Request $request, $id)
+    {
+        try {
+            //Find Goods ID
+            $loans = Loan::findOrFail($id);
+            //Update loans Data
+            $loans->update([
+                'is_returned' => $request->input('is_returned'),
+                'status' => 'pending',
+            ]);
+
+            if (!$loans) {
+                throw new Exception('Data peminjaman tidak ditemukan');
+            }
+
+            return ResponseFormatter::success($loans, 'Data peminjaman berhasil diupdate');
+
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(), 'Data peminjaman gagal diupdate', 500);
         }
     }
 

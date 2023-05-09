@@ -18,6 +18,7 @@ class Item_LoanController extends Controller
             $id = $request->input('id');
             $good_id = $request->input('good_id');
             $loan_id = $request->input('loan_id');
+            $is_returned = $request->input('is_returned');
             $limit = $request->input('limit', 10);
 
             //Query get
@@ -54,6 +55,12 @@ class Item_LoanController extends Controller
             //where('good_id', $good_id)
             if ($loan_id) {
                 $item_loans->where('loan_id', $loan_id);
+            }
+
+            if ($is_returned) {
+                Item_Loan::query()->with(['loan','good'])->whereHas('loan', function ($q, $returned) {
+                    $q->where('is_returned', $returned)->where('user_id', Auth::user()->id);
+                });
             }
 
             //return Response

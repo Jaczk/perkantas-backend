@@ -33,6 +33,7 @@ Route::prefix('loan')->middleware('auth:sanctum')->name('loan.')->group(function
     Route::get('/', [LoanController::class, 'fetch'])->name('fetch');
     Route::post('/', [LoanController::class, 'create'])->name('create');
     Route::put('/{id}', [LoanController::class, 'update'])->name('update');
+    Route::put('/update/{id}', [LoanController::class, 'userUpdate'])->name('userUpdate');
     Route::delete('/{id}', [LoanController::class, 'destroy'])->name('delete');
 });
 
@@ -54,6 +55,7 @@ Route::prefix('goods')->middleware('auth:sanctum')->name('goods.')->group(functi
     Route::get('/', [GoodController::class, 'fetch'])->name('fetch');
     Route::post('/', [GoodController::class, 'create'])->name('create');
     Route::post('/update/{id}', [GoodController::class, 'update'])->name('update');
+    Route::put('/{id}', [GoodController::class, 'userUpdate'])->name('userUpdate');
     Route::delete('/{id}', [GoodController::class, 'destroy'])->name('delete');
 });
 
