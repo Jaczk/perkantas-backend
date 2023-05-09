@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\GoodController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,15 @@ use Illuminate\Support\Facades\Route;
             Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
             Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
             Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+        });
+
+        Route::group(['prefix'=>'good'], function(){
+            Route::get('/', [GoodController::class, 'index'])->name('admin.good');
+            Route::get('/create', [GoodController::class, 'create'])->name('admin.good.create');
+            Route::post('/store', [GoodController::class, 'store'])->name('admin.good.store');
+            Route::get('/edit/{id}', [GoodController::class, 'edit'])->name('admin.good.edit');
+            Route::put('/update/{id}', [GoodController::class, 'update'])->name('admin.good.update');
+            Route::delete('/destroy/{id}', [GoodController::class, 'destroy'])->name('admin.good.destroy');
         });
 
     });
