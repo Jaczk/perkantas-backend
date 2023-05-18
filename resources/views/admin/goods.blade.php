@@ -53,7 +53,7 @@
                                                 <a href="{{ route('admin.good.edit', $good->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form method="post" action="">
+                                                <form method="post" action="{{ route('admin.good.destroy', $good->id) }}">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">

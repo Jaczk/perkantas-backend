@@ -78,4 +78,11 @@ class GoodController extends Controller
         $good->update($data);
         return redirect()->route('admin.good')->with('success', 'Updated success');
     }
+
+    public function destroy($id)
+    {
+        Good::find($id)->delete();
+
+        return redirect()->route('admin.good')->with('success', 'Deleted success');
+    }
 }
