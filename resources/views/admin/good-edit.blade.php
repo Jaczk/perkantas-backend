@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Movies')
+@section('title', 'Goods')
 
 @section('content')
 <div class="row">
@@ -19,78 +19,49 @@
         
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit Movie</h3>
+                <h3 class="card-title">Create Goods</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form enctype="multipart/form-data" method="POST" action="{{ route('admin.movie.update', $movie->id) }}">
+            <form enctype="multipart/form-data" method="POST" action="{{ route('admin.good.update', $goods->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                            placeholder="e.g Guardian of The Galaxy" value="{{ $movie->title }}">
+                        <label for="title">Name</label>
+                        <input type="text" class="form-control" id="goods_name" name="goods_name"
+                            placeholder="Guitar / Bible / Projector {english}" value="{{ $goods->goods_name }}">
                     </div>
-                    <div class="form-group">
-                        <label for="trailer">Trailer</label>
-                        <input type="text" class="form-control" id="trailer" name="trailer"
-                            placeholder="Video url" value="{{ $movie->trailer }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="trailer">Movie</label>
-                        <input type="text" class="form-control" id="movie" name="movie"
-                            placeholder="Video url" value="{{ $movie->movie }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="duration">Duration</label>
-                        <input type="text" class="form-control" id="duration" name="duration" placeholder="1h 39m" value="{{ $movie->duration }}">
-                    </div>
-                    <div class="form-group">
-                        <label>Date:</label>
-                        <div class="input-group date" id="release-date" data-target-input="nearest">
-                            <input type="text" name="release_date" value="{{ $movie->release_date }}" class="form-control datetimepicker-input"
-                                data-target="#release-date" />
-                            <div class="input-group-append" data-target="#release-date" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="short-about">Casts</label>
-                        <input type="text" class="form-control" id="short-about" name="casts"
-                            placeholder="Jackie Chan" value="{{ $movie->casts }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="short-about">Categories</label>
-                        <input type="text" class="form-control" id="short-about" name="categories"
-                            placeholder="Action, Fantasy" value="{{ $movie->categories }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="small-thumbnail">Small Thumbnail</label>
-                        <input type="file" class="form-control" name="small_thumbnail">
-                    </div>
-                    <div class="form-group">
-                        <label for="large-thumbnail">Large Thumbnail</label>
-                        <input type="file" class="form-control" name="large_thumbnail">
-                    </div>
-                    <div class="form-group">
-                        <label for="short-about">Short About</label>
-                        <input type="text" class="form-control" id="short-about" name="short_about"
-                            placeholder="Awesome Movie" value="{{ $movie->short_about }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="short-about">About</label>
-                        <input type="text" class="form-control" id="about" name="about"
-                            placeholder="Awesome Movie" value="{{ $movie->about }}">
-                    </div>
-                    <div class="form-group">
-                        <label>Featured</label>
-                        <select class="custom-select" name="featured">
-                            <option value="0" {{ $movie->featured == '0' ? "selected" : "" }}>No</option>
-                            <option value="1" {{ $movie->featured == '1' ? "selected" : "" }}>Yes</option>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="custom-select" name="category_id">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ $goods->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->category_name }}</option>
+                            @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="trailer">Condition</label>
+                        <input type="text" class="form-control" id="condition" name="condition"
+                            placeholder="broken/new/used" value="{{ $goods->condition }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Availability</label>
+                        <select class="custom-select" name="is_available)">
+                            <option value="1" {{ $goods->is_available === '1' ? "selected" : "" }}>Available</option>
+                            <option value="0" {{ $goods->is_available === '0' ? "selected" : "" }}>Not Available</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="short-about">Description</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                            placeholder="Proyektor dengan resolusi 1080p" value="{{ $goods->description}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="short-about">Image</label>
+                        <input type="text" class="form-control" id="image" name="image"
+                            placeholder="diisi sama dengan field name"  value = "{{ $goods->goods_name }}">
                 </div>
                 <!-- /.card-body -->
 
@@ -101,12 +72,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('js')
-    <script>
-        $('#release-date').datetimepicker({
-            format: 'YYYY-MM-DD'
-        });
-    </script>
 @endsection

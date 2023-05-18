@@ -50,7 +50,7 @@
                                             <td>{{ $good->description }}</td>
                                             <td>{{ $good->image }}</td>
                                             <td>
-                                                <a href="" class="btn btn-secondary">
+                                                <a href="{{ route('admin.good.edit', $good->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form method="post" action="">
