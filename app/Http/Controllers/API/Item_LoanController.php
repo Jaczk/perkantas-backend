@@ -57,10 +57,14 @@ class Item_LoanController extends Controller
                 $item_loans->where('loan_id', $loan_id);
             }
 
-            if ($is_returned) {
-                Item_Loan::query()->with(['loan','good'])->whereHas('loan', function ($q, $returned) {
-                    $q->where('is_returned', $returned)->where('user_id', Auth::user()->id);
-                });
+            // if ($is_returned === 1) {
+            //     Item_Loan::query()->with(['loan'])->whereHas('loan', function ($q, $is_returned) {
+            //         $q->where('is_returned', $is_returned)->where('user_id', Auth::user()->id);
+            //     });
+            // }
+
+            if ($is_returned === 1) {
+                $item_loans->where('is_returned', 1);
             }
 
             //return Response

@@ -43,6 +43,7 @@ class LoanController extends Controller
         }
 
         //Get All Loan data
+
         $loans = $loanQuery;
 
         if ($period) {
@@ -54,7 +55,9 @@ class LoanController extends Controller
         }
 
         if ($returned) {
-            $loans->where('is_returned', $returned);
+            $loans->where('is_returned', 1);
+        } else {
+            $loans->where('is_returned', 0);
         }
 
         return ResponseFormatter::success(

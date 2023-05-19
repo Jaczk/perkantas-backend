@@ -64,29 +64,38 @@ class GoodController extends Controller
                 $goods->where('is_available', $is_available);
             }
 
-            if ($is_returned & $loanId) {
-                $goods->with('item_loan')->whereHas('item_loan', function ($query, $loanId) {
-                    $query->where('loan_id', $loanId)->with('loan')->whereHas('loan', function ($query, $is_returned) {
-                        $query->where('is_returned', $is_returned);
-                    });
-                });
-            }
-
-            // if ($loanId & $is_returned) {
-            //      $goods->with('item_loan')->whereHas('item_loan', function ($query, $loanId) {
-            //         $query->where('loan_id', $loanId);
+            // if ($is_returned & $loanId) {
+            //     $goods->with('item_loan')->whereHas('item_loan', function ($query, $loanId){
+            //         $query->where('loan_id', $loanId)->with('loan')->whereHas('loan', function ($query, $is_returned){
+            //             $query->where('is_returned', $is_returned);
+            //         });
             //     });
             // }
 
+            // if ($is_returned === 1) {
+            //      $goods->with(['item_loan'])->whereHas('item_loan', function ($query) {
+            //         $query->whereHas('loan', function ($query) {
+            //             $query->where('is_returned', 1);
+            //         });
+            //         });
+            //     }
+            // }
+            if ($is_returned === 1 & $loanId) {
+                $goods->with('item_loan')->where('loan_id', $loanId);
+            }
+
+            if ($is_returned === 1) {
+                $goods->whereHas('item_loan.loan', function ($query) {
+                    $query->where('is_returned', 1);
+                });
+            }
             // if ($is_returned) {
             //     $goods->with(['loan'])->whereHas('loan', function ($query, $is_returned) {
             //         $query->where('is_returned', $is_returned);
             //     });
             // }
             if ($loanId) {
-                $goods->with('item_loan')->whereHas('item_loan', function ($query, $loanId) {
-                    $query->where('loan_id', $loanId);
-                });
+                $goods->with('item_loan')->whereHas('loan_id', $loanId);
             }
 
             return ResponseFormatter::success(

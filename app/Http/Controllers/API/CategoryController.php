@@ -15,7 +15,7 @@ class CategoryController extends Controller
         try {
             $id = $request->input('id');
             $category_name = $request->input('category_name');
-            $limit = $request->input('limit', 10);
+            $limit = $request->input('limit', 100);
 
             $categoryQuery = Category::query();
 
