@@ -47,13 +47,6 @@
                             placeholder="broken/new/used" value="{{ $goods->condition }}">
                     </div>
                     <div class="form-group">
-                        <label>Availability</label>
-                        <select class="custom-select" name="is_available)">
-                            <option value="1" {{ $goods->is_available === '1' ? "selected" : "" }}>Available</option>
-                            <option value="0" {{ $goods->is_available === '0' ? "selected" : "" }}>Not Available</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="short-about">Description</label>
                         <input type="text" class="form-control" id="description" name="description"
                             placeholder="Proyektor dengan resolusi 1080p" value="{{ $goods->description}}">

@@ -44,9 +44,9 @@
                                         <tr>
                                             <td>{{ $good->id }}</td>
                                             <td>{{ $good->goods_name }}</td>
-                                            <td>{{ "($good->category_id) ".$good->category->category_name }}</td>
+                                            <td>{{ $good->category->category_name ?? '-'}}</td>
                                             <td>{{ $good->condition }}</td>
-                                            <td>{{ $good->is_available == '0' ? "Not Avail" : "Avail"}}</td>
+                                            <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td>
                                             <td>{{ $good->description }}</td>
                                             <td>{{ $good->image }}</td>
                                             <td>

@@ -3,7 +3,9 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset("adminlte/dist/img/AdminLTELogo.png") }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">PERKANTAS</span>
+      <span class="brand-text font-weight-light">
+        <img class ="w-50" src="{{ asset("images/perkantas.png") }}" alt="">
+      </span>
     </a>
 
     <!-- Sidebar -->
@@ -47,14 +49,43 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             <a href="!#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Users
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#!" class="nav-link">
+              <i class="nav-icon fas fa-people-carry"></i>
+              <p>
+                Loans
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="#!" class="nav-link">
+              <i class="nav-icon fas fa-sticky-note"></i>
+              <p>
+                Procurement
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#!" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i> <!--fontawesome.com v5-->
               <p>
                 Logout
               </p>
             </a>
           </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

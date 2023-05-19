@@ -14,7 +14,9 @@ class GoodController extends Controller
         $goods = Good::with([
             'category',
             'item_loan'
-        ])->get();
+        ])->whereHas('category', function($q){
+            $q->whereNull('deleted_at');
+        })->get();
 
         return view('admin.goods', ['goods' => $goods]);
     }
