@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\GoodController;
+use App\Http\Controllers\Admin\LoanController;
+use App\Http\Controllers\Admin\ProcurementController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +51,21 @@ use Illuminate\Support\Facades\Route;
             Route::get('/edit/{id}', [GoodController::class, 'edit'])->name('admin.good.edit');
             Route::put('/update/{id}', [GoodController::class, 'update'])->name('admin.good.update');
             Route::delete('/destroy/{id}', [GoodController::class, 'destroy'])->name('admin.good.destroy');
+        });
+
+        Route::group(['prefix'=>'user'], function(){
+            Route::get('/', [UserController::class, 'index'])->name('admin.user');
+            Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+        });
+
+        Route::group(['prefix'=>'procurement'], function(){
+            Route::get('/',[ProcurementController::class, 'index'])->name('admin.procurement');
+            Route::delete('/destroy{$id}',[ProcurementController::class, 'destroy'])->name('admin.procurement.destroy');
+        });
+
+        Route::group(['prefix'=>'loan'], function(){
+            Route::get('/', [LoanController::class, 'index'])->name('admin.loan');
+            Route::delete('/destroy{$id}', [LoanController::class, 'destroy'])->name('admin.loan.destroy');
         });
 
     });
