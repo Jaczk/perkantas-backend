@@ -24,4 +24,6 @@ class Item_Loan extends Model
     {
         return $this->belongsTo(Good::class);
     }
+
+    
 }
