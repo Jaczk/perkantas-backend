@@ -8,17 +8,27 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $categories = Category::all();
 
         return view('admin.categories',['categories'=> $categories]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.category-create');
     }
 
-    public function store(Request $request){
+    public function edit($id)
+    {
+        $category = Category::find($id);
+
+        return view('admin.category-edit',['category'=> $category]);
+    }
+
+    public function store(Request $request)
+    {
         $data = $request->except('_token');
         
         $request->validate([
@@ -29,4 +39,25 @@ class CategoryController extends Controller
         return redirect()->route('admin.category')->with('success', 'Category created');
     }
 
+    public function update(Request $request, $id)
+    {
+        $data = $request->except('_token');
+
+        $request->validate([
+            'category_name' => 'required|string'
+        ]);
+
+        $category = Category::find($id);
+
+        $category->update($data);
+        return redirect()->route('admin.category')->with('success', 'Updated success');
+
+    }
+
+    public function destroy($id)
+    {
+        Category::find($id)->delete();
+
+        return redirect()->route('admin.category')->with('success', 'Category deleted');
+    }
 }
