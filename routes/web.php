@@ -60,12 +60,14 @@ use Illuminate\Support\Facades\Route;
 
         Route::group(['prefix'=>'procurement'], function(){
             Route::get('/',[ProcurementController::class, 'index'])->name('admin.procurement');
-            Route::delete('/destroy{$id}',[ProcurementController::class, 'destroy'])->name('admin.procurement.destroy');
+            Route::get('/edit/{id}', [ProcurementController::class, 'edit'])->name('admin.procurement.edit');
+            Route::put('/update/{$id}',[ProcurementController::class, 'update'])->name('admin.procurement.update');
+            Route::delete('/destroy/{$id}',[ProcurementController::class, 'destroy'])->name('admin.procurement.destroy');
         });
 
         Route::group(['prefix'=>'loan'], function(){
             Route::get('/', [LoanController::class, 'index'])->name('admin.loan');
-            Route::delete('/destroy{$id}', [LoanController::class, 'destroy'])->name('admin.loan.destroy');
+            Route::delete('/destroy/{$id}', [LoanController::class, 'destroy'])->name('admin.loan.destroy');
         });
 
     });

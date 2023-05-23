@@ -35,6 +35,7 @@
                                         <th>Amount</th>
                                         <th>Period</th>
                                         <th>Description</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -42,13 +43,16 @@
                                     @foreach ($procurements as $proc)
                                         <tr>
                                             <td>{{ $proc->id }}</td>
-                                            <td>{{ $proc->user_id }}</td>
+                                            <td>{{ $proc->user->name }}</td>
                                             <td>{{ $proc->goods_name}}</td>
                                             <td>{{ $proc->goods_amount}}</td>
                                             <td>{{ $proc->period}}</td>
                                             <td>{{ $proc->description }}</td>
+                                            <td> 
+                                                <p class="font-weight-bold text-uppercase">{{ $proc->status }}</p>
+                                            </td>
                                             <td>
-                                                <a href="!#" class="btn btn-secondary">
+                                                <a href="{{ route('admin.procurement.edit', $proc->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form method="post" action="!#">
