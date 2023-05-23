@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoanController;
-use App\Http\Controllers\Admin\ProcurementController;
 use App\Http\Controllers\Admin\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ItemLoanController;
+use App\Http\Controllers\Admin\ProcurementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,13 +62,13 @@ use Illuminate\Support\Facades\Route;
         Route::group(['prefix'=>'procurement'], function(){
             Route::get('/',[ProcurementController::class, 'index'])->name('admin.procurement');
             Route::get('/edit/{id}', [ProcurementController::class, 'edit'])->name('admin.procurement.edit');
-            Route::put('/update/{$id}',[ProcurementController::class, 'update'])->name('admin.procurement.update');
-            Route::delete('/destroy/{$id}',[ProcurementController::class, 'destroy'])->name('admin.procurement.destroy');
+            Route::put('/update/{id}',[ProcurementController::class, 'update'])->name('admin.procurement.update');
+            Route::delete('/destroy/{id}',[ProcurementController::class, 'destroy'])->name('admin.procurement.destroy');
         });
 
         Route::group(['prefix'=>'loan'], function(){
-            Route::get('/', [LoanController::class, 'index'])->name('admin.loan');
-            Route::delete('/destroy/{$id}', [LoanController::class, 'destroy'])->name('admin.loan.destroy');
+            Route::get('/', [ItemLoanController::class, 'index'])->name('admin.loan');
+            Route::delete('/destroy/{id}', [ItemLoanController::class, 'destroy'])->name('admin.loan.destroy');
         });
 
     });

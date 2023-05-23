@@ -17,7 +17,6 @@ class Loan extends Model
         'due_date',
         'period',
         'is_returned',
-        'status',
     ];
 
     public function user()
