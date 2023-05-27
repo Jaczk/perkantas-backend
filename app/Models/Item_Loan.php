@@ -13,6 +13,7 @@ class Item_Loan extends Model
     protected $fillable = [
         'loan_id',
         'good_id',
+        'user_id',
     ];
 
     public function loan()
@@ -25,5 +26,9 @@ class Item_Loan extends Model
         return $this->belongsTo(Good::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
 }

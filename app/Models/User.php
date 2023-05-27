@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'roles',
+        'phone',
     ];
 
     /**
@@ -62,11 +63,16 @@ class User extends Authenticatable
     
     public function loan()
     {
-        return $this->hasManyThrough(Loan::class, Item_Loan::class, 'user_id', 'loan_id');
+        return $this->hasMany(Loan::class);
     }
 
     public function procurement()
     {
         return $this->hasMany(Procurement::class);
+    }
+
+    public function item_loan()
+    {
+        return $this->hasMany(Item_Loan::class);
     }
 }
