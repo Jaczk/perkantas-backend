@@ -30,36 +30,38 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Username</th>
+                                        <th>User-ID</th>
+                                        <th>Goods</th>
+                                        <th>Condition</th>
                                         <th>Loan Date</th>
-                                        <th>Period</th>
-                                        <th>is_returned</th>
                                         <th>Return Date</th>
-                                        <th>Status</th>
+                                        <th>Period</th>
+                                        <th>Returned</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($loans as $loan)
+                                    @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $loan->id }}</td>
-                                            <td>{{ $loan->user_id }}</td>
-                                            <td>{{ $loan->created_at}}</td>
-                                            <td>{{ $loan->period}}</td>
-                                            <td>{{ $loan->is_returned}}</td>
-                                            <td>{{ $loan->return_date}}</td>
-                                            <td>{{ $loan->status}}</td>
+                                            <td>{{ $lo->id }}</td>
+                                            <td>{{ $lo->user->name }}</td>
+                                            <td>{{ $lo->good->goods_name}}</td>
+                                            <td>{{ $lo->good->condition}}</td>
+                                            <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->created_at))}}</td>
+                                            <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->return_date))}}</td>
+                                            <td>{{ $lo->loan->period}}</td>
+                                            <td>{{ $lo->loan->is_returned == '0' ? "On Loan" : "Returned"}}</td>
                                             <td>
-                                                <a href="!#" class="btn btn-secondary">
-                                                    <i class="fas fa-edit"></i>
+                                                <a href="!#" class="btn btn-success">
+                                                    <i class="fab fa-whatsapp fa-lg"></i>
                                                 </a>
-                                                <form method="post" action="!#">
+                                                {{-- <form method="post" action="!#">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
