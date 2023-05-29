@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ItemLoanController;
+use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProcurementController;
 
 /*
@@ -19,22 +20,13 @@ use App\Http\Controllers\Admin\ProcurementController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+    Route::get('admin/login', [LoginController::class, 'index'])->name('admin.login');
+    Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified'
-// ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-// });
-
-    Route::group(['prefix'=>'admin'], function(){
+    Route::group(['prefix'=>'admin', 'middleware'=>['admin.auth']], function(){
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+
+        Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
         Route::group(['prefix'=>'category'], function(){
             Route::get('/', [CategoryController::class, 'index'])->name('admin.category');
@@ -73,4 +65,20 @@ use App\Http\Controllers\Admin\ProcurementController;
 
     });
 
+
+
+
+    // Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
 
