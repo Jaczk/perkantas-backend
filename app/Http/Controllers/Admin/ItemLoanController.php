@@ -13,11 +13,14 @@ class ItemLoanController extends Controller
         $loans = Item_Loan::with([
             'loan',
             'good',
-        ])->get();
+            'user',
+        ])->whereHas('good', function($q){
+            $q->whereNull('deleted_at');
+        })->get();
 
-        dd($loans);
+        // dd($loans);
 
-        // return view('admin.loans', ['loans'=> $loans]);
+        return view('admin.loans', ['loans'=> $loans]);
     }
     public function destroy($id)
     {

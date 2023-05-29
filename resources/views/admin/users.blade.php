@@ -32,6 +32,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Phone</th>
                                         <th>Role</th>
                                         <th>Action</th>
                                     </tr>
@@ -42,6 +43,7 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email}}</td>
+                                            <td>{{ $user->phone}}</td>
                                             <td>{{ $user->roles == 1 ? "Admin" : ($user->roles == 0 ? "User" : "Deactivated User")}}</td>
                                             <td>
                                                 <a href="!#" class="btn btn-secondary">
