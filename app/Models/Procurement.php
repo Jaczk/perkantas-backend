@@ -16,7 +16,6 @@ class Procurement extends Model
         'goods_amount',
         'description',
         'period',
-        'status'
     ];
 
     public function user()

@@ -55,13 +55,13 @@
                                                 <a href="{{ route('admin.procurement.edit', $proc->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                {{-- <form method="post" action="!#">
+                                                <form method="post" action="!#">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form> --}}
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

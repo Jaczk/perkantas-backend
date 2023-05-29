@@ -26,7 +26,7 @@ class ProcurementController extends Controller
     {
         $data = $request->except('_token');
         $request->validate([
-            'status' => 'required',
+            'status' => [new Enum(ServerStatus::class)],
         ]);
 
         $procurement = Procurement::find($id);

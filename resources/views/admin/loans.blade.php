@@ -30,38 +30,36 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>User-ID</th>
-                                        <th>Goods</th>
-                                        <th>Condition</th>
+                                        <th>Username</th>
                                         <th>Loan Date</th>
-                                        <th>Return Date</th>
                                         <th>Period</th>
-                                        <th>Returned</th>
+                                        <th>is_returned</th>
+                                        <th>Return Date</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($loans as $lo)
+                                    @foreach ($loans as $loan)
                                         <tr>
-                                            <td>{{ $lo->id }}</td>
-                                            <td>{{ $lo->user->name }}</td>
-                                            <td>{{ $lo->good->goods_name}}</td>
-                                            <td>{{ $lo->good->condition}}</td>
-                                            <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->created_at))}}</td>
-                                            <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->return_date))}}</td>
-                                            <td>{{ $lo->loan->period}}</td>
-                                            <td>{{ $lo->loan->is_returned == '0' ? "On Loan" : "Returned"}}</td>
+                                            <td>{{ $loan->id }}</td>
+                                            <td>{{ $loan->user_id }}</td>
+                                            <td>{{ $loan->created_at}}</td>
+                                            <td>{{ $loan->period}}</td>
+                                            <td>{{ $loan->is_returned}}</td>
+                                            <td>{{ $loan->return_date}}</td>
+                                            <td>{{ $loan->status}}</td>
                                             <td>
-                                                <a href="!#" class="btn btn-success">
-                                                    <i class="fab fa-whatsapp fa-lg"></i>
+                                                <a href="!#" class="btn btn-secondary">
+                                                    <i class="fas fa-edit"></i>
                                                 </a>
-                                                {{-- <form method="post" action="!#">
+                                                <form method="post" action="!#">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form> --}}
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
