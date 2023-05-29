@@ -24,6 +24,7 @@ class UserController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
                 'password' => ['required', 'string', new Password],
+                'phone' => ['required', 'string', 'max:12'],
             ]);
 
             //Create User
@@ -31,6 +32,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'phone' => $request->phone,
             ]);
 
             //Generate Token
