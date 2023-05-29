@@ -28,7 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'roles',
-        'phone'
+        'phone',
     ];
 
     /**
@@ -73,6 +73,6 @@ class User extends Authenticatable
 
     public function item_loan()
     {
-        return $this->hasMany(ItemLoan::class);
+        return $this->hasMany(Item_Loan::class);
     }
 }

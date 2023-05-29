@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Exception;
 use App\Models\Good;
+use App\Models\Loan;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
@@ -18,9 +19,14 @@ class GoodController extends Controller
             $condition = $request->input('condition');
             $is_available = $request->input('is_available');
             $category_id = $request->input('category_id');
+            $is_returned = $request->input('is_returned');
+            //$with_loan = $request->input('with_loan');
+            $loanId = $request->input('loan_id');
             $limit = $request->input('limit', 100);
 
             $goodQuery = Good::query()->withWhereHas('category');
+
+            //$loanFetch = Loan::query()->withWhereHas('items');
 
             //Get Single Good data
             if ($id) {
@@ -58,6 +64,40 @@ class GoodController extends Controller
                 $goods->where('is_available', $is_available);
             }
 
+            // if ($is_returned & $loanId) {
+            //     $goods->with('item_loan')->whereHas('item_loan', function ($query, $loanId){
+            //         $query->where('loan_id', $loanId)->with('loan')->whereHas('loan', function ($query, $is_returned){
+            //             $query->where('is_returned', $is_returned);
+            //         });
+            //     });
+            // }
+
+            // if ($is_returned === 1) {
+            //      $goods->with(['item_loan'])->whereHas('item_loan', function ($query) {
+            //         $query->whereHas('loan', function ($query) {
+            //             $query->where('is_returned', 1);
+            //         });
+            //         });
+            //     }
+            // }
+            if ($is_returned === 1 & $loanId) {
+                $goods->with('item_loan')->where('loan_id', $loanId);
+            }
+
+            if ($is_returned === 1) {
+                $goods->whereHas('item_loan.loan', function ($query) {
+                    $query->where('is_returned', 1);
+                });
+            }
+            // if ($is_returned) {
+            //     $goods->with(['loan'])->whereHas('loan', function ($query, $is_returned) {
+            //         $query->where('is_returned', $is_returned);
+            //     });
+            // }
+            if ($loanId) {
+                $goods->with('item_loan')->whereHas('loan_id', $loanId);
+            }
+
             return ResponseFormatter::success(
                 $goods->paginate($limit),
                 'Data list barang berhasil diambil'
@@ -71,14 +111,16 @@ class GoodController extends Controller
     {
         try {
             //Upload Images
-            if ($request->hasFile('image'))
-            {
-                $path = $request->file('image')->store('public/images');
-            }
+            // if ($request->hasFile('image'))
+            // {
+            //     $path = $request->file('image')->store('public/images');
+            // }
 
+            $good_name = $request->input('goods_name');
+            $path = "https://source.unsplash.com/150x150?{$good_name}";
             //Create Good Data
             $goods = Good::create([
-                'goods_name' => $request->input('goods_name'),
+                'goods_name' => $good_name,
                 'category_id' => $request->input('category_id'),
                 'condition' => $request->input('condition'),
                 'description' => $request->input('description'),
@@ -120,6 +162,27 @@ class GoodController extends Controller
                 'condition' => $request->input('condition'),
                 'description' => $request->input('description'),
                 'image' => $path,
+            ]);
+
+            if (!$goods) {
+                throw new Exception('Data barang tidak ditemukan');
+            }
+
+            return ResponseFormatter::success($goods, 'Data barang berhasil diupdate');
+
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(), 'Data barang gagal diupdate', 500);
+        }
+    }
+
+    public function userUpdate(Request $request, $id)
+    {
+        try {
+            //Find Goods ID
+            $goods = Good::find($id);
+            //Update Goods Data
+            $goods->update([
+                'is_available' => $request->input('is_available'),
             ]);
 
             if (!$goods) {
