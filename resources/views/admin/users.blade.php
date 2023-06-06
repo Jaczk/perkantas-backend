@@ -33,6 +33,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Return access</th>
                                         <th>Role</th>
                                         <th>Action</th>
                                     </tr>
@@ -44,9 +45,10 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email}}</td>
                                             <td>{{ $user->phone}}</td>
+                                            <td>{{ $user->can_return == 0 ? "Not Alowed" : "Allowed"}}</td>
                                             <td>{{ $user->roles == 1 ? "Admin" : ($user->roles == 0 ? "User" : "Deactivated User")}}</td>
                                             <td>
-                                                <a href="!#" class="btn btn-secondary">
+                                                <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form method="post" action="{{ route('admin.user.destroy', $user->id) }}">

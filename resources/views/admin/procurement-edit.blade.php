@@ -36,6 +36,7 @@
                                 <option value="rejected" @selected($procurements->status == "rejected")>REJECTED</option>
                             </select>
                     </div>
+                </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>

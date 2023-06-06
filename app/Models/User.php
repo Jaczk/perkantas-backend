@@ -29,6 +29,8 @@ class User extends Authenticatable
         'password',
         'roles',
         'phone',
+        'can_loan',
+        'can_return'
     ];
 
     /**

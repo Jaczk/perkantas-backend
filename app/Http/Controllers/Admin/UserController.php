@@ -15,6 +15,28 @@ class UserController extends Controller
         return view('admin.users',['users'=>$users]);
     }
 
+    public function edit($id)
+    {
+        $user = User::find($id);
+
+        return view('admin.user-edit',['user'=>$user]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->except('_token');
+
+        $request->validate([
+            'phone' => 'required|string',
+            'can_return' =>'required',
+        ]);
+
+        $user = User::find($id);
+
+        $user->update($data);
+        return redirect()->route('admin.user')->with('success', 'User updated successfully');
+    }
+
     public function destroy($id)
     {
         User::find($id)->delete();
