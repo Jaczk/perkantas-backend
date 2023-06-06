@@ -52,7 +52,7 @@
                                             <td>{{ $lo->loan->period}}</td>
                                             <td>{{ $lo->loan->is_returned == '0' ? "On Loan" : "Returned"}}</td>
                                             <td>
-                                                <a href="!#" class="btn btn-success">
+                                                <a href="https://wa.me/{{ $lo->user->phone }}" class="btn btn-success" target="_blank">
                                                     <i class="fab fa-whatsapp fa-lg"></i>
                                                 </a>
                                                 {{-- <form method="post" action="!#">
