@@ -19,14 +19,17 @@
                     </div>
 
                     @if (session()->has('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     @endif
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="category" class="table table-bordered table-hover">
+                            <table id="category" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -39,7 +42,7 @@
                                         <tr>
                                             <td>{{ $category->id }} </td>
                                             <td>{{ $category->category_name }} </td>
-                                            <td>
+                                            <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.category.edit', $category->id) }}"
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
@@ -47,7 +50,7 @@
                                                 <form method="post" action="{{ route('admin.category.destroy', $category->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger">
+                                                    <button type="submit" class="btn btn-danger mx-2">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>

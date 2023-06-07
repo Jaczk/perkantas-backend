@@ -17,16 +17,20 @@
                             <a href="{{ route('admin.good.create') }}" class="btn btn-warning">Create Goods</a>
                         </div>
                     </div>
-
+                    
+                    {{-- Alert w/ session --}}
                     @if (session()->has('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     @endif
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="good" class="table table-bordered table-hover">
+                            <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -46,17 +50,26 @@
                                             <td>{{ $good->goods_name }}</td>
                                             <td>{{ $good->category->category_name ?? '-'}}</td>
                                             <td>{{ $good->condition }}</td>
-                                            <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td>
-                                            <td>{{ $good->description }}</td>
+                                            @if ($good->is_available == 0)
+                                                <td class="text-center">
+                                                    <i class="fas fa-times fa-lg" style="color: #e00043;"></i>
+                                                </td>
+                                            @else
+                                                <td class="text-success font-weight-bold text-center">
+                                                    <i class="fas fa-check fa-lg" style="color: #19942e;"></i>
+                                                </td>
+                                            @endif
+                                            {{-- <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td> --}}
+                                            <td class="text-justify">{{ $good->description }}</td>
                                             <td>{{ $good->image }}</td>
-                                            <td>
+                                            <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.good.edit', $good->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form method="post" action="{{ route('admin.good.destroy', $good->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger">
+                                                    <button type="submit" class="btn btn-danger mx-1">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>

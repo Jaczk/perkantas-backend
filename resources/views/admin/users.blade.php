@@ -12,21 +12,24 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-12 mb-3">
                             <a href="!#" class="btn btn-warning">Create Users</a>
                         </div>
-                    </div>
+                    </div> --}}
 
                     @if (session()->has('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     @endif
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="good" class="table table-bordered table-hover">
+                            <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -45,16 +48,20 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email}}</td>
                                             <td>{{ $user->phone}}</td>
-                                            <td>{{ $user->can_return == 0 ? "Not Alowed" : "Allowed"}}</td>
+                                            @if ($user->can_return == 0)
+                                                <td class="text-danger font-weight-bold">{{ "Not Alowed" }}</td>
+                                            @else
+                                                <td class="text-success font-weight-bold">{{ "Allowed" }}</td>
+                                            @endif
                                             <td>{{ $user->roles == 1 ? "Admin" : ($user->roles == 0 ? "User" : "Deactivated User")}}</td>
-                                            <td>
+                                            <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form method="post" action="{{ route('admin.user.destroy', $user->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger">
+                                                    <button type="submit" class="btn btn-danger mx-2">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>

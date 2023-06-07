@@ -12,25 +12,28 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-12 mb-3">
                             <a href="!#" class="btn btn-warning">Create Loans</a>
                         </div>
-                    </div>
+                    </div> --}}
 
                     @if (session()->has('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     @endif
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="good" class="table table-bordered table-hover">
+                            <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>User-ID</th>
+                                        <th>Username</th>
                                         <th>Goods</th>
                                         <th>Condition</th>
                                         <th>Loan Date</th>
@@ -50,7 +53,12 @@
                                             <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->created_at))}}</td>
                                             <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->return_date))}}</td>
                                             <td>{{ $lo->loan->period}}</td>
-                                            <td>{{ $lo->loan->is_returned == '0' ? "On Loan" : "Returned"}}</td>
+                                            @if ($lo->loan->is_returned == 0)
+                                                <td class="text-warning font-weight-bold">{{ "On Loan" }}</td>
+                                            @else
+                                                <td class="text-success font-weight-bold">{{ "Returned" }}</td>
+                                            @endif
+                                            {{-- <td>{{ $lo->loan->is_returned == '0' ? "On Loan" : "Returned"}}</td> --}}
                                             <td>
                                                 <a href="https://wa.me/{{ $lo->user->phone }}" class="btn btn-success" target="_blank">
                                                     <i class="fab fa-whatsapp fa-lg"></i>
