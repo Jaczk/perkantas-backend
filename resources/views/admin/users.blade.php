@@ -14,8 +14,7 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <form enctype="multipart/form-data" method="POST" 
-                        action="{{ route('admin.user.access') }}">
+                        <form enctype="multipart/form-data" method="POST" action="{{ route('admin.user.access') }}">
                             @csrf
                             @method('PUT')
                             <div class="col-md-12 mb-3">
@@ -70,13 +69,45 @@
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form method="post" action="{{ route('admin.user.destroy', $user->id) }}">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger mx-2">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-danger mx-2" data-toggle="modal"
+                                                    data-target="#staticBackdrop">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="staticBackdrop" data-backdrop="static"
+                                                    data-keyboard="false" tabindex="-1"
+                                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title text-bold" id="staticBackdropLabel">
+                                                                    Delete Item
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure want to permanently delete this item ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">No</button>
+                                                                <form method="post" {{-- Delete Button --}}
+                                                                    action="{{ route('admin.user.destroy', $user->id) }}">
+                                                                    @method('delete')
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-danger mx-2">
+                                                                        Yes
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

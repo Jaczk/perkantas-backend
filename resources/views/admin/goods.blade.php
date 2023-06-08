@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <a href="{{ route('admin.good.create') }}" class="btn btn-warning">Create Goods</a>
+                            <a href="{{ route('admin.good.create') }}" class="btn btn-warning text-bold">+ Goods</a>
                         </div>
                     </div>
                     
@@ -73,6 +73,39 @@
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
+
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#staticBackdrop">
+                                                    coba
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="staticBackdrop" data-backdrop="static"
+                                                    data-keyboard="false" tabindex="-1"
+                                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title text-bold" id="staticBackdropLabel">
+                                                                    Delete Item
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure want to permanently delete this item ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">No</button>
+                                                                <button type="button" class="btn btn-danger">Yes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
