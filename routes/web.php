@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\ProcurementController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+    Route::view('/', 'admin.auth'); //LoginPage
 
     Route::get('admin/login', [LoginController::class, 'index'])->name('admin.login');
     Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
@@ -51,6 +52,7 @@ use App\Http\Controllers\Admin\ProcurementController;
             Route::get('/edit{id}', [UserController::class, 'edit'])->name('admin.user.edit');
             Route::put('/update{id}', [UserController::class, 'update'])->name('admin.user.update');
             Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+            Route::put('/reset', [UserController::class, 'userAccess'])->name('admin.user.access');
         });
 
         Route::group(['prefix'=>'procurement'], function(){
