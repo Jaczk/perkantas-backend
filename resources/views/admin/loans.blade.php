@@ -4,6 +4,8 @@
 
 @section('content')
 
+@inject('carbon', 'Carbon\Carbon')
+
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
@@ -48,19 +50,26 @@
                                         <tr>
                                             <td>{{ $lo->id }}</td>
                                             <td>{{ $lo->user->name }}</td>
-                                            <td>{{ $lo->good->goods_name}}</td>
-                                            <td>{{ $lo->good->condition}}</td>
-                                            <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->created_at))}}</td>
-                                            <td>{{ date('D, F j, Y h:i A',strtotime($lo->loan->return_date))}}</td>
-                                            <td>{{ $lo->loan->period}}</td>
-                                            @if ($lo->loan->is_returned == 0)
-                                                <td class="text-warning font-weight-bold">{{ "On Loan" }}</td>
+                                            <td>{{ $lo->good->goods_name }}</td>
+                                            <td>{{ $lo->good->condition }}</td>
+                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->created_at)) }}</td>
+
+                                            @if ($carbon::now()->greaterThan($lo->loan->return_date))
+                                            <td class="text-danger text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->return_date)) }}</td>
                                             @else
-                                                <td class="text-success font-weight-bold">{{ "Returned" }}</td>
-                                            @endif
-                                            {{-- <td>{{ $lo->loan->is_returned == '0' ? "On Loan" : "Returned"}}</td> --}}
+                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->return_date)) }}</td>
+                                            @endif {{-- date comparison --}}
+
+                                            <td>{{ $lo->loan->period }}</td>
+
+                                            @if ($lo->loan->is_returned == 0)
+                                                <td class="text-warning font-weight-bold">{{ 'On Loan' }}</td>
+                                            @else
+                                                <td class="text-success font-weight-bold">{{ 'Returned' }}</td>
+                                            @endif {{-- is_returned comparison --}}
                                             <td>
-                                                <a href="https://wa.me/{{ $lo->user->phone }}" class="btn btn-success" target="_blank">
+                                                <a href="https://wa.me/{{ $lo->user->phone }}" class="btn btn-success"
+                                                    target="_blank">
                                                     <i class="fab fa-whatsapp fa-lg"></i>
                                                 </a>
                                                 {{-- <form method="post" action="!#">
