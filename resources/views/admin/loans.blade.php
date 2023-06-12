@@ -93,7 +93,15 @@
 @endsection
 
 @section('js')
-    <script>
+    {{-- <script>
         $('#good').DataTable();
+    </script> --}}
+    <script> 
+        $(document).ready(function () {
+            $('#good').DataTable({
+                dom: 'lBfrtipl',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            });
+        });
     </script>
 @endsection

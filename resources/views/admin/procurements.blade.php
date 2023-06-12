@@ -51,12 +51,12 @@
                                             <td>{{ $proc->goods_amount }}</td>
                                             <td>{{ $proc->period }}</td>
                                             <td class="text-justify">{{ $proc->description }}</td>
-                                            @if ($proc->status == "approved")
-                                                <td class="text-success font-weight-bold">{{ "APPROVED" }}</td>
-                                            @elseif ($proc->status == "pending")
-                                                <td class="text-info font-weight-bold">{{ "PENDING" }}</td>
+                                            @if ($proc->status == 'approved')
+                                                <td class="text-success font-weight-bold">{{ 'APPROVED' }}</td>
+                                            @elseif ($proc->status == 'pending')
+                                                <td class="text-info font-weight-bold">{{ 'PENDING' }}</td>
                                             @else
-                                                <td class="text-danger font-weight-bold">{{ "REJECTED" }}</td>
+                                                <td class="text-danger font-weight-bold">{{ 'REJECTED' }}</td>
                                             @endif
                                             <td>
                                                 <a href="{{ route('admin.procurement.edit', $proc->id) }}"
@@ -84,7 +84,16 @@
 @endsection
 
 @section('js')
-    <script>
+    {{-- <script>
         $('#good').DataTable();
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#good').DataTable({
+                dom: 'lBfrtipl',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            });
+        });
     </script>
 @endsection
