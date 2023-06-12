@@ -41,11 +41,25 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Return Access</label>
+                            <select class="custom-select" name="condition">
+                                <option value = "NEW" @selected($goods->condition == 'NEW')
+                                    @class(['bg-warning text-white' => $goods->condition == 'NEW'])
+                                    >NEW</option>
+                                <option value = "USED" @selected($goods->condition == 'USED')
+                                    @class(['bg-warning text-white' => $goods->condition == 'USED'])
+                                    >USED</option>
+                                <option value = "BROKEN" @selected($goods->condition == 'BROKEN')
+                                    @class(['bg-warning text-white' => $goods->condition == 'BROKEN'])
+                                    >BROKEN</option>
+                            </select>
+                    </div>
+                    {{-- <div class="form-group">
                         <label for="trailer">Condition</label>
                         <input type="text" class="form-control" id="condition" name="condition"
                             placeholder="broken/new/used" value="{{ $goods->condition }}">
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="short-about">Description</label>
                         <input type="text" class="form-control" id="description" name="description"

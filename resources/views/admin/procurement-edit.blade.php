@@ -30,7 +30,15 @@
                     
                     <div class="mb-3">
                         <label for="status" class="form-label">Select Status :</label>
-                            <select class="custom-select font-weight-bold" name="status">
+                            <select {{-- conditional status --}}
+                            @if ($procurements->status == "pending")
+                            class="custom-select font-weight-bold text-info" 
+                            @elseif($procurements->status == "approved")
+                            class="custom-select font-weight-bold text-success" 
+                            @else
+                            class="custom-select font-weight-bold text-danger" 
+                            @endif
+                            name="status">
                                 <option class="text-info font-weight-bold" value="pending" @selected($procurements->status == "pending")>PENDING</option>
                                 <option class="text-success font-weight-bold" value="approved" @selected($procurements->status == "approved")>APPROVED</option>
                                 <option class="text-danger font-weight-bold" value="rejected" @selected($procurements->status == "rejected")>REJECTED</option>

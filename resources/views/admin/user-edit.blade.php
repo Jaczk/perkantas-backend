@@ -36,8 +36,12 @@
                         <div class="mb-3">
                             <label for="status" class="form-label">Return Access</label>
                                 <select class="custom-select" name="can_return">
-                                    <option value = 0 @selected($user->can_return == "0")>NOT ALLOWED</option>
-                                    <option value = 1 @selected($user->can_return == "1")>ALLOWED</option>
+                                    <option value = 0 @selected($user->can_return == "0")
+                                        @class(['bg-warning text-white' => $user->can_return == "0"])
+                                        >NOT ALLOWED</option>
+                                    <option value = 1 @selected($user->can_return == "1")
+                                        @class(['bg-warning text-white' => $user->can_return == "1"])
+                                        >ALLOWED</option>
                                 </select>
                         </div>
                     </div>

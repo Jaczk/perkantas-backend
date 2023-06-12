@@ -5,7 +5,7 @@
 @section('content')
     <h1>ini dashboard</h1>
     <div class="d-flex row justify-content-between">
-        <div style="height: 200px" class="small-box bg-info col">
+        <div class="small-box bg-info col">
             <div class="inner">
                 <h3>150</h3>
                 <p>New Orders</p>
@@ -17,7 +17,7 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-        <div class="small-box bg-info col">
+        <div class="small-box bg-info col mx-3">
             <div class="inner">
                 <h3>150</h3>
                 <p>New Orders</p>
