@@ -12,7 +12,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="pb-3 mt-3 mb-3 user-panel d-flex">
         <div class="image">
           <img src="{{ asset("adminlte/dist/img/user2-160x160.jpg") }}" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -44,7 +44,7 @@
 
           <li class="nav-item">
             <a href="{{ route('admin.good') }}" class="nav-link">
-              <i class="nav-icon fas fa-video"></i>
+              <i class="nav-icon fas fa-laptop-house"></i>
               <p>
                 Goods
               </p>
@@ -71,7 +71,7 @@
           
           <li class="nav-item">
             <a href="{{ route('admin.procurement') }}" class="nav-link">
-              <i class="nav-icon fas fa-sticky-note"></i>
+              <i class="nav-icon fas fa-file"></i>
               <p>
                 Procurement
               </p>
