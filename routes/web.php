@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ItemLoanController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProcurementController;
@@ -25,7 +26,8 @@ use App\Http\Controllers\Admin\ProcurementController;
     Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
 
     Route::group(['prefix'=>'admin', 'middleware'=>['admin.auth']], function(){
-        Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+        // Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
