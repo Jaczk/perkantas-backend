@@ -21,12 +21,16 @@ class LoginController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        $credentials['roles'] = '1';
+        // $credentials['roles'] = '1';
 
-        if(Auth::attempt($credentials)){
-            $request->session()->regenerate();
-            
-            return redirect()->route('admin.dashboard');
+        if (Auth::attempt($credentials)) {
+            if (auth()->user()->roles == 1) {
+                $request->session()->regenerate();
+                return redirect()->route('admin.dashboard');
+            } elseif (auth()->user()->roles == 0) {
+                $request->session()->regenerate();
+                return redirect()->route('user.dashboard');
+            }
         }
 
         return back()->withErrors([

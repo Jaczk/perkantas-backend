@@ -6,8 +6,10 @@ use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\Admin\ItemLoanController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\LoginController as UserLoginController;
 use App\Http\Controllers\Admin\ProcurementController;
 
 /*
@@ -20,7 +22,7 @@ use App\Http\Controllers\Admin\ProcurementController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-    Route::view('/', 'admin.auth'); //LoginPage
+    Route::view('/', 'admin.auth')->name('login'); //LoginPage
 
     Route::get('admin/login', [LoginController::class, 'index'])->name('admin.login');
     Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
@@ -69,6 +71,12 @@ use App\Http\Controllers\Admin\ProcurementController;
             Route::delete('/destroy/{id}', [ItemLoanController::class, 'destroy'])->name('admin.loan.destroy');
         });
 
+    });
+
+    Route::group(['prefix'=>'user', 'middleware'=>['admin.auth']], function() {
+        Route::get('/', [UserDashboardController::class, 'index'])->name('user.dashboard');
+
+        Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
     });
 
 

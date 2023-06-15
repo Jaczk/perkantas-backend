@@ -11,12 +11,27 @@ module.exports = {
     ],
 
     theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+        fontFamily: {
+          poppins: 'Poppins, sans-serif',
+          'sans': ['ui-sans-serif', 'system-ui', '"Exo 2"'],
         },
-    },
+        extend: {
+          colors: {
+            primary: '#2b3a8f',
+            primary_hover:'#3ed1e9',
+            secondary: '#f89223',
+            other: '#98DFD6',
+            grey: '#ABB3C4',
+            dark: '#121F3E',
+            page: '#F8F8FA',
+            success: '#2ED16C',
+          },
+          fontFamily: {
+            
+            montserrat: ["Montserrat", "sans-serif"]
+          }
+        },
+      },
 
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };

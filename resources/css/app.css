@@ -5,3 +5,12 @@
 [x-cloak] {
     display: none;
 }
+
+/* @font-face {
+    font-family: 'Varela';
+    src: url("../public/assets/font/VarelaRound-Regular.ttf")
+} */
+@font-face {
+    font-family: 'Montserrat';
+    src: url("../public/assets/font/Montserrat-SemiBold.ttf")
+}

@@ -5,18 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
     <title>Perkantas @yield('title')</title>
 </head>
 
 <body>
-    <div>
-        <div>
+    <div class="font-montserrat bg-page">
+        <div class="flex flex-row">
             <!-- Sidebar Here -->
             @include('user.layouts.sidebar')
 
             <!-- Main Content -->
             <section class="content">
-                <div>
+                <div >
                     @yield('content')
                 </div>
             </section>
