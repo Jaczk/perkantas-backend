@@ -17,7 +17,7 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-        <div class="p-0 mx-3 small-box bg-primary col">
+        <div class="p-0 mx-3 small-box bg-success col">
             <div class="inner">
                 <h3>{{ $procurements }}</h3>
                 <p>Procurement</p>
@@ -29,7 +29,7 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-        <div class="p-0 small-box bg-primary col">
+        <div class="p-0 small-box bg-warning col">
             <div class="inner">
                 <h3>{{ $loans }}</h3>
                 <p>Loans</p>
