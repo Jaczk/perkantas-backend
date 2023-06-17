@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="font-montserrat bg-page">
+    <div class="font-poppins bg-page">
         <div class="flex flex-row">
             <!-- Sidebar Here -->
             @include('user.layouts.sidebar')
