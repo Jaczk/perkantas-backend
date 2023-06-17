@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Procurement;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProcurementController extends Controller
 {
@@ -18,15 +19,30 @@ class ProcurementController extends Controller
         return view('user.procurement',['procurements' => $procurements]);
     }
 
+    public function edit($id)
+    {
+        $procurements = Procurement::where('user_id', Auth()->user()->id)->find($id);
+
+        return view('user.procurement-add', ['procurements'=>$procurements]);
+    }
+
+    public function add()
+    {
+        return view('user.procurement-add');
+    }
+
     public function store(Request $request)
     {
         $data  = $request->except('_token');
 
         $request->validate([
             'goods_name' => 'required|string',
-            'gooods_amount' => 'required|integer|size:2',
-            'description' => ''
+            'goods_amount' => 'required|integer|size:2',
+            'description' => 'required|string|max:255',
         ]);
+
+        $data['user_id'] = auth()->user()->id;
+        $data['period'] = Carbon::now()->format('Ym');
 
         Procurement::create($data);
         return redirect()->route('user.procurement')->with('success','Barang berhasil diajukan !');

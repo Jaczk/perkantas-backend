@@ -24,7 +24,7 @@ use App\Http\Controllers\User\ProcurementController as UserProcurementController
 |
 */
 
-Route::view('/', 'admin.auth')->name('login'); //LoginPage
+Route::view('/', 'user.auth')->name('login'); //LoginPage
 
 Route::get('admin/login', [LoginController::class, 'index'])->name('admin.login');
 Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
@@ -55,8 +55,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.user');
-        Route::get('/edit{id}', [AdminController::class, 'edit'])->name('admin.user.edit');
-        Route::put('/update{id}', [AdminController::class, 'update'])->name('admin.user.update');
+        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.user.edit');
+        Route::put('/update/{id}', [AdminController::class, 'update'])->name('admin.user.update');
         Route::delete('/destroy/{id}', [AdminController::class, 'destroy'])->name('admin.user.destroy');
         Route::put('/reset', [AdminController::class, 'userAccess'])->name('admin.user.access');
     });
@@ -88,7 +88,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
     });
     Route::group(['prefix' => 'procurement'], function () {
         Route::get('/', [UserProcurementController::class, 'index'])->name('user.procurement');
-        Route::get('/edit/{id}', [UserProcurementController::class, 'store'])->name('user.procurement.edit');
+        Route::get('/create', [UserProcurementController::class, 'add'])->name('user.procurement.add');
+        Route::post('/store', [UserProcurementController::class, 'store'])->name('user.procurement.store');
         Route::delete('/destroy/{id}', [UserProcurementController::class, 'destroy'])->name('user.procurement.destroy');
     });
 });

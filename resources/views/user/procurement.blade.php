@@ -43,7 +43,7 @@
                             Ajukan Komplain Pengadaan Barang ke Admin di sini!
                         </p>
                     </div>
-                    <button href="Procurement-create" class="btn-primary btn">Buat Form</button>
+                    <a href="{{ route('user.procurement.add') }}" class="btn-primary btn">Buat Form</a>
                 </div>
             </div>
 

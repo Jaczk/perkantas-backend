@@ -18,7 +18,7 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'phone'=>'required',
+            'phone'=>'required|max:12',
             'email'=>'required|email',
             'password'=>'required|min:6'
         ]);
@@ -38,6 +38,6 @@ class RegisterController extends Controller
 
         User::create($data);
 
-        return redirect()->route('user.auth');
+        return redirect()->route('user.dashboard');
     } 
 }
