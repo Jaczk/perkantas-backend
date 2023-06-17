@@ -14,7 +14,7 @@
                         </path>
                     </svg>
                 </a>
-                <div class="text-[32px] font-medium text-dark">Dashboard</div>
+                <div class="text-[32px] font-bold text-dark">Dashboard</div>
             </div>
         </section>
 
@@ -23,7 +23,7 @@
             <div class="mb-[30px]">
                 <div class="flex items-center justify-between gap-6">
                     <div>
-                        <div class="text-xl font-medium text-dark">Statistik</div>
+                        <div class="text-xl font-semibold text-dark">Statistik</div>
                         <p class="text-grey">Yang Sudah Kamu Lakukan di Perkantas</p>
                     </div>
                 </div>
@@ -31,12 +31,12 @@
 
             <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-11">
                 <!-- First Card -->
-                <div class="card !gap-y-0 min-h-[100px] bg-white p-4 rounded-3xl">
+                <div class="card !gap-y-0 min-h-[100px] bg-white p-5 rounded-3xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-grey text-[25px] font-bold">Barang yang Dapat Dipinjam</p>
+                            <p class="text-grey text-[23px] font-bold">Barang yang Dapat Dipinjam</p>
                             <div class="text-[56px] font-bold text-dark mt-[6px]">
-                                22{{-- {{ goods . length }} --}}
+                                {{ $goods }}
                             </div>
                         </div>
                     </div>
@@ -45,30 +45,30 @@
                     </button>
                 </div>
                 <!-- Second Card -->
-                <div class="card !gap-y-0 min-h-[100px] bg-white p-4 rounded-3xl">
+                <div class="card !gap-y-0 min-h-[100px] bg-white p-5 rounded-3xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-grey text-[27px] font-bold">Total Pengajuan Barang</p>
+                            <p class="text-grey text-[26px] font-bold">Total Pengajuan Barang</p>
                             <div class="text-[56px] font-bold text-dark mt-[6px]">
-                                22{{-- {{ procurements . length }} --}}
+                                {{ $procurements }}
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="self-end w-2/5 p-2 text-lg font-semibold text-white rounded-full bg-primary hover:bg-primary_hover">
+                    <button href="#" class="self-end w-1/2 p-2 text-lg font-semibold text-white rounded-full bg-primary hover:bg-primary_hover">
                         Ajukan Lagi
                     </button>
                 </div>
                 <!-- Third Card -->
-                <div class="card !gap-y-0 min-h-[100px] bg-white p-4 rounded-3xl">
+                <div class="card !gap-y-0 min-h-[100px] bg-white p-5 rounded-3xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-grey text-[25px] font-bold">Barang Yang Masih Dipinjam</p>
+                            <p class="text-grey text-[23px] font-bold">Barang Yang Masih Dipinjam</p>
                             <div class="text-[56px] font-bold text-dark mt-[6px]">
-                                22{{-- {{ filteredItems . length }} --}}
+                               {{ $items }}
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="items-end self-end w-2/5 p-2 text-lg font-semibold text-white rounded-full bg-primary hover:bg-primary_hover">
+                    <button href="#" class="items-end self-end w-3/6 p-2 text-lg font-semibold text-white rounded-full bg-primary hover:bg-primary_hover">
                         Kembalikan
                     </button>
                     {{-- <button href="#" v-else-if="can_return === 1"

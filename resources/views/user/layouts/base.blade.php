@@ -24,6 +24,8 @@
         </div>
         @include('user.layouts.footer')
     </div>
+
+    @yield('js')
 </body>
 
 </html>

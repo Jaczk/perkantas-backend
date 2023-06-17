@@ -1,5 +1,5 @@
 <aside>
-    <div class="hidden lg:block sticky top-0 left lg:max-w-[295px] w-full overflow-y-auto h-full bg-white z-0"
+    <div class="hidden lg:block sticky top-0 left lg:max-w-[300px] w-full overflow-y-auto h-full bg-white z-0"
         id="sidebarHRIS">
         <div class="px-6 py-[50px] gap-y-[50px] flex flex-col">
             <div class="flex items-center justify-between">

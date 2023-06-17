@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoanController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserController as AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ItemLoanController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\LoginController as UserLoginController;
 use App\Http\Controllers\Admin\ProcurementController;
+use App\Models\Good;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,11 +53,11 @@ use App\Http\Controllers\Admin\ProcurementController;
         });
 
         Route::group(['prefix'=>'user'], function(){
-            Route::get('/', [UserController::class, 'index'])->name('admin.user');
-            Route::get('/edit{id}', [UserController::class, 'edit'])->name('admin.user.edit');
-            Route::put('/update{id}', [UserController::class, 'update'])->name('admin.user.update');
-            Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
-            Route::put('/reset', [UserController::class, 'userAccess'])->name('admin.user.access');
+            Route::get('/', [AdminController::class, 'index'])->name('admin.user');
+            Route::get('/edit{id}', [AdminController::class, 'edit'])->name('admin.user.edit');
+            Route::put('/update{id}', [AdminController::class, 'update'])->name('admin.user.update');
+            Route::delete('/destroy/{id}', [AdminController::class, 'destroy'])->name('admin.user.destroy');
+            Route::put('/reset', [AdminController::class, 'userAccess'])->name('admin.user.access');
         });
 
         Route::group(['prefix'=>'procurement'], function(){
@@ -77,6 +78,11 @@ use App\Http\Controllers\Admin\ProcurementController;
         Route::get('/', [UserDashboardController::class, 'index'])->name('user.dashboard');
 
         Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+
+        Route::group(['prefix' => 'good'], function(){
+            Route::get('/', [Good::class, 'index'])->name('user.good');
+            Route::get('/search/{search}', [Good::class, 'search'])->name('user.good.search');
+        });
     });
 
 
