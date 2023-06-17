@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Procurements')
+@section('title', 'Pengadaan')
 
 @section('content')
 <div class="row">
@@ -19,7 +19,7 @@
         
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit Procurements</h3>
+                <h3 class="card-title">Edit Pengadaan barang</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -29,25 +29,26 @@
                 <div class="card-body">
                     
                     <div class="mb-3">
-                        <label for="status" class="form-label">Select Status :</label>
+                        <label for="status" class="form-label">Pilih Status :</label>
                             <select {{-- conditional status --}}
-                            @if ($procurements->status == "pending")
-                            class="custom-select font-weight-bold text-info" 
-                            @elseif($procurements->status == "approved")
-                            class="custom-select font-weight-bold text-success" 
+                            class="custom-select font-weight-bold" 
+                            {{-- @if ($procurements->status === "pending")
+                                class="custom-select font-weight-bold text-info" 
+                            @elseif($procurements->status === "approved")
+                                class="custom-select font-weight-bold text-success" 
                             @else
-                            class="custom-select font-weight-bold text-danger" 
-                            @endif
+                                class="custom-select font-weight-bold text-danger" 
+                            @endif --}}
                             name="status">
-                                <option class="text-info font-weight-bold" value="pending" @selected($procurements->status == "pending")>PENDING</option>
-                                <option class="text-success font-weight-bold" value="approved" @selected($procurements->status == "approved")>APPROVED</option>
-                                <option class="text-danger font-weight-bold" value="rejected" @selected($procurements->status == "rejected")>REJECTED</option>
+                                <option class="text-info font-weight-bold" value="pending" @selected($procurements->status == "pending")>MENUNGGU</option>
+                                <option class="text-success font-weight-bold" value="approved" @selected($procurements->status == "approved")>DITERIMA</option>
+                                <option class="text-danger font-weight-bold" value="rejected" @selected($procurements->status == "rejected")>DITOLAK</option>
                             </select>
                     </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

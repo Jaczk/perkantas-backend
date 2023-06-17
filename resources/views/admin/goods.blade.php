@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Goods')
+@section('title', 'Daftar Barang')
 
 @section('content')
 
@@ -8,13 +8,13 @@
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Goods</h3>
+                    <h3 class="card-title">Daftar Barang</h3>
                 </div>
 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <a href="{{ route('admin.good.create') }}" class="btn btn-warning text-bold">+ Goods</a>
+                            <a href="{{ route('admin.good.create') }}" class="btn btn-warning text-bold">+ Barang</a>
                         </div>
                     </div>
                     
@@ -34,13 +34,13 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Condition</th>
-                                        <th>Availability</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
+                                        <th>Nama</th>
+                                        <th>Kategori</th>
+                                        <th>Kondisi</th>
+                                        <th>Ketersediaan</th>
+                                        <th>Deskripsi</th>
+                                        <th>Gambar</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

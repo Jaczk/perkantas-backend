@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'User')
+@section('title', 'Pengguna')
 
 @section('content')
     <div class="row">
@@ -19,7 +19,7 @@
 
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Edit User</h3>
+                    <h3 class="card-title">Edit Pengguna</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -29,12 +29,12 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="title">User Phone Number</label>
+                            <label for="title">Nomor Telepon Pengguna</label>
                             <input type="text" class="form-control" id="phone" name="phone"
                                 placeholder="+62_phone number" value="{{ $user->phone }}">
                         </div>
                         <div class="mb-3">
-                            <label for="status" class="form-label">Return Access</label>
+                            <label for="status" class="form-label">Akes Pengembalian </label>
                                 <select class="custom-select" name="can_return">
                                     <option value = 0 @selected($user->can_return == "0")
                                         @class(['bg-warning text-white' => $user->can_return == "0"])

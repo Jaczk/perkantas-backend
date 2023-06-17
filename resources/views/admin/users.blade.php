@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Users')
+@section('title', 'Pengguna')
 
 @section('content')
 
@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Users</h3>
+                    <h3 class="card-title">Pengguna</h3>
                 </div>
 
                 <div class="card-body">
@@ -18,7 +18,7 @@
                             @csrf
                             @method('PUT')
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-warning">Reset Users Access</button>
+                                <button type="submit" class="btn btn-warning">Reset Akses Pengguna</button>
                             </div>
                         </form>
                     </div>
@@ -38,12 +38,12 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Return access</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
+                                        <th>Nomor Telepon</th>
+                                        <th>Akses Pengembalian</th>
+                                        <th>Tipe Pengguna</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

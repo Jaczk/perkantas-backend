@@ -37,7 +37,7 @@
             <a href="{{ route('admin.category') }}" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
-                Category
+                Kategori
               </p>
             </a>
           </li>
@@ -46,7 +46,7 @@
             <a href="{{ route('admin.good') }}" class="nav-link">
               <i class="nav-icon fas fa-laptop-house"></i>
               <p>
-                Goods
+                Daftar Barang
               </p>
             </a>
           </li>
@@ -55,7 +55,7 @@
             <a href="{{ route('admin.user') }}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Users
+                Pengguna
               </p>
             </a>
           </li>
@@ -64,7 +64,7 @@
             <a href="{{ route('admin.loan') }}" class="nav-link">
               <i class="nav-icon fas fa-people-carry"></i>
               <p>
-                Loans
+                Peminjaman
               </p>
             </a>
           </li>
@@ -73,7 +73,7 @@
             <a href="{{ route('admin.procurement') }}" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>
-                Procurement
+                Pengadaan Barang
               </p>
             </a>
           </li>

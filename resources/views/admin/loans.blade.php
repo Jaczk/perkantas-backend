@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Loan')
+@section('title', 'Peminjaman')
 
 @section('content')
 
@@ -10,7 +10,7 @@
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Loans</h3>
+                    <h3 class="card-title">Daftar Peminjaman</h3>
                 </div>
 
                 <div class="card-body">
@@ -36,13 +36,13 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Username</th>
-                                        <th>Goods</th>
-                                        <th>Condition</th>
-                                        <th>Loan Date</th>
-                                        <th>Return Date</th>
-                                        <th>Period</th>
-                                        <th>Returned</th>
-                                        <th>Action</th>
+                                        <th>Barang</th>
+                                        <th>Kondisi</th>
+                                        <th>Tanggal Pinjam</th>
+                                        <th>Tanggal Kembali</th>
+                                        <th>Periode</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,9 +63,9 @@
                                             <td>{{ $lo->loan->period }}</td>
 
                                             @if ($lo->loan->is_returned == 0)
-                                                <td class="text-warning font-weight-bold">{{ 'On Loan' }}</td>
+                                                <td class="text-warning font-weight-bold">{{ 'Dipinjam' }}</td>
                                             @else
-                                                <td class="text-success font-weight-bold">{{ 'Returned' }}</td>
+                                                <td class="text-success font-weight-bold">{{ 'Dikembalikan' }}</td>
                                             @endif {{-- is_returned comparison --}}
                                             <td>
                                                 <a href="https://wa.me/{{ $lo->user->phone }}" class="btn btn-success"

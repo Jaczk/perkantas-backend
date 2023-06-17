@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Procurements')
+@section('title', 'Pengadaan')
 
 @section('content')
 
@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Procurements</h3>
+                    <h3 class="card-title">Pengadaan Barang</h3>
                 </div>
 
                 <div class="card-body">
@@ -34,12 +34,12 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Username</th>
-                                        <th>Goods req</th>
-                                        <th>Amount</th>
-                                        <th>Period</th>
-                                        <th>Description</th>
+                                        <th>Barang</th>
+                                        <th>Jumlah</th>
+                                        <th>Periode</th>
+                                        <th>Deskripsi</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,11 +52,11 @@
                                             <td>{{ $proc->period }}</td>
                                             <td class="text-justify">{{ $proc->description }}</td>
                                             @if ($proc->status == 'approved')
-                                                <td class="text-success font-weight-bold">{{ 'APPROVED' }}</td>
+                                                <td class="text-success font-weight-bold">{{ 'DITERIMA' }}</td>
                                             @elseif ($proc->status == 'pending')
-                                                <td class="text-info font-weight-bold">{{ 'PENDING' }}</td>
+                                                <td class="text-info font-weight-bold">{{ 'MENUNGGU' }}</td>
                                             @else
-                                                <td class="text-danger font-weight-bold">{{ 'REJECTED' }}</td>
+                                                <td class="text-danger font-weight-bold">{{ 'DITOLAK' }}</td>
                                             @endif
                                             <td>
                                                 <a href="{{ route('admin.procurement.edit', $proc->id) }}"

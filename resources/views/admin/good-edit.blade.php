@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Goods')
+@section('title', 'Barang')
 
 @section('content')
 <div class="row">
@@ -19,7 +19,7 @@
         
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Create Goods</h3>
+                <h3 class="card-title">Edit Barang</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -28,12 +28,12 @@
                 @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="title">Name</label>
+                        <label for="title">Nama</label>
                         <input type="text" class="form-control" id="goods_name" name="goods_name"
                             placeholder="Guitar / Bible / Projector {english}" value="{{ $goods->goods_name }}">
                     </div>
                     <div class="mb-3">
-                        <label for="category" class="form-label">Category</label>
+                        <label for="category" class="form-label">Kategori</label>
                         <select class="custom-select" name="category_id">
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" {{ $goods->category_id == $category->id ? 'selected' : '' }}>
@@ -42,17 +42,17 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="status" class="form-label">Return Access</label>
+                        <label for="status" class="form-label">Kondisi Barang</label>
                             <select class="custom-select" name="condition">
-                                <option value = "NEW" @selected($goods->condition == 'NEW')
-                                    @class(['bg-warning text-white' => $goods->condition == 'NEW'])
-                                    >NEW</option>
-                                <option value = "USED" @selected($goods->condition == 'USED')
-                                    @class(['bg-warning text-white' => $goods->condition == 'USED'])
-                                    >USED</option>
-                                <option value = "BROKEN" @selected($goods->condition == 'BROKEN')
-                                    @class(['bg-warning text-white' => $goods->condition == 'BROKEN'])
-                                    >BROKEN</option>
+                                <option value = "BARU" @selected($goods->condition == 'BARU')
+                                    @class(['bg-warning text-white' => $goods->condition == 'BARU'])
+                                    >BARU</option>
+                                <option value = "NORMAL" @selected($goods->condition == 'NORMAL')
+                                    @class(['bg-warning text-white' => $goods->condition == 'NORMAL'])
+                                    >NORMAL</option>
+                                <option value = "RUSAK" @selected($goods->condition == 'RUSAK')
+                                    @class(['bg-warning text-white' => $goods->condition == 'RUSAK'])
+                                    >RUSAK</option>
                             </select>
                     </div>
                     {{-- <div class="form-group">
@@ -61,19 +61,19 @@
                             placeholder="broken/new/used" value="{{ $goods->condition }}">
                     </div> --}}
                     <div class="form-group">
-                        <label for="short-about">Description</label>
+                        <label for="short-about">Deskripsi</label>
                         <input type="text" class="form-control" id="description" name="description"
                             placeholder="Proyektor dengan resolusi 1080p" value="{{ $goods->description}}">
                     </div>
                     <div class="form-group">
-                        <label for="short-about">Image</label>
+                        <label for="short-about">Gambar</label>
                         <input type="text" class="form-control" id="image" name="image"
                             placeholder="diisi sama dengan field name"  value = "{{ $goods->goods_name }}">
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
