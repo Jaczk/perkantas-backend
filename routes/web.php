@@ -3,15 +3,28 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoanController;
+<<<<<<< HEAD
 use App\Http\Controllers\Admin\UserController as AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\Admin\ItemLoanController;
+=======
+use App\Http\Controllers\Admin\UserController;
+>>>>>>> eaf96dea51aa941369db27175c8706edea9e2db5
 use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\LoginController as UserLoginController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ItemLoanController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProcurementController;
+<<<<<<< HEAD
 use App\Models\Good;
+=======
+use App\Http\Controllers\Admin\LoginController as UserLoginController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\ProcurementController as UserProcurementController;
+>>>>>>> eaf96dea51aa941369db27175c8706edea9e2db5
 
 /*
 |--------------------------------------------------------------------------
@@ -74,15 +87,27 @@ use App\Models\Good;
 
     });
 
+    Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('user.register.store');
+
     Route::group(['prefix'=>'user', 'middleware'=>['admin.auth']], function() {
         Route::get('/', [UserDashboardController::class, 'index'])->name('user.dashboard');
 
         Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
 
+<<<<<<< HEAD
         Route::group(['prefix' => 'good'], function(){
             Route::get('/', [Good::class, 'index'])->name('user.good');
             Route::get('/search/{search}', [Good::class, 'search'])->name('user.good.search');
         });
+=======
+        Route::group(['prefix'=>'procurement'], function(){
+            Route::get('/',[UserProcurementController::class, 'index'])->name('user.procurement');
+            Route::get('/edit/{id}', [UserProcurementController::class, 'store'])->name('user.procurement.edit');
+            Route::delete('/destroy/{id}',[UserProcurementController::class, 'destroy'])->name('user.procurement.destroy');
+        });
+
+>>>>>>> eaf96dea51aa941369db27175c8706edea9e2db5
     });
 
 
