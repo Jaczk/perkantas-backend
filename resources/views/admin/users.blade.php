@@ -18,7 +18,7 @@
                             @csrf
                             @method('PUT')
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-warning">Reset Akses Pengguna</button>
+                                <button type="submit" class="btn btn-warning text-bold">Reset Akses Pengguna</button>
                             </div>
                         </form>
                     </div>

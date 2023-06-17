@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
+                <div class="card-header" style="background-color: #289fc9">
                     <h3 class="card-title">Kategori Barang</h3>
                 </div>
 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <a href="{{ route('admin.category.create') }}" class="btn btn-warning text-bold">+ Kategori</a>
+                            <a href="{{ route('admin.category.create') }}" class="btn btn-primary text-bold">+ Kategori</a>
                         </div>
                     </div>
 
@@ -47,13 +47,17 @@
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form method="post" action="{{ route('admin.category.destroy', $category->id) }}">
+                                                {{-- <form method="post" action="{{ route('admin.category.destroy', $category->id) }}">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger mx-2">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form>
+                                                </form> --}}
+                                                <a href="{{ route('admin.category.destroy', $category->id) }}" class="btn btn-danger mx-2">
+                                                    @csrf
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

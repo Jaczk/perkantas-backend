@@ -64,7 +64,7 @@
 
                                             @if ($lo->loan->is_returned == 0)
                                                 <td class="text-warning font-weight-bold">{{ 'Dipinjam' }}</td>
-                                            @else
+                                            @elseif($lo->loan->is_returned == 1)
                                                 <td class="text-success font-weight-bold">{{ 'Dikembalikan' }}</td>
                                             @endif {{-- is_returned comparison --}}
                                             <td>
