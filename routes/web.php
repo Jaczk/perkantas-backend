@@ -4,13 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\User\DashboardController as UserDashboardController;
-use App\Http\Controllers\Admin\ItemLoanController;
 use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\LoginController as UserLoginController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ItemLoanController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProcurementController;
+use App\Http\Controllers\Admin\LoginController as UserLoginController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\ProcurementController as UserProcurementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,10 +75,20 @@ use App\Http\Controllers\Admin\ProcurementController;
 
     });
 
+    Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('user.register.store');
+
     Route::group(['prefix'=>'user', 'middleware'=>['admin.auth']], function() {
         Route::get('/', [UserDashboardController::class, 'index'])->name('user.dashboard');
 
         Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+
+        Route::group(['prefix'=>'procurement'], function(){
+            Route::get('/',[UserProcurementController::class, 'index'])->name('user.procurement');
+            Route::get('/edit/{id}', [UserProcurementController::class, 'store'])->name('user.procurement.edit');
+            Route::delete('/destroy/{id}',[UserProcurementController::class, 'destroy'])->name('user.procurement.destroy');
+        });
+
     });
 
 
