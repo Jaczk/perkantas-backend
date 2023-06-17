@@ -37,10 +37,19 @@ class UserController extends Controller
         return redirect()->route('admin.user')->with('success', 'User updated successfully');
     }
 
+    public function userAccess()
+    {
+        User::where('roles', 0)->update(['can_return' => 0]);
+
+        return redirect()->route('admin.user')->with('success', 'Reset access to all users succesfully!');
+    }
+
     public function destroy($id)
     {
         User::find($id)->delete();
 
         return redirect()->route('admin.user')->with('success', 'One user has been deleted !');
     }
+
+
 }

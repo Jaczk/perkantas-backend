@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Category')
+@section('title', 'Kategori')
 
 @section('content')
     <div class="row">
@@ -19,7 +19,7 @@
 
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Edit Category</h3>
+                    <h3 class="card-title">Edit Kategori</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -29,14 +29,14 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="title">Category Name</label>
+                            <label for="title">Nama Kategori</label>
                             <input type="text" class="form-control" id="category_name" name="category_name"
                                 placeholder="Alat Musik" value="{{ $category->category_name }}">
                         </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ItemLoanController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProcurementController;
@@ -19,12 +20,14 @@ use App\Http\Controllers\Admin\ProcurementController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+    Route::view('/', 'admin.auth'); //LoginPage
 
     Route::get('admin/login', [LoginController::class, 'index'])->name('admin.login');
     Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
 
     Route::group(['prefix'=>'admin', 'middleware'=>['admin.auth']], function(){
-        Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+        // Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
@@ -34,7 +37,7 @@ use App\Http\Controllers\Admin\ProcurementController;
             Route::post('/store', [CategoryController::class, 'store'])->name('admin.category.store');
             Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
             Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
-            Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+            Route::get('/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
         });
 
         Route::group(['prefix'=>'good'], function(){
@@ -51,6 +54,7 @@ use App\Http\Controllers\Admin\ProcurementController;
             Route::get('/edit{id}', [UserController::class, 'edit'])->name('admin.user.edit');
             Route::put('/update{id}', [UserController::class, 'update'])->name('admin.user.update');
             Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+            Route::put('/reset', [UserController::class, 'userAccess'])->name('admin.user.access');
         });
 
         Route::group(['prefix'=>'procurement'], function(){
