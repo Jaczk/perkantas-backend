@@ -3,7 +3,7 @@
         id="sidebarHRIS">
         <div class="px-6 py-[50px] gap-y-[50px] flex flex-col">
             <div class="flex items-center justify-between">
-                <a href="#" class="flex justify-center">
+                <a href="{{ route('user.dashboard') }}" class="flex justify-center">
                     <img src="/assets/images/perkantas.png" alt="" class="scale-95 hover:scale-110" />
                 </a>
                 <a href="#" id="toggleCloseSidebar" class="lg:hidden">
@@ -27,7 +27,7 @@
                         <img src="/assets/svgs/ic-grid.svg" alt="" />
                         <p class="px-3 font-normal">Peminjaman</p>
                     </a>
-                    <a href="{{ route('user.dashboard') }}"
+                    <a href="{{ route('user.procurement') }}"
                         class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
                         <img src="/assets/svgs/ic-box.svg" alt="" />
                         <p class="px-3 font-normal">Form Pengadaan</p>
@@ -47,7 +47,7 @@
         </button> -->
                 <a href="{{ route('user.logout') }}"
                     class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
-                    <img src="assets/svgs/ic-signout.svg" alt="" />
+                    <img src="/assets/svgs/ic-signout.svg" alt="" />
                     <p class="px-3">Logout</p>
                 </a>
                 <a href="#" class="cursor-default nav-link disabled:true">

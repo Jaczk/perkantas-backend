@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="self-end w-2/5 p-2 text-lg font-semibold text-white rounded-full bg-primary hover:bg-primary_hover">
+                    <button href="#" class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
                         Pinjam
                     </button>
                 </div>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="self-end w-1/2 p-2 text-lg font-semibold text-white rounded-full bg-primary hover:bg-primary_hover">
+                    <button href="#" class="self-end w-1/2 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
                         Ajukan Lagi
                     </button>
                 </div>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="items-end self-end w-3/6 p-2 text-lg font-semibold text-white rounded-full bg-primary hover:bg-primary_hover">
+                    <button href="#" class="self-end w-3/6 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
                         Kembalikan
                     </button>
                     {{-- <button href="#" v-else-if="can_return === 1"

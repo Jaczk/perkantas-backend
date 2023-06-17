@@ -1,6 +1,6 @@
 @extends('user.layouts.base')
 
-@section('title', 'Goods')
+@section('title', 'Daftar Barang')
 
 @section('content')
     <div>

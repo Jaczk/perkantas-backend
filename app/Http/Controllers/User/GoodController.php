@@ -25,6 +25,6 @@ class GoodController extends Controller
 
     public function search(Request $request, $search)
     {
-        $goods = Good::where()
+        $goods = Good::where();
     }
 }

@@ -12,10 +12,10 @@ class ProcurementController extends Controller
     {
         $userId = auth()->user()->id;
 
-        $procurement  = Procurement::where('user_id', $userId)
+        $procurements  = Procurement::where('user_id', $userId)
         ->orderBy('created_at', 'DESC')->get();
 
-        return view('user.procurements',['procurement' => $procurement]);
+        return view('user.procurement',['procurements' => $procurements]);
     }
 
     public function store(Request $request)
@@ -29,7 +29,7 @@ class ProcurementController extends Controller
         ]);
 
         Procurement::create($data);
-        return redirect()->route('user.procurements')->with('success','Barang berhasil diajukan !');
+        return redirect()->route('user.procurement')->with('success','Barang berhasil diajukan !');
     }
 
     public function destroy($id)
