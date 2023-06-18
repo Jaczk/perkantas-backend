@@ -9,7 +9,7 @@
     <title>Perkantas Login</title>
 </head>
 
-<body>
+<body class="font-montserrat">
     <section class="py-[50px] flex flex-col items-center justify-center px-4">
         <!--TODO: Ganti Logo Perkantas -->
         <img src="/assets/images/perkantas.png" style="max-width:25%" alt="" />

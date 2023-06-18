@@ -40,17 +40,17 @@
                 action="{{ route('user.procurement.store') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="" class="text-grey">Nama Barang</label>
+                    <label for="" class="text-lg font-medium">Nama Barang</label>
                     <input type="text" class="input-field" placeholder="Tulis barang yang akan diajukan..."
                         name="goods_name" />
                 </div>
                 <div class="form-group">
-                    <label for="idRes" class="text-grey">Jumlah Barang</label>
+                    <label for="idRes" class="text-lg font-medium">Jumlah Barang</label>
                     <input type="number" class="input-field" placeholder="Tuliskan jumlah barang yang akan diajukan..."
                         name="goods_amount" />
                 </div>
                 <div class="form-group">
-                    <label class="text-grey">Alasan Permintaan</label>
+                    <label class="text-lg font-medium">Alasan Permintaan</label>
                     <input type="text" class="input-field" placeholder="Sebutkan alasan permintaan..."
                         name="description">
                 </div>

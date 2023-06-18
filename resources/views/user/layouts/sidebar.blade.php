@@ -1,10 +1,10 @@
 <aside>
-    <div class="hidden lg:block sticky top-0 left lg:max-w-[300px] w-full overflow-y-auto h-full bg-white z-0"
+    <div class="hidden lg:block sticky top-0 left lg:w-[300px] w-full overflow-y-auto h-full bg-white z-0"
         id="sidebarHRIS">
         <div class="px-6 py-[50px] gap-y-[50px] flex flex-col">
             <div class="flex items-center justify-between">
                 <a href="{{ route('user.dashboard') }}" class="flex justify-center">
-                    <img src="/assets/images/perkantas.png" alt="" class="scale-95 hover:scale-110" />
+                    <img src="/assets/images/perkantas.png" alt="" class="scale-100 hover:opacity-75" />
                 </a>
                 <a href="#" id="toggleCloseSidebar" class="lg:hidden">
                     <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -22,7 +22,7 @@
                         <img src="/assets/svgs/ic-home.svg" alt="" />
                         <p class="px-3 font-normal">Overview</p>
                     </a>
-                    <a href="{{ route('user.dashboard') }}"
+                    <a href="{{ route('user.loan') }}"
                         class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
                         <img src="/assets/svgs/ic-grid.svg" alt="" />
                         <p class="px-3 font-normal">Peminjaman</p>

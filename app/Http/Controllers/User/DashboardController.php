@@ -13,10 +13,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $goods = Goods::where('is_available', '=', 1)->count();
+        $goods = Goods::where('is_available', 1)->count();
         $procurements = Procurement::where('user_id', auth()->user()->id)->count();
-        $items = Item_Loan::query()->whereHas('loan', function ($q) {
-            $q->where('user_id', Auth::user()->id)->where('is_returned', '=', 0);
+        $items = Item_Loan::whereHas('loan', function ($q) {
+            $q->where('user_id', Auth::user()->id)->where('is_returned', 0);
         })->count();
         return view('user.dashboard', [
             'goods' => $goods,

@@ -23,6 +23,15 @@ class GoodController extends Controller
         return view('user.goods', ['goods' => $goods, 'categories' => $categories]);
     }
 
+    public function sortedByCategory($id)
+    {
+        $goods = Good::whereHas('category', function($q) use ($id) {
+            $q->where('id', $id);
+        })->get();
+        
+        return view('user.goods-category', ['goods' => $goods]);
+    }
+
     public function search(Request $request, $search)
     {
         $goods = Good::where();

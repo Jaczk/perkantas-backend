@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div>
+    <div class="font-montserrat">
         <section class="py-[50px] flex flex-col items-center justify-center px-4">
             <!-- TODO: Ganti Logo Perkantas -->
             <img src="/assets/images/perkantas.png" style="max-width:25%" alt="" />
@@ -64,7 +64,7 @@
                 <button type="submit" class="w-full btn btn-primary mt-[14px]">
                     Continue
                 </button>
-                <a href="{{ route('admin.login') }}" class="w-full border btn btn-white hover:bg-slate-100">Back to Login</a>
+                <a href="{{ route('login') }}" class="w-full border btn btn-white hover:bg-slate-100">Back to Login</a>
             </form>
         </section>
     </div>

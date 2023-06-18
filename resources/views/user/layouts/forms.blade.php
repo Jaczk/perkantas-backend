@@ -19,7 +19,7 @@
                 <img src="/assets/svgs/ric-close-white.svg" alt="" />
             </a>
         </div>
-        <section class="content">
+        <section class="content font-montserrat">
             <div>
                 @yield('content')
             </div>

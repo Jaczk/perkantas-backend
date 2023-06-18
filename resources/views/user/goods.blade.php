@@ -54,17 +54,17 @@
                 </div>
 
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-6 lg:gap-5">
-                    <div class="card !gap-y-3 hover:bg-slate-100 hover:cursor-pointer">
-                        <div class="flex flex-row items-center justify-between overflow-x-auto flex-nowrap">
-                            @foreach ($categories as $category)
-                                <div>
+                    @foreach ($categories as $category)
+                        <a href="{{ route('user.good.category', $category->id) }}">
+                            <div class="card !gap-y-3 hover:bg-slate-100 hover:cursor-pointer">
+                                <div class="flex flex-row items-center justify-between flex-nowrap">
                                     <div class="text-[20px] font-bold text-grey">
                                         {{ $category->category_name }}
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
-                    </div>
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
             </section>
 
@@ -79,25 +79,30 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-                    <div
-                        class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0 hover:bg-slate-200 hover:cursor-pointer">
-                        @foreach ( $goods as $good)
-                        <div class="mx-2 font-semibold text-center text-dark ">
-                            {{ good . goods_name }}
+                    @foreach ($goods as $good)
+                        <div
+                            class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0 hover:bg-slate-200 hover:cursor-pointer">
+
+                            <div class="mx-2 font-semibold text-center text-dark ">
+                                {{ $good->goods_name }}
+                            </div>
+                            <img src={{ $good->image }} width="150" class="mt-5" alt="" />
+                            @if ($good->condition === 'broken')
+                                <p class="mt-5 font-bold text-center text-red-600 uppercase">
+                                    {{ $good->condition }}
+                                </p>
+                            @elseif ($good->condition === 'used')
+                                <p class="mt-5 font-bold text-center text-orange-400 uppercase">
+                                    {{ $good->condition }}
+                                </p>
+                            @elseif ($good->condition === 'new')
+                                <p class="mt-5 font-bold text-center uppercase text-success">
+                                    {{ $good->condition }}
+                                </p>
+                            @endif
+
                         </div>
-                        <img :src="good.image" width="150" class="mt-5" alt="" />
-                        <p v-if="good.condition === 'broken'" class="mt-5 font-bold text-center text-red-600 uppercase">
-                            {{ good . condition }}
-                        </p>
-                        <p v-else-if="good.condition === 'used'"
-                            class="mt-5 font-bold text-center text-orange-400 uppercase">
-                            {{ good . condition }}
-                        </p>
-                        <p v-else-if="good.condition === 'new'" class="mt-5 font-bold text-center uppercase text-success">
-                            {{ good . condition }}
-                        </p>
-                        @endforeach
-                    </div>
+                    @endforeach
                 </div>
             </section>
         </div>
