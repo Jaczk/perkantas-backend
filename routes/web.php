@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProcurementController;
 use App\Http\Controllers\Admin\UserController as AdminController;
 use App\Http\Controllers\User\LoginController as UserLoginController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\GoodController as UserGoodController;
 use App\Http\Controllers\User\ProcurementController as UserProcurementController;
 /*
 |--------------------------------------------------------------------------
@@ -83,8 +84,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
 
 
     Route::group(['prefix' => 'good'], function () {
-        Route::get('/', [Good::class, 'index'])->name('user.good');
-        Route::get('/search/{search}', [Good::class, 'search'])->name('user.good.search');
+        Route::get('/', [UserGoodController::class, 'index'])->name('user.good');
+        Route::get('/search/{search}', [UserGoodController::class, 'search'])->name('user.good.search');
     });
     Route::group(['prefix' => 'procurement'], function () {
         Route::get('/', [UserProcurementController::class, 'index'])->name('user.procurement');

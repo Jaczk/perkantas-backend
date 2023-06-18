@@ -32,7 +32,7 @@
                         <img src="/assets/svgs/ic-box.svg" alt="" />
                         <p class="px-3 font-normal">Form Pengadaan</p>
                     </a>
-                    <a href="{{ route('user.dashboard') }}"
+                    <a href="{{ route('user.good') }}"
                         class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
                         <img src="/assets/svgs/ic-briefcase.svg" alt="" />
                         <p class="px-3 font-normal">Daftar Barang</p>
