@@ -39,7 +39,7 @@
                             <div class="text-xl font-medium text-dark">Kategori</div>
                             <p class="text-grey">Kategori Barang Perkantas Semarang</p>
                         </div>
-                        <div>
+                        {{-- <div>
                             <select name="categories" id="" v-model="selectedCategory"
                                 class="appearance-none input-field form-icon-chevron_down">
                                 <option :value="category.id" v-for="category in categories" :key="category.id">
@@ -49,19 +49,20 @@
                             <button @click="openCategory" class="border btn btn-primary mt-[14px]">
                                 Buka Kategori
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-6 lg:gap-5">
-                    <div class="card !gap-y-3 hover:bg-slate-100 hover:cursor-pointer" v-for="category in categories"
-                        :key="category.id">
-                        <div class="flex flex-row items-center justify-between flex-nowrap">
-                            <div>
-                                <div class="text-[20px] font-bold text-grey">
-                                    {{ category . category_name }}
+                    <div class="card !gap-y-3 hover:bg-slate-100 hover:cursor-pointer">
+                        <div class="flex flex-row items-center justify-between overflow-x-auto flex-nowrap">
+                            @foreach ($categories as $category)
+                                <div>
+                                    <div class="text-[20px] font-bold text-grey">
+                                        {{ $category->category_name }}
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -78,8 +79,9 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-                    <div class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0 hover:bg-slate-200 hover:cursor-pointer"
-                        v-for="good in goods" :key="good.id">
+                    <div
+                        class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0 hover:bg-slate-200 hover:cursor-pointer">
+                        @foreach ( $goods as $good)
                         <div class="mx-2 font-semibold text-center text-dark ">
                             {{ good . goods_name }}
                         </div>
@@ -94,6 +96,7 @@
                         <p v-else-if="good.condition === 'new'" class="mt-5 font-bold text-center uppercase text-success">
                             {{ good . condition }}
                         </p>
+                        @endforeach
                     </div>
                 </div>
             </section>
@@ -104,7 +107,7 @@
 
 @section('js')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#good').DataTable({
                 dom: 'lBfrtipl',
                 buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
