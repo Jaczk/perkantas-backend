@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
+                <div class="card-header" style="background-color: #121F3E">
                     <h3 class="card-title">Daftar Peminjaman</h3>
                 </div>
 

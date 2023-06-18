@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header" style="background-color: #289fc9">
+                <div class="card-header" style="background-color: #121F3E">
                     <h3 class="card-title">Kategori Barang</h3>
                 </div>
 
@@ -47,17 +47,18 @@
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                {{-- <form method="post" action="{{ route('admin.category.destroy', $category->id) }}">
+                                                <form method="post"
+                                                    action="{{ route('admin.category.destroy', $category->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-2">
+                                                    <button type="submit" class="btn btn-danger mx-2 delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form> --}}
-                                                <a href="{{ route('admin.category.destroy', $category->id) }}" class="btn btn-danger mx-2">
+                                                </form>
+                                                {{-- <a href="{{ route('admin.category.destroy', $category->id) }}" class="btn btn-danger mx-2">
                                                     @csrf
                                                     <i class="fas fa-trash"></i>
-                                                </a>
+                                                </a> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -73,6 +74,32 @@
 
 @section('js')
     <script>
-        $('#category').DataTable();
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#category').DataTable();
+
+            // Apply event listener to all delete buttons
+            $('#category').on('click', '.delete-btn', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                // Show SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: 'Item yang telah dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e31231',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus item!',
+                    cancelButtonText: 'Kembali'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form after confirmation
+                        form.submit();
+                    }
+                });
+            });
+        });
     </script>
 @endsection

@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
+                <div class="card-header" style="background-color: #121F3E">
                     <h3 class="card-title">Daftar Barang</h3>
                 </div>
 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <a href="{{ route('admin.good.create') }}" class="btn btn-warning text-bold">+ Barang</a>
+                            <a href="{{ route('admin.good.create') }}" class="btn btn-primary text-bold">+ Barang</a>
                         </div>
                     </div>
                     
@@ -69,7 +69,7 @@
                                                 <form method="post" action="{{ route('admin.good.destroy', $good->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-1">
+                                                    <button type="submit" class="btn btn-danger mx-1 delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
@@ -90,11 +90,44 @@
     {{-- <script>
         $('#good').DataTable();
     </script> --}}
-    <script> 
+    {{-- <script> 
         $(document).ready(function () {
             $('#good').DataTable({
                 dom: 'lBfrtipl',
                 buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            });
+        });
+    </script> --}}
+    
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#good').DataTable({
+                dom: 'lBfrtipl',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            });
+
+            // Apply event listener to all delete buttons
+            $('#good').on('click', '.delete-btn', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                // Show SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: 'Item yang telah dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e31231',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus item!',
+                    cancelButtonText: 'Kembali'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form after confirmation
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

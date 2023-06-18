@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
+                <div class="card-header" style="background-color: #121F3E">
                     <h3 class="card-title">Pengguna</h3>
                 </div>
 
@@ -34,7 +34,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="good" class="table table-striped table-hover">
+                            <table id="user" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -74,7 +74,7 @@
                                                     action="{{ route('admin.user.destroy', $user->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-2">
+                                                    <button type="submit" class="btn btn-danger mx-2 delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
@@ -93,6 +93,32 @@
 
 @section('js')
     <script>
-        $('#good').DataTable();
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#user').DataTable();
+
+            // Apply event listener to all delete buttons
+            $('#user').on('click', '.delete-btn', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                // Show SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: 'Item yang telah dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e31231',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus item!',
+                    cancelButtonText: 'Kembali'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form after confirmation
+                        form.submit();
+                    }
+                });
+            });
+        });
     </script>
 @endsection
