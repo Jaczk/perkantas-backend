@@ -32,6 +32,8 @@
                         </ul>
                     </div>
                 </div>
+
+
             @endif
 
             <form class="w-full card" enctype="multipart/form-data" method="POST"
