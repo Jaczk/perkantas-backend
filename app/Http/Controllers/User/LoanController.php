@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\Good;
 use App\Models\Loan;
@@ -9,6 +10,7 @@ use App\Models\User;
 use App\Models\Item_Loan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Throwable;
 
 class LoanController extends Controller
 {
@@ -33,10 +35,9 @@ class LoanController extends Controller
     {
         $data  = $request->except('_token');
 
-        $loanId = session('loan_id');
         $good = Good::findOrFail($id);
 
-        $data['loan_id'] = $loanId;
+        $data['loan_id'] = session()->get('loanId');
         $data['good_id'] = $good->id;
         $data['user_id'] = auth()->user()->id;
 
@@ -45,7 +46,22 @@ class LoanController extends Controller
         Good::find($id)->update([
             'is_available' => 0
         ]);
+
+        return redirect()->back()->with('refresh', true);
     }
+
+
+
+    public function listItems($loanId)
+    {
+        session()->put('loanId', $loanId);
+
+        $goods = Good::with('category')->where('is_available', 1)->get();
+
+        return view('user.loan-items', compact('goods'));
+    }
+
+
 
     public function store(Request $request)
     {
@@ -58,18 +74,15 @@ class LoanController extends Controller
 
         $loan = Loan::create($data);
 
-        session()->put('loan_id', $loan->id);
-        // Store the data or perform any other necessary actions
-
-        return redirect()->route('user.loan-create')->with('success', 'Peminjaman Berhasil Dilakukan!');
+        return redirect()->route('user.loan-items', ['loanId' => $loan->id]);
     }
+
 
     public function return()
     {
-        $loans = Loan::with('item_loan')
-            ->whereHas('item_loan', function ($q) {
-                $q->WhereHas('good');
-            })
+        $loans = Loan::withWhereHas('item_loan', function ($q) {
+            $q->WhereHas('good');
+        })
             ->where('user_id', auth()->user()->id)
             ->where('is_returned', 0)
             ->get();
@@ -79,21 +92,25 @@ class LoanController extends Controller
 
     public function returnItems($id)
     {
-        $loan = Loan::findOrFail($id);
+        try {
+            $loan = Loan::find($id);
 
-        $loan->update([
-            'is_returned' => 1
-        ]);
+            $items = Item_Loan::with('good')
+                ->where('loan_id', $loan->id)
+                ->get();
 
-        $items = Item_Loan::with('good')
-            ->where('loan_id', $loan->id)
-            ->get();
+            foreach ($items as $item) {
+                Good::find($item->good->id)->update([
+                    'is_available' => 1
+                ]);
+            }
 
-        foreach ($items as $item) {
-            Good::find($item->good_id)->update([
-                'is_available' => 1
+            $loan->update([
+                'is_returned' => 1
             ]);
+            return redirect()->route('user.loan')->with('success', 'Pengembalian berhasil dilakukan!');
+        } catch (Throwable $e) {
+            report($e);
         }
-        return redirect()->route('user.loan')->with('success', 'Pengembalian berhasil dilakukan!');
     }
 }
