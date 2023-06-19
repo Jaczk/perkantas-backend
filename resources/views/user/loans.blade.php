@@ -30,19 +30,22 @@
                             <div class="text-xl font-medium text-dark">Statistik</div>
                             <p class="text-grey">Daftar Peminjaman Barang</p>
                         </div>
-                        <div>
+                        <div class="flex flex-row">
                             @if ($user->can_return === 0)
                                 <button class="cursor-not-allowed btn btn-primary" onclick="alertReturn()">
                                     Kembalikan Barang
                                 </button>
                             @elseif ($user->can_return === 1)
-                                <button href="{{ route('user.return') }}" class="btn btn-primary">
+                                <a href="{{ route('user.return') }}" class="btn btn-primary">
                                     Kembalikan Barang
-                                </button>
+                                </a>
                             @endif
-                            <button href="{{ route('user.loan-create') }}" class="btn btn-primary">
-                                Buat Peminjaman
-                            </button>
+                            <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST" class="px-5">
+                                @csrf
+                                <button type="submit" class="btn btn-primary ">
+                                    Buat Peminjaman
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

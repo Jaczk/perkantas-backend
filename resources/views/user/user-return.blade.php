@@ -3,5 +3,63 @@
 @section('title', 'Pengembalian Barang')
 
 @section('content')
-    
+    <div>
+        <section class="py-[70px] flex flex-col items-center justify-center px-4">
+            <div class="text-[32px] font-semibold text-dark">Kembalikan Barang</div>
+            <p class="mt-4 text-base leading-7 text-center mb-[50px] text-grey">
+                Pilih Nomor Peminjaman Barang yang akan dikembalikan
+            </p>
+            <form class="w-full max-w-2xl card">
+                <div class="flex flex-col items-center mb-[14px]">
+                    <div class="mt-6 mb-1 text-lg font-semibold">
+                        Daftar peminjaman barang yang telah anda dilakukan
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="grid grid-cols-2 grid-rows-none col-span-full">
+                        @foreach ($loans as $loan)
+                            <form action="{{ route('user.return-items', ['id' => $loan->id]) }}" method="POST" class="p-2 font-bold text-center">
+                                @csrf
+                                <button type="submit"
+                                    class="gap-2 bg-white border-2 border-indigo-100 border-solid card hover:bg-slate-100 hover:cursor-pointer">
+                                    <div class="p-3 ">
+                                        <div class="items-center font-semibold">
+                                            Nomor Peminjaman: {{ $loan->id }}
+                                        </div>
+                                        @foreach ($loan['item_loan'] as $item_loan)
+                                            <div class="font-medium text-center text-dark justice-between">
+                                                <div>&#x2022; {{ $item_loan->good->goods_name }} ({{ $item_loan->good->id }})</div>
+                                                <div>
+                                                    @if ($item_loan->good->condition === 'broken')
+                                                        <p class="mt-1 font-semibold text-center text-red-600 uppercase">
+                                                            Rusak
+                                                        </p>
+                                                    @elseif ($item_loan->good->condition === 'used')
+                                                        <p class="mt-1 font-semibold text-center text-orange-400 uppercase ">
+                                                            Normal
+                                                        </p>
+                                                    @elseif ($item_loan->good->condition === 'new')
+                                                        <p class="mt-1 font-semibold text-center uppercase text-success">
+                                                            Baru
+                                                        </p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="font-bold">
+                                        Harap dikembalikan sebelum:
+                                        <span>{{ Carbon\Carbon::parse($loan->return_date)->format('d F Y') }}</span>
+                                    </div>
+                                </button>
+                            </form>
+                        @endforeach
+                    </div>
+                </div>
+                <a href="{{ route('user.loan') }}" class="w-1/2 btn btn-primary mt-[14px]">
+                    Kembalikan Barang
+                </a>
+            </form>
+        </section>
+    </div>
 @endsection
