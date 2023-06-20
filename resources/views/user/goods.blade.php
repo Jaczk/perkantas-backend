@@ -17,17 +17,16 @@
                     </a>
                     <div class="text-[32px] font-semibold text-dark">Katalog Barang</div>
                 </div>
+
                 <div class="flex items-center gap-4">
-                    <form class="shrink md:w-[516px] w-full" action="{{ url('search') }}" method="POST" role="search">
+                    <form class="shrink md:w-[516px] w-full flex flex-row" action="{{ route('goods.search') }}"
+                        method="GET">
                         @csrf
-                        <input type="text" class="input-group" onkeyup=""
+                        <input type="text" name="query"
                             class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
                             placeholder="Cari Barang..." />
+                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Search</button>
                     </form>
-                    <a href="#"
-                        class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot">
-                        <img src="/assets/svgs/ic-bell.svg" alt="" />
-                    </a>
                 </div>
             </section>
 
@@ -39,17 +38,6 @@
                             <div class="text-xl font-medium text-dark">Kategori</div>
                             <p class="text-grey">Kategori Barang Perkantas Semarang</p>
                         </div>
-                        {{-- <div>
-                            <select name="categories" id="" v-model="selectedCategory"
-                                class="appearance-none input-field form-icon-chevron_down">
-                                <option :value="category.id" v-for="category in categories" :key="category.id">
-                                    {{ category . category_name }}
-                                </option>
-                            </select>
-                            <button @click="openCategory" class="border btn btn-primary mt-[14px]">
-                                Buka Kategori
-                            </button>
-                        </div> --}}
                     </div>
                 </div>
 

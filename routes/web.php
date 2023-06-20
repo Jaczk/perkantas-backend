@@ -85,7 +85,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
 
     Route::group(['prefix' => 'good'], function () {
         Route::get('/', [UserGoodController::class, 'index'])->name('user.good');
-        Route::get('/search/{search}', [UserGoodController::class, 'search'])->name('user.good.search');
+        Route::get('/goods/search', [UserGoodController::class, 'search'])->name('goods.search');
         Route::get('/good-category/{id}', [UserGoodController::class, 'sortedByCategory'])->name('user.good.category');
     });
     Route::group(['prefix' => 'procurement'], function () {

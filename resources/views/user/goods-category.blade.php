@@ -22,10 +22,6 @@
                         class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
                         placeholder="Cari Barang..." />
                 </form>
-                <a href="#"
-                    class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot">
-                    <img src="/assets/svgs/ic-bell.svg" alt="" />
-                </a>
             </div>
         </section>
 
@@ -35,15 +31,11 @@
                 <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
                     <div>
                         @if ($goods->isNotEmpty())
-                            <span class="text-2xl text-dark">{{ $goods[0]->category->category_name }}</span>
+                            <h2 class="text-lg font-medium">Berdasarkan Kategori: <span
+                                    class="text-3xl font-semi text-dark">{{ $goods[0]->category->category_name }}</span></h2>
                         @else
                             <h1>Tidak ada Barang Pada Kategori ini</h1>
                         @endif
-                    </div>
-                    <div>
-                        <a onclick="history.back()" style="cursor:pointer">
-                            <img src="/assets/svgs/ric-close-white.svg" alt="" />
-                        </a>
                     </div>
                 </div>
             </div>
@@ -55,7 +47,7 @@
                         <div>
                             <div class="flex justify-between">
                                 <div class="text-lg font-bold text-dark">
-                                    {{ $good->good_name }}
+                                    {{ $good->goods_name }}
                                 </div>
                                 <div>
                                     @if ($good->condition === 'broken')

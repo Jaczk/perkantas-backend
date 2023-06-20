@@ -21,14 +21,11 @@
             </div>
             <div class="flex items-center gap-4">
                 <form class="shrink md:w-[516px] w-full">
+                    @csrf
                     <input type="text" v-model="search"
                         class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
-                        placeholder="Cari Data Pengajuan..." {{-- @keyup="getProcurementData" --}} />
+                        placeholder="Cari Data Pengajuan..."
                 </form>
-                <a href="#"
-                    class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot">
-                    <img src="/assets/svgs/ic-bell.svg" alt="" />
-                </a>
             </div>
         </section>
 
