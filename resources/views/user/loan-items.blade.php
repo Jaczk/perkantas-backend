@@ -29,35 +29,35 @@
                             <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST" class="p-3">
                                 @csrf
                                 <button type="button" onclick="confirmAddItems({{ $good->id }}, {{ $index }})"
-                                    class="card !gap-y-0 bg-white hover:bg-slate-100 border-solid border-2 border-indigo-100 hover:cursor-pointer">
-                                    <div class="p-3 space-x-0">
+                                    class="card !gap-y-0 bg-white lg:w-[350px] lg:h-[320px] hover:bg-slate-100 border-solid border-2 border-indigo-100 hover:cursor-pointer">
+                                    <div class="p-2 mx-auto space-x-0">
                                         <div class="font-semibold text-center text-dark justice-between">
                                             <div>{{ $good->goods_name }} ({{ $good->id }})</div>
                                             <div>
                                                 @if ($good->condition === 'broken')
-                                                    <p class="mt-1 font-bold text-center text-red-600 uppercase">
+                                                    <p class="my-2 font-bold text-center text-red-600 uppercase">
                                                         Rusak
                                                     </p>
                                                 @elseif ($good->condition === 'used')
-                                                    <p class="mt-1 font-bold text-center text-orange-400 uppercase">
+                                                    <p class="my-2 font-bold text-center text-orange-400 uppercase">
                                                         Normal
                                                     </p>
                                                 @elseif ($good->condition === 'new')
-                                                    <p class="mt-1 font-bold text-center uppercase text-success">
+                                                    <p class="my-2 font-bold text-center uppercase text-success">
                                                         Baru
                                                     </p>
                                                 @endif
                                             </div>
                                         </div>
                                         <img src="{{ $good->image }}" alt=""
-                                            class="w-[150px] object-center">
-                                        @if (Str::length($good->description) < 25)
-                                            <p class="mt-2 text-grey">
+                                        class="inline-block w-[120px] align-middle my-2">
+                                        @if (Str::length($good->description) < 60)
+                                            <p class="my-2 text-grey">
                                                 {{ $good->description }}
                                             </p>
-                                        @elseif (Str::length($good->description) >= 25)
-                                            <p class="mt-2 text-grey">
-                                                {{ Str::limit($good->description, 25) . '...' }}
+                                        @elseif (Str::length($good->description) >= 60)
+                                            <p class="my-2 text-grey">
+                                                {{ Str::limit($good->description, 60) . '...' }}
                                             </p>
                                         @endif
                                     </div>
