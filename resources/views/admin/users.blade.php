@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header" style="background-color: #121F3E">
-                    <h3 class="card-title">Pengguna</h3>
+                    <h3 class="card-title">Daftar Pengguna</h3>
                 </div>
 
                 <div class="card-body">
@@ -18,7 +18,8 @@
                             @csrf
                             @method('PUT')
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-warning text-bold">Reset Akses Pengguna</button>
+                                <button type="submit" class="btn btn-warning text-bold" onclick="confirmResetForm(event)"
+                                >Reset Akses Pengguna</button>
                             </div>
                         </form>
                     </div>
@@ -121,4 +122,26 @@
             });
         });
     </script>
+
+<script>
+    function confirmResetForm(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        Swal.fire({
+            title: 'Reset akses pengembalian ?',
+            text: 'Aksi ini akan melakukan reset akses pengembalian pada semua pengguna.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Reset',
+            cancelButtonText: 'Kembali',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User confirmed, submit the form
+                event.target.form.submit();
+            }
+        });
+    }
+</script>
 @endsection

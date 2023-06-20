@@ -34,7 +34,8 @@
                             <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
+                                        {{-- <th>ID</th> --}}
                                         <th>Username</th>
                                         <th>Barang</th>
                                         <th>Kondisi</th>
@@ -46,9 +47,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $lo->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            {{-- <td>{{ $lo->id }}</td> --}}
                                             <td>{{ $lo->user->name }}</td>
                                             <td>{{ $lo->good->goods_name }}</td>
                                             <td>{{ $lo->good->condition }}</td>

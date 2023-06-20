@@ -4,7 +4,7 @@
 
 @section('content')
     {{-- <h1>ini dashboard</h1> --}}
-    <div class="d-flex row justify-content-between">
+    <div class="d-flex row justify-content-between"> {{-- row 1 --}}
         <div class="p-0 small-box bg-primary col">
             <div class="inner">
                 <h3>{{ $goods }}</h3>
@@ -17,7 +17,7 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-        <div class="p-0 mx-3 small-box bg-success col">
+        <div class="p-0 small-box bg-success col mx-3">
             <div class="inner">
                 <h3>{{ $procurements }}</h3>
                 <p>Pengadaan</p>
@@ -42,4 +42,5 @@
             </a>
         </div>
     </div>
+
 @endsection

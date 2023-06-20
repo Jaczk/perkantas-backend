@@ -33,7 +33,8 @@
                             <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
+                                        {{-- <th>ID</th> --}}
                                         <th>Nama</th>
                                         <th>Kategori</th>
                                         <th>Kondisi</th>
@@ -44,9 +45,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($goods as $good)
                                         <tr>
-                                            <td>{{ $good->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            {{-- <td>{{ $good->id }}</td> --}}
                                             <td>{{ $good->goods_name }}</td>
                                             <td>{{ $good->category->category_name ?? '-'}}</td>
                                             <td>{{ $good->condition }}</td>

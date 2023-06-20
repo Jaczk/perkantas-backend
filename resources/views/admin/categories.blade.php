@@ -32,15 +32,18 @@
                             <table id="category" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>#</th>
+                                        {{-- <th>Id</th> --}}
                                         <th>Nama</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($categories as $category)
                                         <tr>
-                                            <td>{{ $category->id }} </td>
+                                            <td>{{ $counter++ }}</td>
+                                            {{-- <td>{{ $category->id }} </td> --}}
                                             <td>{{ $category->category_name }} </td>
                                             <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.category.edit', $category->id) }}"

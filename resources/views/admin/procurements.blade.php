@@ -32,7 +32,8 @@
                             <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
+                                        {{-- <th>ID</th> --}}
                                         <th>Username</th>
                                         <th>Barang</th>
                                         <th>Jumlah</th>
@@ -43,9 +44,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($procurements as $proc)
                                         <tr>
-                                            <td>{{ $proc->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            {{-- <td>{{ $proc->id }}</td> --}}
                                             <td>{{ $proc->user->name }}</td>
                                             <td>{{ $proc->goods_name }}</td>
                                             <td>{{ $proc->goods_amount }}</td>
