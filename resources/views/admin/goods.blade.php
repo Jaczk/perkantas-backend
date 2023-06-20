@@ -64,7 +64,9 @@
                                             @endif
                                             {{-- <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td> --}}
                                             <td class="text-justify">{{ $good->description }}</td>
-                                            <td class="text-center"><img class="img-fluid" style="width: 50%" src="{{ $good->image }}" alt=""></td>
+                                            <td class="text-center">
+                                                <img class="img-fluid" style="width: 50%" src="{{ asset('storage/images/'.$good->image) }}" alt="">
+                                            </td>
                                             <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.good.edit', $good->id) }}" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
