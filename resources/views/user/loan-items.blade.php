@@ -28,7 +28,7 @@
                         @foreach ($goods as $index => $good)
                             <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST" class="p-3">
                                 @csrf
-                                <button type="button" onclick="addItems({{ $good->id }}, {{ $index }})"
+                                <button type="button" onclick="confirmAddItems({{ $good->id }}, {{ $index }})"
                                     class="card !gap-y-0 bg-white hover:bg-slate-100 border-solid border-2 border-indigo-100 hover:cursor-pointer">
                                     <div class="p-3 space-x-0">
                                         <div class="font-semibold text-center text-dark justice-between">
@@ -76,6 +76,23 @@
 
 @section('js')
     <script>
+        function confirmAddItems(goodId, index) {
+            Swal.fire({
+                title: 'Konfirmasi Tambah Barang Peminjaman',
+                text: 'Apakah Anda Yakin ingin Meminjam Barang ini?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Tambahkan Barang',
+                cancelButtonText: 'Cancel',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    addItems(goodId, index);
+                }
+            });
+        }
+
         function addItems(goodId, index) {
             var card = document.getElementById('card' + index);
             var url = '{{ route('user.loan.create', ':id') }}';
@@ -105,3 +122,4 @@
         }
     </script>
 @endsection
+

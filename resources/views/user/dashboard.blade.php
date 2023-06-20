@@ -40,9 +40,12 @@
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
-                        Pinjam
-                    </button>
+                    <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST" class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
+                        @csrf
+                        <button type="submit">
+                            Pinjam
+                        </button>
+                    </form>
                 </div>
                 <!-- Second Card -->
                 <div class="card !gap-y-0 min-h-[100px] bg-white p-5 rounded-3xl">
@@ -54,9 +57,10 @@
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="self-end w-1/2 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
+                    <a href="{{ route('user.procurement.add') }}"
+                        class="self-end w-1/2 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
                         Ajukan Lagi
-                    </button>
+                    </a>
                 </div>
                 <!-- Third Card -->
                 <div class="card !gap-y-0 min-h-[100px] bg-white p-5 rounded-3xl">
@@ -64,13 +68,22 @@
                         <div>
                             <p class="text-grey text-[23px] font-bold">Barang Yang Masih Dipinjam</p>
                             <div class="text-[56px] font-bold text-dark mt-[6px]">
-                               {{ $items }}
+                                {{ $items }}
                             </div>
                         </div>
                     </div>
-                    <button href="#" class="self-end w-3/6 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
-                        Kembalikan
-                    </button>
+                    @if ($user->can_return === 0)
+                        <button
+                            class="self-end w-2/5 p-2 cursor-not-allowed btn btn-primary hover:text-lg hover:bg-primary_hover"
+                            onclick="alertReturn(event)">
+                            Kembalikan
+                        </button>
+                    @elseif ($user->can_return === 1)
+                        <a href="{{ route('user.return') }}"
+                            class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
+                            Kembalikan
+                        </a>
+                    @endif
                     {{-- <button href="#" v-else-if="can_return === 1"
                         class="self-end w-2/3 btn btn-primary hover:text-lg">
                         Kembalikan
@@ -85,52 +98,70 @@
                 <div>
                     <!-- Section Header -->
                     <!-- <div class="mb-[30px]">
-            <div class="flex items-center justify-between gap-6">
-              <div>
-                <div class="text-xl font-medium text-dark">Documents</div>
-                <p class="text-grey">Standard procedure</p>
+                <div class="flex items-center justify-between gap-6">
+                  <div>
+                    <div class="text-xl font-medium text-dark">Documents</div>
+                    <p class="text-grey">Standard procedure</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="card md:min-h-[468px]">
-            <div class="m-auto text-center">
-              <div class="text-xl font-bold text-dark">No Documents</div>
-              <p class="text-grey mt-5 mb-[30px]">
-                Add guidance or design style for <br />
-                your employees in company
-              </p>
-              <button type="button" class="btn btn-primary">
-                Upload File
-              </button>
-            </div>
-          </div> -->
+              <div class="card md:min-h-[468px]">
+                <div class="m-auto text-center">
+                  <div class="text-xl font-bold text-dark">No Documents</div>
+                  <p class="text-grey mt-5 mb-[30px]">
+                    Add guidance or design style for <br />
+                    your employees in company
+                  </p>
+                  <button type="button" class="btn btn-primary">
+                    Upload File
+                  </button>
+                </div>
+              </div> -->
                 </div>
 
                 <!-- History -->
                 <div>
                     <!-- Section Header -->
                     <!-- <div class="mb-[30px]">
-            <div class="flex items-center justify-between gap-6">
-              <div>
-                <div class="text-xl font-medium text-dark">History</div>
-                <p class="text-grey">Track the flow</p>
+                <div class="flex items-center justify-between gap-6">
+                  <div>
+                    <div class="text-xl font-medium text-dark">History</div>
+                    <p class="text-grey">Track the flow</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="card min-h-[468px]">
-            <div class="m-auto text-center">
-              <div class="text-xl font-bold text-dark">No History</div>
-              <p class="text-grey mt-5 mb-[30px]">
-                Information of employees added <br />
-                and promoting shown here
-              </p>
-              <button type="button" class="btn btn-primary">
-                Upload File
-              </button>
-            </div>
-          </div> -->
+              <div class="card min-h-[468px]">
+                <div class="m-auto text-center">
+                  <div class="text-xl font-bold text-dark">No History</div>
+                  <p class="text-grey mt-5 mb-[30px]">
+                    Information of employees added <br />
+                    and promoting shown here
+                  </p>
+                  <button type="button" class="btn btn-primary">
+                    Upload File
+                  </button>
+                </div>
+              </div> -->
                 </div>
             </div>
         </section>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        function alertReturn(event) {
+            event.preventDefault(); // Prevent form submission
+
+            Swal.fire({
+                toast: true,
+                icon: 'warning',
+                title: 'Harap Menghubungi Admin Terlebih Dahulu',
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            });
+        }
+    </script>
 @endsection

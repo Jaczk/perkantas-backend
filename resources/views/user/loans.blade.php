@@ -32,7 +32,7 @@
                         </div>
                         <div class="flex flex-row">
                             @if ($user->can_return === 0)
-                                <button class="cursor-not-allowed btn btn-primary" onclick="alertReturn()">
+                                <button class="cursor-not-allowed btn btn-primary" onclick="alertReturn(event)">
                                     Kembalikan Barang
                                 </button>
                             @elseif ($user->can_return === 1)
@@ -40,7 +40,8 @@
                                     Kembalikan Barang
                                 </a>
                             @endif
-                            <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST" class="px-5">
+                            <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
+                                class="px-5">
                                 @csrf
                                 <button type="submit" class="btn btn-primary ">
                                     Buat Peminjaman
@@ -131,14 +132,17 @@
 
 @section('js')
     <script>
-        function alertReturn() {
+        function alertReturn(event) {
+            event.preventDefault(); // Prevent form submission
+
             Swal.fire({
                 toast: true,
                 icon: 'warning',
                 title: 'Harap Menghubungi Admin Terlebih Dahulu',
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 2000,
+                timerProgressBar: true,
             });
         }
     </script>

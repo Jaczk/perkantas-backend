@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\User;
 use App\Models\Item_Loan;
 use App\Models\Procurement;
 use Illuminate\Http\Request;
@@ -18,10 +19,12 @@ class DashboardController extends Controller
         $items = Item_Loan::whereHas('loan', function ($q) {
             $q->where('user_id', Auth::user()->id)->where('is_returned', 0);
         })->count();
+        $user = User::findOrFail(auth()->user()->id); // Find the user by ID
         return view('user.dashboard', [
             'goods' => $goods,
             'procurements' => $procurements,
             'items' => $items,
+            'user' => $user
         ]);
     }
 }

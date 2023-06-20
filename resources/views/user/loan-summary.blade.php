@@ -23,12 +23,12 @@
                 <div class="form-group">
                     <div class="grid w-full grid-cols-1 grid-rows-none">
                         @foreach ($items as $index => $item)
-                            <div class="p-3 card">
+                            <div class="p-3 card" id="card{{ $index }}">
                                 <div class="items-end">
-                                    <form action="{{ route('user.loan.delete-item', ['id' => $item->good->id]) }}" method="POST">
+                                    <form action="{{ route('user.loan.delete-item', ['id' => $item->good->id]) }}" method="POST" id="deleteForm{{ $index }}">
                                         @csrf
-                                        <button type="submit" class="hover:cursor-pointer hover:opacity-50"
-                                            onclick="deleteItems({{ $item->id }}, {{ $index }})">
+                                        <button type="button" class="hover:cursor-pointer hover:opacity-50"
+                                            onclick="confirmDeleteItems(event, {{ $item->id }}, {{ $index }})">
                                             <img src="/assets/svgs/ric-close-white.svg" alt="" />
                                         </button>
                                     </form>
@@ -75,32 +75,47 @@
 
 @section('js')
     <script>
+        function confirmDeleteItems(event, itemId, index) {
+            event.preventDefault(); // Prevent default form submission
+
+            Swal.fire({
+                title: 'Konfirmasi Hapus Barang',
+                text: 'Apakah anda yakin ingin menghapus barang ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Barang',
+                cancelButtonText: 'Cancel',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteItems(itemId, index);
+                }
+            });
+        }
+
         function deleteItems(itemId, index) {
             var card = document.getElementById('card' + index);
             var url = '{{ route('user.loan.delete-item', ':id') }}';
             url = url.replace(':id', itemId);
             fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({
-                        _token: '{{ csrf_token() }}',
-                    }),
-                })
-                .then(response => {
-                    // Handle the response here
-                    window.location.reload();
-                    // Hide the card
-                    card.style.display = 'none';
-
-                    // Reload the page
-
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+                body: JSON.stringify({
+                    _token: '{{ csrf_token() }}',
+                }),
+            })
+            .then(response => {
+                // Handle the response here
+                card.style.display = 'none'; // Hide the card
+                // Reload the page if necessary
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
 @endsection
