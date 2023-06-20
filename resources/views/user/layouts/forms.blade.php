@@ -28,6 +28,7 @@
     </div>
     @yield('js')
     <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+    @include('sweetalert::alert')
 </body>
 
 </html>

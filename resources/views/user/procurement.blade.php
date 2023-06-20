@@ -3,6 +3,7 @@
 @section('title', 'Pengadaan')
 
 @section('content')
+
     <div class="lg:pr-[70px] py-[50px] px-4 lg:pl-0 lg:ml-12 w-full">
         <!-- Top Section -->
         <section class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row">
@@ -93,5 +94,6 @@
                 @endforeach
             </div>
         </section>
+        <script src="{{ asset('js/sweet-alert.js') }}"></script>
     </div>
 @endsection

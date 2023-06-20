@@ -54,10 +54,34 @@
                     <input type="text" class="input-field" placeholder="Sebutkan alasan permintaan..."
                         name="description">
                 </div>
-                <button type="submit" class="w-full btn btn-primary mt-[14px]">
+                <button type="submit" class="w-full btn btn-primary mt-[14px]" onclick="confirmSubmitAlert(event)">
                     Ajukan Pengadaan
                 </button>
             </form>
         </section>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        function confirmSubmitAlert(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            Swal.fire({
+                title: 'Ajukan Formulir Pengadaan?',
+                text: 'Pengajuan akan diajukan Admin',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ajukan',
+                cancelButtonText: 'Kembali',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed, submit the form
+                    event.target.form.submit();
+                }
+            });
+        }
+    </script>
 @endsection

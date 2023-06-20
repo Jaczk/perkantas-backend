@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Procurement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class ProcurementController extends Controller
 {
@@ -37,7 +39,7 @@ class ProcurementController extends Controller
 
         $request->validate([
             'goods_name' => 'required|string',
-            'goods_amount' => 'required|integer|size:2',
+            'goods_amount' => 'required|integer|between:1,99',
             'description' => 'required|string|max:255',
         ]);
 
@@ -45,7 +47,8 @@ class ProcurementController extends Controller
         $data['period'] = Carbon::now()->format('Ym');
 
         Procurement::create($data);
-        return redirect()->route('user.procurement')->with('success','Barang berhasil diajukan !');
+        return redirect()->route('user.procurement')->with('success_message', 'Pengajuan berhasil diajukan!');
+
     }
 
     public function destroy($id)

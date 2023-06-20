@@ -30,7 +30,7 @@
                                 <form action="{{ route('user.return-items', ['id' => $loan->id]) }}" method="POST">
                                     @csrf
                                     <button type="submit"
-                                        class="gap-2 bg-white border-2 border-indigo-100 border-solid card hover:bg-slate-100 hover:cursor-pointer">
+                                        class="gap-2 bg-white border-2 border-indigo-100 border-solid card hover:bg-slate-100 hover:cursor-pointer confirm-return-alert">
                                         <div class="p-3">
                                             <div class="items-center font-semibold">
                                                 Nomor Peminjaman: {{ $loan->id }}
@@ -77,4 +77,30 @@
             </a>
         </section>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        document.querySelectorAll('.confirm-return-alert').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                Swal.fire({
+                    title: 'Ajukan Pengembalian Barang',
+                    text: 'Barang yang telah dikembalikan tidak dapat dikembalikan lagi. Apakah anda yakin ingin mengajukan pengembalian barang?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Kembalikan Barang',
+                    cancelButtonText: 'Kembali',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // User confirmed, submit the form
+                        event.target.closest('form').submit();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
