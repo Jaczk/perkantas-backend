@@ -14,23 +14,23 @@
             <p class="mt-4 text-base leading-7 text-center mb-[50px] text-grey">
                 Pilih Barang Yang akan Anda Pinjam! <br />
                 Batas Pengembalian Barang adalah
-                <span class="text-lg font-bold">2 Minggu</span> dihitung dari tanggal
+                <span class="text-lg font-bold">1 Minggu</span> dihitung dari tanggal
                 peminjaman.
             </p>
-            <form class="w-full max-w-2xl card">
+            <form class="w-full max-w-3xl card ">
                 <div class="flex flex-col items-center mb-[14px]">
-                    <div class="mt-6 mb-1 text-lg font-semibold">
+                    <div class="mt-6 mb-1 text-2xl font-semibold">
                         Daftar Barang yang Tersedia
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="grid grid-cols-2 grid-rows-none">
+                <div class="form-group ">
+                    <div class="grid grid-cols-2 grid-rows-none ">
                         @foreach ($goods as $index => $good)
-                            <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST">
+                            <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST" class="p-3">
                                 @csrf
                                 <button type="button" onclick="addItems({{ $good->id }}, {{ $index }})"
                                     class="card !gap-y-0 bg-white hover:bg-slate-100 border-solid border-2 border-indigo-100 hover:cursor-pointer">
-                                    <div class="p-3">
+                                    <div class="p-3 space-x-0">
                                         <div class="font-semibold text-center text-dark justice-between">
                                             <div>{{ $good->goods_name }} ({{ $good->id }})</div>
                                             <div>
@@ -50,7 +50,7 @@
                                             </div>
                                         </div>
                                         <img src="{{ $good->image }}" alt=""
-                                            class="max-w-[10px] max-h-[10px] place-items-center">
+                                            class="w-[150px] object-center">
                                         @if (Str::length($good->description) < 25)
                                             <p class="mt-2 text-grey">
                                                 {{ $good->description }}
@@ -66,9 +66,9 @@
                         @endforeach
                     </div>
                 </div>
-                <a href="#" class="w-full btn btn-primary mt-[14px]">
+                <a href="{{ route('user.user-summary', ['loanId' => session()->get('loanId')]) }}" class="w-1/2 btn btn-primary mt-[14px]">
                     Lihat Ringkasan Peminjaman
-                </a>
+                </a>                
             </form>
         </section>
     </div>

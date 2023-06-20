@@ -50,8 +50,6 @@ class LoanController extends Controller
         return redirect()->back()->with('refresh', true);
     }
 
-
-
     public function listItems($loanId)
     {
         session()->put('loanId', $loanId);
@@ -60,8 +58,6 @@ class LoanController extends Controller
 
         return view('user.loan-items', compact('goods'));
     }
-
-
 
     public function store(Request $request)
     {
@@ -76,7 +72,6 @@ class LoanController extends Controller
 
         return redirect()->route('user.loan-items', ['loanId' => $loan->id]);
     }
-
 
     public function return()
     {
@@ -112,5 +107,37 @@ class LoanController extends Controller
         } catch (Throwable $e) {
             report($e);
         }
+    }
+
+    public function summary()
+    {
+        $loanId = session()->get('loanId');
+        session()->flash('loanId', $loanId);
+
+        return redirect()->route('user.user-summary');
+    }
+
+    public function userSummary()
+    {
+        $loanId = session()->get('loanId');
+
+        $items = Item_Loan::with('good')
+            ->where('loan_id', $loanId)
+            ->get();
+
+        return view('user.loan-summary', compact('items'));
+    }
+
+    public function deleteItems($id)
+    {
+        $item = Item_Loan::find($id);
+
+        Good::find($item->good->id)->update([
+            'is_available' => 1
+        ]);
+
+        $item->delete();
+
+        return redirect()->back()->with('refresh', true);
     }
 }

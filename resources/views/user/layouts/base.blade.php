@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Perkantas @yield('title')</title>
+    <title>SIIP @yield('title')</title>
+    <link rel="icon" type="image/png"  href="{{ asset('/assets/images/perkantas.png') }}">
+
 </head>
 
 <body>

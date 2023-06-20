@@ -100,6 +100,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
         Route::get('/return', [LoanController::class, 'return'])->name('user.return');
         Route::post('/store', [LoanController::class, 'store'])->name('user.loan.store');
         Route::get('/summary', [LoanController::class, 'summary'])->name('user.loan-summary');
+        Route::get('/userSummary/{loanId}', [LoanController::class, 'userSummary'])->name('user.user-summary');
+        Route::post('/deleteItem/{id}', [LoanController::class, 'deleteItems'])->name('user.loan.delete-item');
         Route::get('/listItems/{loanId}', [LoanController::class, 'listItems'])->name('user.loan-items');
         Route::post('/addItem/{id}', [LoanController::class, 'addItems'])->name('user.loan.create');
         Route::post('/returnItems/{id}', [LoanController::class, 'returnItems'])->name('user.return-items');

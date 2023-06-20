@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Forms @yield('title')</title>
+    <title>SIIP Form @yield('title')</title>
+    <link rel="icon" type="image/png"  href="{{ asset('/assets/images/perkantas.png') }}">
 </head>
 
 <body>
@@ -26,6 +27,7 @@
         </section>
     </div>
     @yield('js')
+    <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
 </body>
 
 </html>
