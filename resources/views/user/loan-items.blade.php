@@ -50,7 +50,7 @@
                                             </div>
                                         </div>
                                         <img src="{{ $good->image }}" alt=""
-                                        class="inline-block w-[120px] align-middle my-2">
+                                        class="inline-block w-[120px] h-[120px] align-middle my-2">
                                         @if (Str::length($good->description) < 60)
                                             <p class="my-2 text-grey">
                                                 {{ $good->description }}
