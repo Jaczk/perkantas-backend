@@ -56,15 +56,15 @@
                                     <div class="place-items-end">
                                         @if ($procurement->status === 'pending')
                                             <div class="text-lg font-bold text-yellow-600 uppercase">
-                                                pending
+                                                Menunggu
                                             </div>
                                         @elseif ($procurement->status === 'approved')
                                             <div class="text-lg font-bold text-green-600 uppercase">
-                                                approved
+                                                Diterima
                                             </div>
                                         @elseif ($procurement->status === 'rejected')
                                             <div class="text-lg font-bold text-red-600 uppercase">
-                                                rejected
+                                                Ditolak
                                             </div>
                                         @endif
                                     </div>

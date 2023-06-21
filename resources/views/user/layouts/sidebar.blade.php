@@ -16,11 +16,11 @@
             </div>
             <nav>
                 <div class="flex flex-col gap-4">
-                    <div class="text-lg font-bold text-secondary">Daily Use</div>
+                    <div class="text-lg font-bold text-secondary">Sehari-hari</div>
                     <a href="{{ route('user.dashboard') }}"
                         class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
                         <img src="/assets/svgs/ic-home.svg" alt="" />
-                        <p class="px-3 font-normal">Overview</p>
+                        <p class="px-3 font-normal">Dasbor</p>
                     </a>
                     <a href="{{ route('user.loan') }}"
                         class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
@@ -40,7 +40,7 @@
                 </div>
             </nav>
             <div class="flex flex-col gap-4">
-                <div class="text-lg font-bold text-secondary">Others</div>
+                <div class="text-lg font-bold text-secondary">Aksi</div>
                 <!-- <button :to="{ name: 'Profile' }" class="nav-link hover:bg-slate-100">
           <img src="/assets/svgs/ic-users.svg" alt="" />
           Profile
@@ -48,7 +48,7 @@
                 <a href="{{ route('user.logout') }}"
                     class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
                     <img src="/assets/svgs/ic-signout.svg" alt="" />
-                    <p class="px-3">Logout</p>
+                    <p class="px-3">Keluar</p>
                 </a>
                 <a href="#" class="cursor-default nav-link disabled:true">
                     <!-- <img src="/assets/svgs/ic-users.svg" alt="" />

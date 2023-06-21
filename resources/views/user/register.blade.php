@@ -29,9 +29,9 @@
                             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    <span class="sr-only">Danger</span>
+                    <span class="sr-only">Bahaya</span>
                     <div>
-                        <span class="text-lg font-semibold">Ensure that these requirements are met:</span>
+                        <span class="text-lg font-semibold">Pastikan Syarat Pengisian Formulir Terpenuhi:</span>
                         <ul class="mt-1.5 ml-4 list-disc list-inside">
                             @foreach ($errors->all() as $error)
                                 <li class="text-lg font-bold text-red-600">{{ $error }}</li>
@@ -56,15 +56,15 @@
                     <input type="password" class="input-field" name="password" placeholder="Password"/>
                 </div>
                 <div class="form-group">
-                    <label for="" class="text-grey">Phone Number</label>
+                    <label for="" class="text-grey">Nomor Telepon</label>
                     <input type="text" class="input-field" name="phone" placeholder="Nomor Telepon" />
                 </div>
                 {{-- <div class="font-semibold text-red-600" v-if="register.phone.length > 12">Tolong Masukkan no Telepon
                     kurang dari 12 angka</div> --}}
                 <button type="submit" class="w-full btn btn-primary mt-[14px]">
-                    Continue
+                    Buat
                 </button>
-                <a href="{{ route('login') }}" class="w-full border btn btn-white hover:bg-slate-100">Back to Login</a>
+                <a href="{{ route('login') }}" class="w-full border btn btn-white hover:bg-slate-100">Kembali ke halaman Login</a>
             </form>
         </section>
     </div>

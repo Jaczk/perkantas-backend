@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Perkantas Login</title>
+    <title>SIIP Login</title>
 </head>
 
 <body class="font-montserrat">
@@ -37,10 +37,10 @@
                 <input type="password" class="input-field" name="password" placeholder="Password" value="{{ old('password') }}"/>
             </div>
             <button type="submit" class="w-full btn btn-primary mt-[14px] hover:bg-primary_hover">
-                Sign In
+                Masuk
             </button>
-            <div class="text-center">Don't Have Account?</div>
-            <a href="{{ route('user.register') }}" class="w-full border btn btn-white hover:bg-slate-100">Register</a>
+            <div class="text-center">Tidak Mempunyai Akun?</div>
+            <a href="{{ route('user.register') }}" class="w-full border btn btn-white hover:bg-slate-100">Registrasi</a>
         </form>
     </section>
 </body>

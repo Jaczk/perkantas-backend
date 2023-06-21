@@ -26,7 +26,7 @@
                         <input type="text" name="query"
                             class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
                             placeholder="Cari Data Pengajuan..." />
-                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Search</button>
+                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
                     </form>
             </div>
         </section>
@@ -57,15 +57,15 @@
                                 <div class="place-items-end">
                                     @if ($procurement->status === 'pending')
                                         <div class="text-lg font-bold text-yellow-600 uppercase">
-                                            pending
+                                            Menunggu
                                         </div>
                                     @elseif ($procurement->status === 'approved')
                                         <div class="text-lg font-bold text-green-600 uppercase">
-                                            approved
+                                            Diterima
                                         </div>
                                     @elseif ($procurement->status === 'rejected')
                                         <div class="text-lg font-bold text-red-600 uppercase">
-                                            rejected
+                                            Ditolak
                                         </div>
                                     @endif
                                 </div>

@@ -14,7 +14,7 @@
                         </path>
                     </svg>
                 </a>
-                <div class="text-[32px] font-bold text-dark">Dashboard</div>
+                <div class="text-[32px] font-bold text-dark">Dasbor</div>
             </div>
         </section>
 
@@ -101,7 +101,7 @@
                             <div>
                                 <p class="text-grey text-[23px] font-bold">Total Denda Anda</p>
                                 @if ($totalFine === 0)
-                                    <p class="text-grey text-[23px] font-bold">Anda Tidak Memiliki Denda</p>
+                                    <p class="text-dark text-[23px] font-bold">Anda Tidak Memiliki Denda</p>
                                 @else
                                     <div class="text-[56px] font-bold text-dark mt-[6px]">
                                         Rp {{ $totalFine }}000

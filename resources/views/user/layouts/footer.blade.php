@@ -1,5 +1,5 @@
 <footer>
-    <div class="inset-x-0 bottom-0 z-50 px-5 pt-6 pb-3  bg-other">
+    <div class="inset-x-0 bottom-0 z-50 px-5 pt-6 pb-3 bg-other">
         <div class="flex flex-row">
             <div class="p-1 mt-20 align-middle basis-1/4">
                 <img src="/assets/images/perkantas.png" alt="" />
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="px-5 mx-4 mt-6 basis-1/2">
-                <h2 class="text-xl font-semibold text-white">Reach Us</h2>
+                <h2 class="text-xl font-semibold text-white">Hub</h2>
                 <div class="grid grid-cols-1 gap-3">
                     <div>
                         <h4 class="text-lg font-semibold text-white">Alamat</h4>

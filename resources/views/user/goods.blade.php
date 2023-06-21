@@ -25,7 +25,7 @@
                         <input type="text" name="query"
                             class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
                             placeholder="Cari Barang..." />
-                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Search</button>
+                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
                     </form>
                 </div>
             </section>
@@ -77,15 +77,15 @@
                             <img src={{ $good->image }} width="150" class="mt-5" alt="" />
                             @if ($good->condition === 'broken')
                                 <p class="mt-5 font-bold text-center text-red-600 uppercase">
-                                    {{ $good->condition }}
+                                    rusak
                                 </p>
                             @elseif ($good->condition === 'used')
                                 <p class="mt-5 font-bold text-center text-orange-400 uppercase">
-                                    {{ $good->condition }}
+                                    normal
                                 </p>
                             @elseif ($good->condition === 'new')
                                 <p class="mt-5 font-bold text-center uppercase text-success">
-                                    {{ $good->condition }}
+                                    baru
                                 </p>
                             @endif
 
