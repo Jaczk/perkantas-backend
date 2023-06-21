@@ -90,7 +90,7 @@
                 <div class="mb-[30px]">
                     <div class="flex items-center justify-between gap-6">
                         <div>
-                            <div class="text-xl font-medium text-dark">Daftar Barang</div>
+                            <div class="text-xl font-medium text-dark">Daftar Peminjaman Barang</div>
                             <p class="text-grey">Harap Dikembalikan sebelum waktunya ya!</p>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                             @endif
                             @if ($item->loan->fine > 0)
                                 <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
-                                    Denda Rp {{ $item->loan->fine }}.000
+                                    Denda Rp {{ $item->loan->fine }}000
                                 </div>
                             @endif
                         </div>

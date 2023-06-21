@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
+use App\Models\Loan;
 use App\Models\User;
 use App\Models\Item_Loan;
 use App\Models\Procurement;
@@ -20,11 +22,36 @@ class DashboardController extends Controller
             $q->where('user_id', Auth::user()->id)->where('is_returned', 0);
         })->count();
         $user = User::findOrFail(auth()->user()->id); // Find the user by ID
-        return view('user.dashboard', [
-            'goods' => $goods,
-            'procurements' => $procurements,
-            'items' => $items,
-            'user' => $user
-        ]);
+
+        $loanItems = Loan::where('user_id', $user->id)->get();
+
+        $filteredLoan = $loanItems->filter(function ($loan) {
+            return $loan->is_returned === 0;
+        });
+
+        $filteredLoan->each(function ($item) {
+            $fine = $this->calculateFine($item->return_date);
+            $item->fine = $fine;
+            $item->save();
+        });
+
+        $totalFine = $filteredLoan->sum('fine');
+
+        $user->total_fine = $totalFine;
+        $user->save(); // Save the updated total fine value for the user
+
+        return view('user.dashboard', compact('goods', 'procurements', 'items', 'user', 'totalFine'));
+    }
+
+    public function calculateFine($returnDate)
+    {
+        $fine = 0;
+
+        if ($returnDate < Carbon::today()) {
+            $diffInDays = Carbon::today()->diffInDays($returnDate);
+            $fine = ($diffInDays + 1) * 5;
+        }
+
+        return $fine;
     }
 }

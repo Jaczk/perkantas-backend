@@ -40,7 +40,8 @@
                             </div>
                         </div>
                     </div>
-                    <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST" class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
+                    <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
+                        class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
                         @csrf
                         <button type="submit">
                             Pinjam
@@ -93,55 +94,79 @@
         </section>
 
         <section class="pt-[50px]">
-            <div class="grid md:grid-cols-2 gap-11">
+            <div class="grid md:grid-cols-2 gap-11 lg:grid-cols-2">
+                <div>
+                    <div class="card !gap-y-0 min-h-[100px] bg-white p-5 rounded-3xl">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-grey text-[23px] font-bold">Total Denda Anda</p>
+                                @if ($totalFine === 0)
+                                    <p class="text-grey text-[23px] font-bold">Anda Tidak Memiliki Denda</p>
+                                @else
+                                    <div class="text-[56px] font-bold text-dark mt-[6px]">
+                                        Rp {{ $totalFine }}000
+                                    </div>
+                                @endif
+
+                            </div>
+                        </div>
+                        {{-- <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
+                            class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
+                            @csrf
+                            <button type="submit">
+                                Pinjam
+                            </button>
+                        </form> --}}
+                    </div>
+                </div>
                 <!-- Documents -->
                 <div>
                     <!-- Section Header -->
                     <!-- <div class="mb-[30px]">
-                <div class="flex items-center justify-between gap-6">
-                  <div>
-                    <div class="text-xl font-medium text-dark">Documents</div>
-                    <p class="text-grey">Standard procedure</p>
-                  </div>
-                </div>
-              </div>
-              <div class="card md:min-h-[468px]">
-                <div class="m-auto text-center">
-                  <div class="text-xl font-bold text-dark">No Documents</div>
-                  <p class="text-grey mt-5 mb-[30px]">
-                    Add guidance or design style for <br />
-                    your employees in company
-                  </p>
-                  <button type="button" class="btn btn-primary">
-                    Upload File
-                  </button>
-                </div>
-              </div> -->
+                        <div class="flex items-center justify-between gap-6">
+                          <div>
+                            <div class="text-xl font-medium text-dark">Documents</div>
+                            <p class="text-grey">Standard procedure</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card md:min-h-[468px]">
+                        <div class="m-auto text-center">
+                          <div class="text-xl font-bold text-dark">No Documents</div>
+                          <p class="text-grey mt-5 mb-[30px]">
+                            Add guidance or design style for <br />
+                            your employees in company
+                          </p>
+                          <button type="button" class="btn btn-primary">
+                            Upload File
+                          </button>
+                        </div>
+                      </div> -->
                 </div>
 
                 <!-- History -->
                 <div>
                     <!-- Section Header -->
                     <!-- <div class="mb-[30px]">
-                <div class="flex items-center justify-between gap-6">
-                  <div>
-                    <div class="text-xl font-medium text-dark">History</div>
-                    <p class="text-grey">Track the flow</p>
-                  </div>
-                </div>
-              </div>
-              <div class="card min-h-[468px]">
-                <div class="m-auto text-center">
-                  <div class="text-xl font-bold text-dark">No History</div>
-                  <p class="text-grey mt-5 mb-[30px]">
-                    Information of employees added <br />
-                    and promoting shown here
-                  </p>
-                  <button type="button" class="btn btn-primary">
-                    Upload File
-                  </button>
-                </div>
-              </div> -->
+                        <div class="flex items-center justify-between gap-6">
+                          <div>
+                            <div class="text-xl font-medium text-dark">History</div>
+                            <p class="text-grey">Track the flow</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card min-h-[468px]">
+                        <div class="m-auto text-center">
+                          <div class="text-xl font-bold text-dark">No History</div>
+                          <p class="text-grey mt-5 mb-[30px]">
+                            Information of employees added <br />
+                            and promoting shown here
+                          </p>
+                          <button type="button" class="btn btn-primary">
+                            Upload File
+                          </button>
+                        </div>
+                      </div> -->
                 </div>
             </div>
         </section>
