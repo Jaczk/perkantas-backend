@@ -32,7 +32,7 @@
                     <div>
                         @if ($goods->isNotEmpty())
                             <h2 class="text-lg font-medium">Berdasarkan Kategori: <span
-                                    class="text-3xl font-semi text-dark">{{ $goods[0]->category->category_name }}</span></h2>
+                                    class="text-3xl font-semibold text-dark">{{ $goods[0]->category->category_name }}</span></h2>
                         @else
                             <h1>Tidak ada Barang Pada Kategori ini</h1>
                         @endif
@@ -40,10 +40,10 @@
                 </div>
             </div>
 
-            <div class="grid gap-6 gap-10 md:grid-cols-8 lg:grid-cols-2">
+            <div class="grid gap-6 md:grid-cols-8 lg:grid-cols-2">
 
                 @foreach ($goods as $good)
-                    <div class="items-center card !flex-row gap-4">
+                    <div class="items-center card gap-4 lg:w-[450px]">
                         <div>
                             <div class="flex justify-between">
                                 <div class="text-lg font-bold text-dark">
@@ -51,15 +51,15 @@
                                 </div>
                                 <div>
                                     @if ($good->condition === 'broken')
-                                        <p class="mt-5 font-bold text-center text-red-600 uppercase">
+                                        <p class="font-bold text-red-600 uppercase">
                                             rusak
                                         </p>
                                     @elseif ($good->condition === 'used')
-                                        <p class="mt-5 font-bold text-center text-orange-400 uppercase">
+                                        <p class="font-bold text-orange-400 uppercase">
                                             normal
                                         </p>
                                     @elseif ($good->condition === 'new')
-                                        <p class="mt-5 font-bold text-center uppercase text-success">
+                                        <p class="font-bold uppercase text-success">
                                             baru
                                         </p>
                                     @endif
