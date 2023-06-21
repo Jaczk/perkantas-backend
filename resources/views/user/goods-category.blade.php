@@ -16,13 +16,6 @@
                 </a>
                 <div class="text-[32px] font-semibold text-dark">Daftar Barang</div>
             </div>
-            <div class="flex items-center gap-4">
-                <form class="shrink md:w-[516px] w-full">
-                    <input type="text" v-model="search"
-                        class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
-                        placeholder="Cari Barang..." />
-                </form>
-            </div>
         </section>
 
         <section class="pt-[50px]">

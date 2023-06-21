@@ -22,7 +22,7 @@
                         <input type="text" name="query"
                             class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
                             placeholder="Cari Barang..." />
-                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Search</button>
+                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
                     </form>
                 <a class="btn btn-buttons" href="{{ route('user.good') }}">
                     Kembali
@@ -37,7 +37,7 @@
                 </div>
 
                 @if ($goods->isEmpty())
-                    <p>Tidak Ada Barang dengan Kata Pencarian di atas!</p>
+                    <p class="pt-8 text-4xl font-bold text-dark">Tidak Ada Barang dengan Kata Pencarian di atas!</p>
                 @else
                     <div class="grid gap-6 md:grid-cols-8 lg:grid-cols-2">
                         @foreach ($goods as $good)

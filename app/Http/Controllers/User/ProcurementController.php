@@ -51,6 +51,15 @@ class ProcurementController extends Controller
 
     }
 
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        $procurements = Procurement::where('goods_name', 'like', '%'.$searchQuery.'%')->where('user_id', Auth()->user()->id)->get();
+
+        return view('user.procurement-search', compact('procurements', 'searchQuery'));
+    }
+
     public function destroy($id)
     {
         Procurement::find($id)->delete();

@@ -33,15 +33,14 @@ class GoodController extends Controller
     }
 
     public function search(Request $request)
-{
-    $searchQuery = $request->input('query');
+    {
+        $searchQuery = $request->input('query');
 
-    // Perform the search query to fetch matching goods
-    $goods = Good::where('goods_name', 'like', '%' . $searchQuery . '%')
-                 ->orWhere('description', 'like', '%' . $searchQuery . '%')
-                 ->get();
+        // Perform the search query to fetch matching goods
+        $goods = Good::where('goods_name', 'like', '%' . $searchQuery . '%')
+            ->orWhere('description', 'like', '%' . $searchQuery . '%')
+            ->get();
 
-    return view('user.search', compact('goods', 'searchQuery'));
-}
-
+        return view('user.goods-search', compact('goods', 'searchQuery'));
+    }
 }

@@ -20,12 +20,14 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <form class="shrink md:w-[516px] w-full">
-                    @csrf
-                    <input type="text" v-model="search"
-                        class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
-                        placeholder="Cari Data Pengajuan..."
-                </form>
+                <form class="shrink md:w-[516px] w-full flex flex-row" action="{{ route('user.procurement.search') }}"
+                        method="GET">
+                        @csrf
+                        <input type="text" name="query"
+                            class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
+                            placeholder="Cari Data Pengajuan..." />
+                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Search</button>
+                    </form>
             </div>
         </section>
 
@@ -45,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-[30px]">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-[30px]">
                 @foreach ($procurements as $procurement)
                     <div
                         class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4">

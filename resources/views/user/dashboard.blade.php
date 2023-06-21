@@ -74,7 +74,7 @@
                     </div>
                     @if ($user->can_return === 0)
                         <button
-                            class="self-end w-2/5 p-2 cursor-not-allowed btn btn-primary hover:text-lg hover:bg-primary_hover"
+                            class="self-end w-1/2 p-2 cursor-not-allowed btn btn-primary hover:text-lg hover:bg-primary_hover"
                             onclick="alertReturn(event)">
                             Kembalikan
                         </button>

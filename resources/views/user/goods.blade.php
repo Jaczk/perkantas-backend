@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <form class="shrink md:w-[516px] w-full flex flex-row" action="{{ route('goods.search') }}"
+                    <form class="shrink md:w-[516px] w-full flex flex-row" action="{{ route('user.goods.search') }}"
                         method="GET">
                         @csrf
                         <input type="text" name="query"

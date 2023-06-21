@@ -85,12 +85,13 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
 
     Route::group(['prefix' => 'good'], function () {
         Route::get('/', [UserGoodController::class, 'index'])->name('user.good');
-        Route::get('/goods/search', [UserGoodController::class, 'search'])->name('goods.search');
+        Route::get('/search', [UserGoodController::class, 'search'])->name('user.goods.search');
         Route::get('/good-category/{id}', [UserGoodController::class, 'sortedByCategory'])->name('user.good.category');
     });
     Route::group(['prefix' => 'procurement'], function () {
         Route::get('/', [UserProcurementController::class, 'index'])->name('user.procurement');
         Route::get('/create', [UserProcurementController::class, 'add'])->name('user.procurement.add');
+        Route::get('/search', [UserProcurementController::class, 'search'])->name('user.procurement.search');
         Route::post('/store', [UserProcurementController::class, 'store'])->name('user.procurement.store');
         Route::delete('/destroy/{id}', [UserProcurementController::class, 'destroy'])->name('user.procurement.destroy');
     });
