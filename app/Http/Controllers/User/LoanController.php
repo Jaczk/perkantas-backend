@@ -28,6 +28,18 @@ class LoanController extends Controller
             return $item->loan->is_returned === 0;
         });
 
+        // Calculate and update the fine for each loan
+        foreach ($filteredItems as $item) {
+            $loan = $item->loan;
+            if ($loan->return_date < Carbon::today()) {
+                $diffInDays = Carbon::today()->diffInDays($loan->return_date);
+                $fine = ($diffInDays + 1) * 5;
+
+                $loan->fine = $fine;
+                $loan->save();
+            }
+        }
+
         return view('user.loans', compact('items', 'filteredItems', 'user'));
     }
 

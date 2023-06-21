@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-11">
-                    <div class="card !gap-y-10">
+                    <div class="card gap-y-10">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-grey">Total Peminjaman Barang</p>
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card !gap-y-10">
+                    <div class="card gap-y-10">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-grey">Yang Masih Dipinjam</p>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card !gap-y-10">
+                    <div class="card gap-y-10">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-grey">Yang Sudah Dikembalikan</p>
@@ -119,6 +119,11 @@
                                 <div class="mt-[10px] px-5 text-green-600 font-bold text-lg flex text-center">
                                     {{ \Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()) }}
                                     Hari Lagi
+                                </div>
+                            @endif
+                            @if ($item->loan->fine > 0)
+                                <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
+                                    Denda Rp {{ $item->loan->fine }}.000
                                 </div>
                             @endif
                         </div>
