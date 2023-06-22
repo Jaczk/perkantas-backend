@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Loan')
+@section('title', 'Peminjaman')
 
 @section('content')
 
@@ -9,8 +9,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Loans</h3>
+                <div class="card-header" style="background-color: #121F3E">
+                    <h3 class="card-title">Daftar Peminjaman</h3>
                 </div>
 
                 <div class="card-body">
@@ -34,21 +34,24 @@
                             <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
+                                        {{-- <th>ID</th> --}}
                                         <th>Username</th>
-                                        <th>Goods</th>
-                                        <th>Condition</th>
-                                        <th>Loan Date</th>
-                                        <th>Return Date</th>
-                                        <th>Period</th>
-                                        <th>Returned</th>
-                                        <th>Action</th>
+                                        <th>Barang</th>
+                                        <th>Kondisi</th>
+                                        <th>Tanggal Pinjam</th>
+                                        <th>Tanggal Kembali</th>
+                                        <th>Periode</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $lo->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            {{-- <td>{{ $lo->id }}</td> --}}
                                             <td>{{ $lo->user->name }}</td>
                                             <td>{{ $lo->good->goods_name }}</td>
                                             <td>{{ $lo->good->condition }}</td>
@@ -63,9 +66,9 @@
                                             <td>{{ $lo->loan->period }}</td>
 
                                             @if ($lo->loan->is_returned == 0)
-                                                <td class="text-warning font-weight-bold">{{ 'On Loan' }}</td>
-                                            @else
-                                                <td class="text-success font-weight-bold">{{ 'Returned' }}</td>
+                                                <td class="text-warning font-weight-bold">{{ 'Dipinjam' }}</td>
+                                            @elseif($lo->loan->is_returned == 1)
+                                                <td class="text-success font-weight-bold">{{ 'Dikembalikan' }}</td>
                                             @endif {{-- is_returned comparison --}}
                                             <td>
                                                 <a href="https://wa.me/{{ $lo->user->phone }}" class="btn btn-success"
