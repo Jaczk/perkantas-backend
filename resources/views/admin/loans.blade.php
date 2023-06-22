@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
+                <div class="card-header" style="background-color: #121F3E">
                     <h3 class="card-title">Daftar Peminjaman</h3>
                 </div>
 
@@ -34,7 +34,8 @@
                             <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
+                                        {{-- <th>ID</th> --}}
                                         <th>Username</th>
                                         <th>Barang</th>
                                         <th>Kondisi</th>
@@ -46,9 +47,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $lo->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            {{-- <td>{{ $lo->id }}</td> --}}
                                             <td>{{ $lo->user->name }}</td>
                                             <td>{{ $lo->good->goods_name }}</td>
                                             <td>{{ $lo->good->condition }}</td>

@@ -47,10 +47,34 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary" onclick="confirmEditForm(event)">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        function confirmEditForm(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            Swal.fire({
+                title: 'Simpan perubahan?',
+                text: 'Kategori akan diperbarui.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Simpan',
+                cancelButtonText: 'Kembali',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed, submit the form
+                    event.target.form.submit();
+                }
+            });
+        }
+    </script>
 @endsection
