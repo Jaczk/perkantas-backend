@@ -18,8 +18,8 @@ class DashboardController extends Controller
         // $loans = Loan::where('is_returned', 1)->count();
 
         return view('admin.dashboard', [
-            'goods' => $goods, 
-            'procurements' => $procurements, 
+            'goods' => $goods,
+            'procurements' => $procurements,
             'loans' => $loans]);
     }
 
