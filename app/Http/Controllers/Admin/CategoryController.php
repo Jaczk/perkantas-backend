@@ -36,7 +36,7 @@ class CategoryController extends Controller
         ]);
 
         Category::create($data); 
-        return redirect()->route('admin.category')->with('success', 'Category created');
+        return redirect()->route('admin.category')->with('success', 'Kategori berhasil dibuat');
     }
 
     public function update(Request $request, $id)
@@ -50,7 +50,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         $category->update($data);
-        return redirect()->route('admin.category')->with('success', 'Updated success');
+        return redirect()->route('admin.category')->with('success', 'Sukses memperbarui kategori');
 
     }
 
@@ -58,6 +58,6 @@ class CategoryController extends Controller
     {
         Category::find($id)->delete();
 
-        return redirect()->route('admin.category')->with('success', 'Category deleted');
+        return redirect()->route('admin.category')->with('success', 'Kategori berhasil dihapus');
     }
 }

@@ -6,6 +6,8 @@ use App\Models\Good;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class GoodController extends Controller
 {
@@ -14,7 +16,7 @@ class GoodController extends Controller
         $goods = Good::with([
             'category',
             'item_loan'
-        ])->whereHas('category', function($q){
+        ])->whereHas('category', function ($q) {
             $q->whereNull('deleted_at');
         })->get();
 
@@ -43,17 +45,16 @@ class GoodController extends Controller
             'condition' => 'required|string',
             'is_available' => 'nullable',
             'description' => 'required|string',
-            'image' => 'required|string'
+            'image' => 'image|mimes:jpg,jpeg,png'
         ]);
 
-        $image = $request->image;
-        $url = "https://source.unsplash.com/150x150?";
-        $imageUrl = $url . $image;
-
-        $data['image'] = $imageUrl;
+        $image = $request->image; //request
+        $ogImageName = Str::random(8) . $image->getClientOriginalName(); //changeName
+        $image->storeAs('public/images', $ogImageName); //save in storageProj
+        $data['image'] = $ogImageName; //inject data only w/ file name
         // dd($data);
         Good::create($data);
-        return redirect()->route('admin.good')->with('success', 'Goods created');
+        return redirect()->route('admin.good')->with('success', 'Barang berhasil ditambahkan');
     }
 
     public function update(Request $request, $id)
@@ -65,26 +66,28 @@ class GoodController extends Controller
             'condition' => 'required|string',
             'is_available' => 'nullable',
             'description' => 'required|string',
-            'image' => 'required|string'
+            'image' => 'image|mimes:jpg,jpeg,png'
         ]);
 
-        if ($request->image) {
-            $image = $request->image;
-            $url = "https://source.unsplash.com/150x150?";
-            $imageUrl = $url . $image;
-            $data['image'] = $imageUrl;
-        }
-
-        // dd($data);
         $good = Good::find($id);
+
+        if ($request->image) {
+            $image = $request->image; //request
+            $ogImageName = Str::random(8) . $image->getClientOriginalName(); //changeName
+            $image->storeAs('public/images', $ogImageName); //save in storageProj
+            $data['image'] = $ogImageName; //inject data only w/ file name
+            //delete old image
+            Storage::delete('public/images/'.$good->image);
+        }
+        // dd($data);
         $good->update($data);
-        return redirect()->route('admin.good')->with('success', 'Updated success');
+        return redirect()->route('admin.good')->with('success', 'Sukses memperbarui item barang');
     }
 
     public function destroy($id)
     {
         Good::find($id)->delete();
 
-        return redirect()->route('admin.good')->with('success', 'Deleted success');
+        return redirect()->route('admin.good')->with('success', 'Berhasil menghapus item barang');
     }
 }

@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
+                <div class="card-header" style="background-color: #121F3E">
                     <h3 class="card-title">Pengadaan Barang</h3>
                 </div>
 
@@ -32,7 +32,8 @@
                             <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
+                                        {{-- <th>ID</th> --}}
                                         <th>Username</th>
                                         <th>Barang</th>
                                         <th>Jumlah</th>
@@ -43,9 +44,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($procurements as $proc)
                                         <tr>
-                                            <td>{{ $proc->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            {{-- <td>{{ $proc->id }}</td> --}}
                                             <td>{{ $proc->user->name }}</td>
                                             <td>{{ $proc->goods_name }}</td>
                                             <td>{{ $proc->goods_amount }}</td>
