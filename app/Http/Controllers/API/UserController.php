@@ -103,6 +103,10 @@ class UserController extends Controller
     public function fetch(Request $request)
     {
         $user = $request->user();
+        $id = $request->input('id');
+        if ($id) {
+            $user->find($id);
+        }
         return ResponseFormatter::success($user, 'Data profile user berhasil diambil');
     }
 }

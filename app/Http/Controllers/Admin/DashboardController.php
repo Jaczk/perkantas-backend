@@ -14,7 +14,8 @@ class DashboardController extends Controller
     {
         $goods = Good::count();
         $procurements = Procurement::where('status', 'pending')->count();
-        $loans = Loan::count();
+        $loans = Loan::where('is_returned', 0)->count();
+        // $loans = Loan::where('is_returned', 1)->count();
 
         return view('admin.dashboard', [
             'goods' => $goods,

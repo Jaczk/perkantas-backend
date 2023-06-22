@@ -15,5 +15,9 @@
         "postcss": "^8.4.24",
         "tailwindcss": "^3.3.2",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@cloudinary/url-gen": "^1.10.1",
+        "@cloudinary/vue": "^1.11.2"
     }
 }

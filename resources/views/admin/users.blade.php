@@ -1,14 +1,14 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Users')
+@section('title', 'Pengguna')
 
 @section('content')
 
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Users</h3>
+                <div class="card-header" style="background-color: #121F3E">
+                    <h3 class="card-title">Daftar Pengguna</h3>
                 </div>
 
                 <div class="card-body">
@@ -18,7 +18,8 @@
                             @csrf
                             @method('PUT')
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-warning">Reset Users Access</button>
+                                <button type="submit" class="btn btn-warning text-bold" onclick="confirmResetForm(event)"
+                                >Reset Akses Pengguna</button>
                             </div>
                         </form>
                     </div>
@@ -34,16 +35,16 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="good" class="table table-striped table-hover">
+                            <table id="user" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Return access</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
+                                        <th>Nomor Telepon</th>
+                                        <th>Akses Pengembalian</th>
+                                        <th>Tipe Pengguna</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,7 +75,7 @@
                                                     action="{{ route('admin.user.destroy', $user->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-2">
+                                                    <button type="submit" class="btn btn-danger mx-2 delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
@@ -93,6 +94,54 @@
 
 @section('js')
     <script>
-        $('#good').DataTable();
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#user').DataTable();
+
+            // Apply event listener to all delete buttons
+            $('#user').on('click', '.delete-btn', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                // Show SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: 'Item yang telah dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e31231',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus item!',
+                    cancelButtonText: 'Kembali'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form after confirmation
+                        form.submit();
+                    }
+                });
+            });
+        });
     </script>
+
+<script>
+    function confirmResetForm(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        Swal.fire({
+            title: 'Reset akses pengembalian ?',
+            text: 'Aksi ini akan melakukan reset akses pengembalian pada semua pengguna.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Reset',
+            cancelButtonText: 'Kembali',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User confirmed, submit the form
+                event.target.form.submit();
+            }
+        });
+    }
+</script>
 @endsection
