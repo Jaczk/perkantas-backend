@@ -54,20 +54,27 @@
                         <div class="flex flex-row">
                             <img src="/assets/svgs/ric-globe.svg" alt="" class="pl-2 pr-6" />
                             <div>
-                                <div class="place-items-end">
-                                    @if ($procurement->status === 'pending')
-                                        <div class="text-lg font-bold text-yellow-600 uppercase">
-                                            Menunggu
+                                <div class="flex flex-row justice-between">
+                                    <div class="place-items-end">
+                                        @if ($procurement->status === 'pending')
+                                            <div class="text-lg font-bold text-yellow-600 uppercase">
+                                                Menunggu
+                                            </div>
+                                        @elseif ($procurement->status === 'approved')
+                                            <div class="text-lg font-bold text-green-600 uppercase">
+                                                Diterima
+                                            </div>
+                                        @elseif ($procurement->status === 'rejected')
+                                            <div class="text-lg font-bold text-red-600 uppercase">
+                                                Ditolak
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="place-items-end">
+                                        <div class="pl-32 text-lg font-medium text-dark">
+                                            {{ $procurement->created_at->format('d M Y') }}
                                         </div>
-                                    @elseif ($procurement->status === 'approved')
-                                        <div class="text-lg font-bold text-green-600 uppercase">
-                                            Diterima
-                                        </div>
-                                    @elseif ($procurement->status === 'rejected')
-                                        <div class="text-lg font-bold text-red-600 uppercase">
-                                            Ditolak
-                                        </div>
-                                    @endif
+                                    </div>
                                 </div>
                                 <div class="mb-1 font-semibold text-dark">
                                     {{ $procurement->goods_name }} ( {{ $procurement->goods_amount }} barang)
