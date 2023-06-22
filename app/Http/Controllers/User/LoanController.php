@@ -28,6 +28,16 @@ class LoanController extends Controller
             return $item->loan->is_returned === 0;
         });
 
+        $loans = Loan::with('item_loan')->where('user_id', $user->id)->where('is_returned', 0)->get();
+
+        foreach ($loans as $loan) {
+            // Check if the loan doesn't have any associated item loans
+            if ($loan->item_loan->isEmpty()) {
+                // Delete the loan
+                $loan->delete();
+            }
+        }
+
         // Calculate and update the fine for each loan
         $filteredItems->each(function ($item) {
             $fine = $this->calculateFine($item->loan->return_date);

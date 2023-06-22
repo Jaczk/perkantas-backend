@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-[30px]">
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-[30px]">
                 @foreach ($procurements as $procurement)
                     <div
                         class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4">

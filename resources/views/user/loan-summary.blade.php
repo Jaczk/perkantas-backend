@@ -55,7 +55,7 @@
                                 <div class="items-end">
                                     <form action="{{ route('user.loan.delete-item', ['id' => $item->good->id]) }}" method="POST" id="deleteForm{{ $index }}">
                                         @csrf
-                                        <button type="button" class="hover:cursor-pointer hover:opacity-75 btn btn-buttons"
+                                        <button type="button" class="hover:cursor-pointer hover:opacity-75 btn btn-buttons-warn"
                                             onclick="confirmDeleteItems(event, {{ $item->id }}, {{ $index }})">
                                             Batalkan Pinjaman
                                         </button>

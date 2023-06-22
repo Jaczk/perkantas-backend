@@ -22,6 +22,7 @@ module.exports = {
             secondary: '#f89223',
             button: '#99DBF5',
             other: '#98DFD6',
+            btn_warn: '#B70404',
             grey: '#ABB3C4',
             dark: '#121F3E',
             page: '#F8F8FA',

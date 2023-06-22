@@ -29,6 +29,9 @@
     .btn-buttons{
         @apply bg-button text-white
     }
+    .btn-buttons-warn{
+        @apply bg-btn_warn text-white
+    }
 }
 
 @layer utilities{

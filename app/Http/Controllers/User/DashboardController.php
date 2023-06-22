@@ -23,6 +23,16 @@ class DashboardController extends Controller
         })->count();
         $user = User::findOrFail(auth()->user()->id); // Find the user by ID
 
+        $loans = Loan::with('item_loan')->where('user_id', $user->id)->where('is_returned', 0)->get();
+
+        foreach ($loans as $loan) {
+            // Check if the loan doesn't have any associated item loans
+            if ($loan->item_loan->isEmpty()) {
+                // Delete the loan
+                $loan->delete();
+            }
+        }
+
         $loanItems = Loan::where('user_id', $user->id)->get();
 
         $filteredLoan = $loanItems->filter(function ($loan) {
