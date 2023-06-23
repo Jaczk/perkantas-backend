@@ -21,13 +21,13 @@
             </div>
             <div class="flex items-center gap-4">
                 <form class="shrink md:w-[516px] w-full flex flex-row" action="{{ route('user.procurement.search') }}"
-                        method="GET">
-                        @csrf
-                        <input type="text" name="query"
-                            class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
-                            placeholder="Cari Data Pengajuan..." />
-                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
-                    </form>
+                    method="GET">
+                    @csrf
+                    <input type="text" name="query"
+                        class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
+                        placeholder="Cari Data Pengajuan..." />
+                    <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
+                </form>
             </div>
         </section>
 
@@ -50,7 +50,8 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-[30px]">
                 @foreach ($procurements as $procurement)
                     <div
-                        class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4">
+                        class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4 h-[200px]">
+                        <!-- Added h-[200px] for increased height -->
                         <div class="flex flex-row">
                             <img src="/assets/svgs/ric-globe.svg" alt="" class="pl-2 pr-6" />
                             <div>
@@ -77,21 +78,39 @@
                                     </div>
                                 </div>
                                 <div class="mb-1 font-semibold text-dark">
-                                    {{ $procurement->goods_name }} ( {{ $procurement->goods_amount }} barang)
+                                    {{ $procurement->goods_name }} ({{ $procurement->goods_amount }} barang)
                                 </div>
-                                <div>
+                                <div class="flex flex-wrap">
                                     @if ($procurement->status === 'pending')
-                                        <p class="font-light">
-                                            Menunggu Persetujuan Admin...
-                                        </p>
+                                        @if ($procurement->message === null)
+                                            <p class="font-light">
+                                                Menunggu Persetujuan Admin...
+                                            </p>
+                                        @else
+                                            <p class="font-light">
+                                                Pesan dari Admin <br>{{ $procurement->message }}
+                                            </p>
+                                        @endif
                                     @elseif ($procurement->status === 'approved')
-                                        <p class="font-light">
-                                            Pengajuan Telah Disetujui
-                                        </p>
+                                        @if ($procurement->message === null)
+                                            <p class="font-light">
+                                                Pengajuan Telah Disetujui
+                                            </p>
+                                        @else
+                                            <p class="font-light">
+                                                Pesan dari Admin <br>{{ $procurement->message }}
+                                            </p>
+                                        @endif
                                     @elseif ($procurement->status === 'rejected')
-                                        <p class="font-light">
-                                            Pengajuan Anda Ditolak
-                                        </p>
+                                        @if ($procurement->message === null)
+                                            <p class="font-light">
+                                                Pengajuan Anda Ditolak
+                                            </p>
+                                        @else
+                                            <p class="font-light">
+                                                Pesan dari Admin <br>{{ $procurement->message }}
+                                            </p>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -99,6 +118,7 @@
                     </div>
                 @endforeach
             </div>
+
         </section>
         <script src="{{ asset('js/sweet-alert.js') }}"></script>
     </div>
