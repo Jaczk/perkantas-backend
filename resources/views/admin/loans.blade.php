@@ -57,7 +57,7 @@
                                             <td>{{ $lo->good->condition }}</td>
                                             <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->created_at)) }}</td>
 
-                                            @if ($carbon::now()->greaterThan($lo->loan->return_date))
+                                            @if (($carbon::now()->greaterThan($lo->loan->return_date)) && $lo->is_returned === 0)
                                             <td class="text-danger text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->return_date)) }}</td>
                                             @else
                                             <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->return_date)) }}</td>

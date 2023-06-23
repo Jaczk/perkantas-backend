@@ -17,7 +17,10 @@ class DashboardController extends Controller
     {
         $goods = Good::count();
         $procurements = Procurement::where('status', 'pending')->count();
-        $loans = Loan::where('is_returned', 0)->count();
+        $loans = Loan::withWhereHas('item_loan', function ($q) {
+            $q->WhereHas('good');})
+            ->withWhereHas('user')
+            ->where('is_returned', 0)->count();
         $returnLate = Loan::where('is_returned', 0)
             ->whereDate('return_date', '<', Carbon::today())
             ->count();

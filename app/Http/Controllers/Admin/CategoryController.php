@@ -60,4 +60,21 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.category')->with('success', 'Kategori berhasil dihapus');
     }
+
+    public function trash(){
+        $trash = Category::onlyTrashed()->get();
+        return view('admin.categories-trashed',['trash' => $trash]);
+    }
+
+    public function restore($id){
+        $trash = Category::withTrashed()->find($id);
+        $trash->restore();
+        return redirect()->route('admin.category.trash')->with('success', 'Data berhasil dipulihkan.');
+    }
+
+    public function forceDelete($id){
+        $trash = Category::withTrashed()->find($id);
+        $trash->forceDelete();
+        return redirect()->route('admin.category.trash')->with('success', 'Data berhasil dihapus');
+    }
 }

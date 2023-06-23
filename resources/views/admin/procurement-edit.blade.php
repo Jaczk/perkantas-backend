@@ -51,7 +51,8 @@
                             <label for="title">Pesan</label>
                             {{-- <input type="text" class="form-control" id="message" name="message"
                             placeholder="pesan ke user" value=""> --}}
-                            <textarea class="form-control" id="message" rows="3"></textarea>
+                            <textarea placeholder="tulis pesan kepada anggota terkait pengajuan barang..." 
+                            name="message" class="form-control" id="message" rows="3">{{ $procurements->message }}</textarea>
                         </div>
                     </div>
 

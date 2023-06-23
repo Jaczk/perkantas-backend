@@ -8,15 +8,13 @@
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header" style="background-color: #121F3E">
-                    <h3 class="card-title">Kategori Barang</h3>
+                    <h3 class="card-title">Kategori Barang (Dihapus)</h3>
                 </div>
 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <a href="{{ route('admin.category.create') }}" class="btn btn-primary text-bold">+ Kategori</a>
-                            |
-                            <a href="{{ route('admin.category.trash') }}">Data Dihapus</a>
                         </div>
                     </div>
 
@@ -42,28 +40,25 @@
                                 </thead>
                                 <tbody>
                                     <?php $counter = 1; ?>
-                                    @foreach ($categories as $category)
+                                    @foreach ($trash as $t)
                                         <tr>
                                             <td>{{ $counter++ }}</td>
                                             {{-- <td>{{ $category->id }} </td> --}}
-                                            <td>{{ $category->category_name }} </td>
+                                            <td>{{ $t->category_name }} </td>
                                             <td class="flex-row d-flex">
-                                                <a href="{{ route('admin.category.edit', $category->id) }}"
-                                                    class="btn btn-secondary">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
+                                                <form action="{{ route('admin.category.restore', $t->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-success restore-btn">Restore</button>
+                                                </form>
                                                 <form method="post"
-                                                    action="{{ route('admin.category.destroy', $category->id) }}">
+                                                    action="{{ route('admin.category.delete', $t->id) }}">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger mx-2 delete-btn">
-                                                        <i class="fas fa-trash"></i>
+                                                        Hapus Permanen
                                                     </button>
                                                 </form>
-                                                {{-- <a href="{{ route('admin.category.destroy', $category->id) }}" class="btn btn-danger mx-2">
-                                                    @csrf
-                                                    <i class="fas fa-trash"></i>
-                                                </a> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -91,7 +86,7 @@
                 // Show SweetAlert confirmation dialog
                 Swal.fire({
                     title: 'Apakah anda yakin?',
-                    text: 'Item yang telah dihapus akan dipindahkan ke dalam menu Data Dihapus!',
+                    text: 'Item yang telah dihapus tidak dapat dikembalikan!',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#e31231',
@@ -107,4 +102,34 @@
             });
         });
     </script>
+
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        var table = $('#category').DataTable();
+
+        // Apply event listener to all delete buttons
+        $('#category').on('click', '.restore-btn', function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+
+            // Show SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Item akan kembali ditampilkan pada halaman utama.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Pulihkan item!',
+                cancelButtonText: 'Kembali'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form after confirmation
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection

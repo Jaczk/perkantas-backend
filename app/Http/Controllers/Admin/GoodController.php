@@ -90,4 +90,21 @@ class GoodController extends Controller
 
         return redirect()->route('admin.good')->with('success', 'Berhasil menghapus item barang');
     }
+
+    public function trash(){
+        $trash = Good::onlyTrashed()->get();
+        return view('admin.goods-trashed',['trash' => $trash]);
+    }
+
+    public function restore($id){
+        $trash = Good::withTrashed()->find($id);
+        $trash->restore();
+        return redirect()->route('admin.good.trash')->with('success', 'Data berhasil dipulihkan.');
+    }
+
+    public function forceDelete($id){
+        $trash = Good::withTrashed()->find($id);
+        $trash->forceDelete();
+        return redirect()->route('admin.good.trash')->with('success', 'Data berhasil dihapus');
+    }
 }

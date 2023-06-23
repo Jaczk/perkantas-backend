@@ -12,9 +12,12 @@ class LoanController extends Controller
 {
     public function index()
     {
-        $loans = Loan::withWhereHas('user')->get();
+        $loans = Loan::withWhereHas('item_loan', function ($q) {
+            $q->WhereHas('good');
+        })->withWhereHas('user')->get();
 
-        return view('admin.loans', ['loans' => $loans]);
+        // dd($loans);
+        return view('admin.loans-item', ['loans' => $loans]);
     }
     public function destroy($id)
     {
