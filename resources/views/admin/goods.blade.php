@@ -15,6 +15,8 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <a href="{{ route('admin.good.create') }}" class="btn btn-primary text-bold">+ Barang</a>
+                            |
+                            <a href="{{ route('admin.good.trash') }}">Data Dihapus</a>
                         </div>
                     </div>
 
@@ -124,7 +126,7 @@
                 // Show SweetAlert confirmation dialog
                 Swal.fire({
                     title: 'Apakah anda yakin?',
-                    text: 'Item yang telah dihapus tidak dapat dikembalikan!',
+                    text: 'Item yang telah dihapus akan dipindahkan ke dalam menu Data Dihapus!!',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#e31231',

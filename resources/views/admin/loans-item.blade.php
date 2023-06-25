@@ -35,6 +35,7 @@
                                         <th>Tanggal Pinjam</th>
                                         <th>Tanggal Kembali</th>
                                         <th>Periode</th>
+                                        <th>Denda</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -61,8 +62,10 @@
                                                 <td class="text-bold">
                                                     {{ date('D, F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                             @endif {{-- date comparison --}}
-
+                                            
                                             <td>{{ $lo->period }}</td>
+                                            <td>{{ $lo->fine }}</td>
+
                                             @if ($lo->is_returned == 0)
                                                 <td class="text-warning font-weight-bold">{{ 'Dipinjam' }}</td>
                                             @elseif($lo->is_returned == 1)
@@ -73,13 +76,6 @@
                                                     target="_blank">
                                                     <i class="fab fa-whatsapp fa-lg"></i>
                                                 </a>
-                                                {{-- <form method="post" action="!#">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

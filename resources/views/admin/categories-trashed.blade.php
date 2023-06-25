@@ -12,12 +12,6 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <a href="{{ route('admin.category.create') }}" class="btn btn-primary text-bold">+ Kategori</a>
-                        </div>
-                    </div>
-
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}

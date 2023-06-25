@@ -44,6 +44,7 @@
                                         <th>Nomor Telepon</th>
                                         <th>Akses Pengembalian</th>
                                         <th>Tipe Pengguna</th>
+                                        <th>Total Denda</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -64,6 +65,9 @@
                                                 </td>
                                             @endif
                                             <td>{{ $user->roles == 1 ? 'Admin' : ($user->roles == 0 ? 'User' : 'Deactivated User') }}
+                                            </td>
+                                            <td>
+                                                {{ $user->total_fine }}
                                             </td>
                                             <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.user.edit', $user->id) }}"
