@@ -1,4 +1,4 @@
-@extends('user.layouts.forms')
+@extends('user.layouts.forms-loan')
 
 @section('title', 'Pilih Barang')
 
@@ -14,7 +14,7 @@
             <p class="mt-4 text-base leading-7 text-center mb-[50px] text-grey">
                 Pilih Barang Yang akan Anda Pinjam! <br />
                 Batas Pengembalian Barang adalah
-                <span class="text-lg font-bold">1 Minggu</span> dihitung dari tanggal
+                <span class="text-lg font-bold">1 Hari</span> dihitung dari tanggal
                 peminjaman.
             </p>
             <form class="w-full max-w-3xl card ">
@@ -111,11 +111,12 @@
                 })
                 .then(response => {
                     // Handle the response here
+                    
+                    // Reload the page
                     window.location.reload();
                     // Hide the card
                     card.style.display = 'none';
 
-                    // Reload the page
 
                 })
                 .catch(error => {

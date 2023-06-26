@@ -17,7 +17,7 @@
                         <form enctype="multipart/form-data" method="POST" action="{{ route('admin.user.access') }}">
                             @csrf
                             @method('PUT')
-                            <div class="col-md-12 mb-3">
+                            <div class="mb-3 col-md-12">
                                 <button type="submit" class="btn btn-warning text-bold" onclick="confirmResetForm(event)"
                                 >Reset Akses Pengguna</button>
                             </div>
@@ -44,6 +44,7 @@
                                         <th>Nomor Telepon</th>
                                         <th>Akses Pengembalian</th>
                                         <th>Tipe Pengguna</th>
+                                        <th>Total Denda</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -59,12 +60,13 @@
                                                     <i class="fas fa-times fa-lg" style="color: #e00043;"></i>
                                                 </td>
                                             @else
-                                                <td class="text-success font-weight-bold text-center">
+                                                <td class="text-center text-success font-weight-bold">
                                                     <i class="fas fa-check fa-lg" style="color: #19942e;"></i>
                                                 </td>
                                             @endif
                                             <td>{{ $user->roles == 1 ? 'Admin' : ($user->roles == 0 ? 'User' : 'Deactivated User') }}
                                             </td>
+                                            <td>{{ $user->total_fine }}</td>
                                             <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.user.edit', $user->id) }}"
                                                     class="btn btn-secondary">
@@ -75,7 +77,7 @@
                                                     action="{{ route('admin.user.destroy', $user->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-2 delete-btn">
+                                                    <button type="submit" class="mx-2 btn btn-danger delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>

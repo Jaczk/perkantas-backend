@@ -13,11 +13,11 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="mb-3 col-md-12">
                             <a href="{{ route('admin.good.create') }}" class="btn btn-primary text-bold">+ Barang</a>
                         </div>
                     </div>
-                    
+
                     {{-- Alert w/ session --}}
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -51,30 +51,32 @@
                                             <td>{{ $counter++ }}</td>
                                             {{-- <td>{{ $good->id }}</td> --}}
                                             <td>{{ $good->goods_name }}</td>
-                                            <td>{{ $good->category->category_name ?? '-'}}</td>
+                                            <td>{{ $good->category->category_name ?? '-' }}</td>
                                             <td>{{ $good->condition }}</td>
                                             @if ($good->is_available == 0)
                                                 <td class="text-center">
                                                     <i class="fas fa-times fa-lg" style="color: #e00043;"></i>
                                                 </td>
                                             @else
-                                                <td class="text-success font-weight-bold text-center">
+                                                <td class="text-center text-success font-weight-bold">
                                                     <i class="fas fa-check fa-lg" style="color: #19942e;"></i>
                                                 </td>
                                             @endif
                                             {{-- <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td> --}}
                                             <td class="text-justify">{{ $good->description }}</td>
                                             <td class="text-center">
-                                                <img class="img-fluid" style="width: 50%" src="{{ asset('storage/images/'.$good->image) }}" alt="">
+                                                <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}"
+                                                    class="img-fluid" style="width: 50%" alt="Image">
                                             </td>
                                             <td class="flex-row d-flex">
-                                                <a href="{{ route('admin.good.edit', $good->id) }}" class="btn btn-secondary">
+                                                <a href="{{ route('admin.good.edit', $good->id) }}"
+                                                    class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form method="post" action="{{ route('admin.good.destroy', $good->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-1 delete-btn">
+                                                    <button type="submit" class="mx-1 btn btn-danger delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
@@ -103,7 +105,7 @@
             });
         });
     </script> --}}
-    
+
     <script>
         $(document).ready(function() {
             // Initialize DataTable
