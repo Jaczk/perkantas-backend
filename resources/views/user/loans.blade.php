@@ -118,7 +118,7 @@
                                 </div>
                             @else
                                 <div class="mt-[10px] px-5 text-green-600 font-bold text-lg flex text-center">
-                                    {{ \Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()) }}
+                                    {{ \Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()) + 1}}
                                     Hari Lagi
                                 </div>
                             @endif
