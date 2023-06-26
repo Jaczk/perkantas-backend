@@ -103,7 +103,8 @@
                             <div class="mb-2 font-semibold text-center text-dark">
                                 Nomor Peminjaman {{ $item->loan->id }}
                             </div>
-                            <img src={{ $item->good->image }} width="150" alt="" />
+                            <img src="{{ filter_var($item->good->image, FILTER_VALIDATE_URL) ? $item->good->image : asset('storage/images/' . $item->good->image) }}"
+                                            alt="Image" width="150">
                             <p class="text-center text-grey mt-[8px]">
                                 {{ $item->good->goods_name }}
                             </p>

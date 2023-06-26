@@ -26,7 +26,8 @@
                 <div class="form-group ">
                     <div class="grid grid-cols-2 grid-rows-none ">
                         @foreach ($goods as $index => $good)
-                            <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST" class="p-3">
+                            <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST"
+                                class="p-3">
                                 @csrf
                                 <button type="button" onclick="confirmAddItems({{ $good->id }}, {{ $index }})"
                                     class="card !gap-y-0 bg-white lg:w-[350px] lg:h-[320px] hover:bg-slate-100 border-solid border-2 border-indigo-100 hover:cursor-pointer">
@@ -49,8 +50,8 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <img src="{{ $good->image }}" alt=""
-                                        class="inline-block w-[120px] h-[120px] align-middle my-2">
+                                        <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}"
+                                            alt="Image" class="inline-block w-[120px] h-[120px] align-middle my-2">
                                         @if (Str::length($good->description) < 60)
                                             <p class="my-2 text-grey">
                                                 {{ $good->description }}
@@ -66,9 +67,10 @@
                         @endforeach
                     </div>
                 </div>
-                <a href="{{ route('user.user-summary', ['loanId' => session()->get('loanId')]) }}" class="w-1/2 btn btn-primary mt-[14px]">
+                <a href="{{ route('user.user-summary', ['loanId' => session()->get('loanId')]) }}"
+                    class="w-1/2 btn btn-primary mt-[14px]">
                     Lihat Ringkasan Peminjaman
-                </a>                
+                </a>
             </form>
         </section>
     </div>
@@ -114,7 +116,7 @@
                     card.style.display = 'none';
 
                     // Reload the page
-                    
+
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -122,4 +124,3 @@
         }
     </script>
 @endsection
-

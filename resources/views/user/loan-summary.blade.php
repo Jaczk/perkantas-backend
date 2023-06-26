@@ -42,7 +42,8 @@
                                         @endif
                                     </div>
                                 </div>
-                                <img src={{ $item->good->image }} class="w-[150px] h-[150px] mx-auto my-2" alt="" />
+                                <img src="{{ filter_var($item->good->image, FILTER_VALIDATE_URL) ? $item->good->image : asset('storage/images/' . $item->good->image) }}"
+                                            alt="Image" class="w-[150px] h-[150px] mx-auto my-2">
                                 @if (Str::length($item->good->description) < 30)
                                     <p class="mt-2 text-grey">
                                         {{ $item->good->description }}
