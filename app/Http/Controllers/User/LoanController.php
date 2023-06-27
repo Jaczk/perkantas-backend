@@ -130,7 +130,7 @@ class LoanController extends Controller
             'is_available' => 1
         ]);
 
-        $item->delete();
+        $item->forceDelete();
 
         return redirect()->back()->with('refresh', true);
     }
