@@ -36,7 +36,7 @@ class CategoryController extends Controller
         ]);
 
         Category::create($data); 
-        return redirect()->route('admin.category')->with('success', 'Kategori berhasil dibuat');
+        return redirect()->route('admin.category')->with('success', 'Category created');
     }
 
     public function update(Request $request, $id)
@@ -50,7 +50,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         $category->update($data);
-        return redirect()->route('admin.category')->with('success', 'Sukses memperbarui kategori');
+        return redirect()->route('admin.category')->with('success', 'Updated success');
 
     }
 
@@ -58,23 +58,6 @@ class CategoryController extends Controller
     {
         Category::find($id)->delete();
 
-        return redirect()->route('admin.category')->with('success', 'Kategori berhasil dihapus');
-    }
-
-    public function trash(){
-        $trash = Category::onlyTrashed()->get();
-        return view('admin.categories-trashed',['trash' => $trash]);
-    }
-
-    public function restore($id){
-        $trash = Category::withTrashed()->find($id);
-        $trash->restore();
-        return redirect()->route('admin.category.trash')->with('success', 'Data berhasil dipulihkan.');
-    }
-
-    public function forceDelete($id){
-        $trash = Category::withTrashed()->find($id);
-        $trash->forceDelete();
-        return redirect()->route('admin.category.trash')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('admin.category')->with('success', 'Category deleted');
     }
 }

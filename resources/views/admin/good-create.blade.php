@@ -44,9 +44,9 @@
                         <div class="mb-3">
                             <label for="condition" class="form-label">Kondisi Barang</label>
                             <select class="custom-select" name="condition">
-                                <option value="new" @selected(old('condition') == 'new') @class(['bg-warning text-white' => old('condition') == 'new'])>BARU
+                                <option value="BARU" @selected(old('condition') == 'BARU') @class(['bg-warning text-white' => old('condition') == 'BARU'])>BARU
                                 </option>
-                                <option value="used" @selected(old('condition') == 'used') @class(['bg-warning text-white' => old('condition') == 'used'])>NORMAL
+                                <option value="NORMAL" @selected(old('condition') == 'NORMAL') @class(['bg-warning text-white' => old('condition') == 'NORMAL'])>NORMAL
                                 </option>
                                 {{-- <option value="RUSAK" @selected(old('condition') == 'RUSAK') @class(['bg-warning text-white' => old('condition') == 'RUSAK'])>RUSAK
                                 </option> --}}

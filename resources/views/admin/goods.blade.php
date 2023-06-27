@@ -15,8 +15,6 @@
                     <div class="row">
                         <div class="mb-3 col-md-12">
                             <a href="{{ route('admin.good.create') }}" class="btn btn-primary text-bold">+ Barang</a>
-                            |
-                            <a href="{{ route('admin.good.trash') }}">Data Dihapus</a>
                         </div>
                     </div>
 
@@ -54,20 +52,14 @@
                                             {{-- <td>{{ $good->id }}</td> --}}
                                             <td>{{ $good->goods_name }}</td>
                                             <td>{{ $good->category->category_name ?? '-' }}</td>
-
-                                            <td>
-                                                {{ ($good->condition == 'new') ? "BARU" : (($good->condition == 'used') ? "NORMAL" : "RUSAK") }}
-                                            </td>
-
+                                            <td>{{ $good->condition }}</td>
                                             @if ($good->is_available == 0)
                                                 <td class="text-center">
-                                                    <p class="text-danger text-bold">Tidak Ada</p>
+                                                    <i class="fas fa-times fa-lg" style="color: #e00043;"></i>
                                                 </td>
                                             @else
-
-                                                <td class="text-success font-weight-bold text-center">
-                                                    <p class="text-success text-bold">Ada</p>
-
+                                                <td class="text-center text-success font-weight-bold">
+                                                    <i class="fas fa-check fa-lg" style="color: #19942e;"></i>
                                                 </td>
                                             @endif
                                             {{-- <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td> --}}
@@ -130,7 +122,7 @@
                 // Show SweetAlert confirmation dialog
                 Swal.fire({
                     title: 'Apakah anda yakin?',
-                    text: 'Item yang telah dihapus akan dipindahkan ke dalam menu Data Dihapus!!',
+                    text: 'Item yang telah dihapus tidak dapat dikembalikan!',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#e31231',

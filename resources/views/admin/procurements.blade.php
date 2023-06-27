@@ -37,10 +37,8 @@
                                         <th>Username</th>
                                         <th>Barang</th>
                                         <th>Jumlah</th>
-                                        <th>Deskripsi</th>
                                         <th>Periode</th>
-                                        <th>Tanggal Pengajuan</th>
-                                        {{-- <th>Pesan</th> --}}
+                                        <th>Deskripsi</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -54,10 +52,8 @@
                                             <td>{{ $proc->user->name }}</td>
                                             <td>{{ $proc->goods_name }}</td>
                                             <td>{{ $proc->goods_amount }}</td>
-                                            <td class="text-justify">{{ $proc->description }}</td>
                                             <td>{{ $proc->period }}</td>
-                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($proc->created_at)) }}</td>
-                                            {{-- <td class="text-justify">{{ $proc->message }}</td> --}}
+                                            <td class="text-justify">{{ $proc->description }}</td>
                                             @if ($proc->status == 'approved')
                                                 <td class="text-success font-weight-bold">{{ 'DITERIMA' }}</td>
                                             @elseif ($proc->status == 'pending')
