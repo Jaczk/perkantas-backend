@@ -24,8 +24,7 @@ class LoanController extends Controller
         $users = User::all();
 
         foreach ($users as $user) {
-            $items = Item_Loan::with(['loan', 'good'])
-                ->whereHas('loan', function ($q) use ($user) {
+            $items = Item_Loan::whereHas('loan', function ($q) use ($user) {
                     $q->where('user_id', $user->id);
                 })
                 ->get();
@@ -48,7 +47,7 @@ class LoanController extends Controller
             }
         }
         // dd($loans);
-        return view('admin.loans-item', ['loans' => $loans, 'filteredItems' => $filteredItems]);
+        return view('admin.loans-item', ['loans' => $loans]);
     }
 
     public function calculateFine($returnDate)
