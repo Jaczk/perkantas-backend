@@ -4,7 +4,7 @@
 
 @section('content')
 
-@inject('carbon', 'Carbon\Carbon')
+    @inject('carbon', 'Carbon\Carbon')
 
     <div class="row">
         <div class="col-md-12">
@@ -14,11 +14,6 @@
                 </div>
 
                 <div class="card-body">
-                    {{-- <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <a href="!#" class="btn btn-warning">Create Loans</a>
-                        </div>
-                    </div> --}}
 
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -34,40 +29,46 @@
                             <table id="good" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        {{-- <th>ID</th> --}}
+                                        <th>Nomor</th>
                                         <th>Username</th>
                                         <th>Barang</th>
-                                        <th>Kondisi</th>
                                         <th>Tanggal Pinjam</th>
                                         <th>Tanggal Kembali</th>
                                         <th>Periode</th>
+                                        <th>Denda</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $counter = 1; ?>
                                     @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $counter++ }}</td>
-                                            {{-- <td>{{ $lo->id }}</td> --}}
+                                            <td>{{ $lo->id }}</td>
                                             <td>{{ $lo->user->name }}</td>
-                                            <td>{{ $lo->good->goods_name }}</td>
-                                            <td>{{ $lo->good->condition }}</td>
-                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->created_at)) }}</td>
+                                            <td>
+                                                @foreach ($lo['item_loan'] as $item)
+                                                    <li>{{ $item->good->goods_name }}
+                                                        ({{ $item->good->condition == 'new' ? 'BARU' : ($item->good->condition == 'used' ? 'NORMAL' : 'RUSAK') }})
+                                                    </li>
+                                                @endforeach
+                                            </td>
+                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->created_at)) }}
 
-                                            @if (($carbon::now()->greaterThan($lo->loan->return_date)) && $lo->is_returned === 0)
-                                            <td class="text-danger text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->return_date)) }}</td>
+                                            </td>
+                                            @if ($carbon::now()->greaterThan($lo->return_date) && $lo->is_returned === 0)
+                                                <td class="text-danger text-bold">
+                                                    {{ date('D, F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                             @else
-                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->loan->return_date)) }}</td>
+                                                <td class="text-bold">
+                                                    {{ date('D, F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                             @endif {{-- date comparison --}}
+                                            
+                                            <td>{{ $lo->period }}</td>
+                                            <td>{{ $lo->fine }}</td>
 
-                                            <td>{{ $lo->loan->period }}</td>
-
-                                            @if ($lo->loan->is_returned == 0)
+                                            @if ($lo->is_returned == 0)
                                                 <td class="text-warning font-weight-bold">{{ 'Dipinjam' }}</td>
-                                            @elseif($lo->loan->is_returned == 1)
+                                            @elseif($lo->is_returned == 1)
                                                 <td class="text-success font-weight-bold">{{ 'Dikembalikan' }}</td>
                                             @endif {{-- is_returned comparison --}}
                                             <td>
@@ -75,13 +76,6 @@
                                                     target="_blank">
                                                     <i class="fab fa-whatsapp fa-lg"></i>
                                                 </a>
-                                                {{-- <form method="post" action="!#">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -99,8 +93,8 @@
     {{-- <script>
         $('#good').DataTable();
     </script> --}}
-    <script> 
-        $(document).ready(function () {
+    <script>
+        $(document).ready(function() {
             $('#good').DataTable({
                 dom: 'lBfrtipl',
                 buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],

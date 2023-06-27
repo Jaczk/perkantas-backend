@@ -45,11 +45,11 @@
                         <div class="mb-3">
                             <label for="status" class="form-label">Kondisi Barang</label>
                             <select class="custom-select" name="condition">
-                                <option value="BARU" @selected($goods->condition == 'BARU') @class(['bg-warning text-white' => $goods->condition == 'BARU'])>BARU
+                                <option value="new" @selected($goods->condition == 'new') @class(['bg-warning text-white' => $goods->condition == 'new'])>BARU
                                 </option>
-                                <option value="NORMAL" @selected($goods->condition == 'NORMAL') @class(['bg-warning text-white' => $goods->condition == 'NORMAL'])>NORMAL
+                                <option value="used" @selected($goods->condition == 'used') @class(['bg-warning text-white' => $goods->condition == 'used'])>NORMAL
                                 </option>
-                                <option value="RUSAK" @selected($goods->condition == 'RUSAK') @class(['bg-warning text-white' => $goods->condition == 'RUSAK'])>RUSAK
+                                <option value="broken" @selected($goods->condition == 'broken') @class(['bg-warning text-white' => $goods->condition == 'broken'])>RUSAK
                                 </option>
                             </select>
                         </div>

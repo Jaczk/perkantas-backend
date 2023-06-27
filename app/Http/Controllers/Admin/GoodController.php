@@ -45,7 +45,7 @@ class GoodController extends Controller
             'condition' => 'required|string',
             'is_available' => 'nullable',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpg,jpeg,png'
+            'image' => 'image|mimes:jpg,jpeg,png'
         ]);
 
         $image = $request->image; //request
@@ -54,7 +54,7 @@ class GoodController extends Controller
         $data['image'] = $ogImageName; //inject data only w/ file name
         // dd($data);
         Good::create($data);
-        return redirect()->route('admin.good')->with('success', 'Goods created');
+        return redirect()->route('admin.good')->with('success', 'Barang berhasil ditambahkan');
     }
 
     public function update(Request $request, $id)
@@ -66,7 +66,7 @@ class GoodController extends Controller
             'condition' => 'required|string',
             'is_available' => 'nullable',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpg,jpeg,png'
+            'image' => 'image|mimes:jpg,jpeg,png'
         ]);
 
         $good = Good::find($id);
@@ -81,13 +81,30 @@ class GoodController extends Controller
         }
         // dd($data);
         $good->update($data);
-        return redirect()->route('admin.good')->with('success', 'Updated success');
+        return redirect()->route('admin.good')->with('success', 'Sukses memperbarui item barang');
     }
 
     public function destroy($id)
     {
         Good::find($id)->delete();
 
-        return redirect()->route('admin.good')->with('success', 'Deleted success');
+        return redirect()->route('admin.good')->with('success', 'Berhasil menghapus item barang');
+    }
+
+    public function trash(){
+        $trash = Good::onlyTrashed()->get();
+        return view('admin.goods-trashed',['trash' => $trash]);
+    }
+
+    public function restore($id){
+        $trash = Good::withTrashed()->find($id);
+        $trash->restore();
+        return redirect()->route('admin.good.trash')->with('success', 'Data berhasil dipulihkan.');
+    }
+
+    public function forceDelete($id){
+        $trash = Good::withTrashed()->find($id);
+        $trash->forceDelete();
+        return redirect()->route('admin.good.trash')->with('success', 'Data berhasil dihapus');
     }
 }
