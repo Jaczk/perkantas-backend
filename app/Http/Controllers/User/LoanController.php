@@ -60,6 +60,28 @@ class LoanController extends Controller
         return $fine;
     }
 
+    public function store(Request $request)
+    {
+        $data  = $request->except('_token');
+
+        $data['user_id'] = auth()->user()->id;
+        $data['return_date'] = Carbon::now()->addDays(1);
+        $data['due_date'] = Carbon::now()->addDays(14);
+        $data['period'] = Carbon::now()->format('Ym');
+
+        $loan = Loan::create($data);
+
+        return redirect()->route('user.loan-items', ['loanId' => $loan->id]);
+    }
+
+    public function listItems($loanId)
+    {
+        session()->put('loanId', $loanId);
+
+        $goods = Good::with('category')->where('is_available', 1)->get();
+
+        return view('user.loan-items', compact('goods'));
+    }
 
     public function addItems(Request $request, $id)
     {
@@ -73,34 +95,44 @@ class LoanController extends Controller
 
         Item_Loan::create($data);
 
-        Good::find($id)->update([
+        $good->update([
             'is_available' => 0
         ]);
 
         return redirect()->back()->with('refresh', true);
     }
 
-    public function listItems($loanId)
+
+    public function summary()
     {
-        session()->put('loanId', $loanId);
+        $loanId = session()->get('loanId');
+        session()->flash('loanId', $loanId);
 
-        $goods = Good::with('category')->where('is_available', 1)->get();
-
-        return view('user.loan-items', compact('goods'));
+        return redirect()->route('user.user-summary');
     }
 
-    public function store(Request $request)
+    public function userSummary()
     {
-        $data  = $request->except('_token');
+        $loanId = session()->get('loanId');
 
-        $data['user_id'] = auth()->user()->id;
-        $data['return_date'] = Carbon::now()->addDays(7);
-        $data['due_date'] = Carbon::now()->addDays(14);
-        $data['period'] = Carbon::now()->format('Ym');
+        $items = Item_Loan::with('good')
+            ->where('loan_id', $loanId)
+            ->get();
 
-        $loan = Loan::create($data);
+        return view('user.loan-summary', compact('items'));
+    }
 
-        return redirect()->route('user.loan-items', ['loanId' => $loan->id]);
+    public function deleteItems($id)
+    {
+        $item = Item_Loan::find($id);
+
+        Good::find($item->good_id)->update([
+            'is_available' => 1
+        ]);
+
+        $item->delete();
+
+        return redirect()->back()->with('refresh', true);
     }
 
     public function return()
@@ -137,37 +169,5 @@ class LoanController extends Controller
         } catch (Throwable $e) {
             report($e);
         }
-    }
-
-    public function summary()
-    {
-        $loanId = session()->get('loanId');
-        session()->flash('loanId', $loanId);
-
-        return redirect()->route('user.user-summary');
-    }
-
-    public function userSummary()
-    {
-        $loanId = session()->get('loanId');
-
-        $items = Item_Loan::with('good')
-            ->where('loan_id', $loanId)
-            ->get();
-
-        return view('user.loan-summary', compact('items'));
-    }
-
-    public function deleteItems($id)
-    {
-        $item = Item_Loan::find($id);
-
-        Good::find($item->good->id)->update([
-            'is_available' => 1
-        ]);
-
-        $item->delete();
-
-        return redirect()->back()->with('refresh', true);
     }
 }
