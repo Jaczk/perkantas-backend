@@ -2,17 +2,57 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::all();
-        
-        return view('admin.users',['users'=>$users]);
+
+        foreach ($users as $user) {
+
+            $loans = Loan::where('user_id', $user->id)->with('item_loan')->get();
+
+            $filteredLoan = $loans->filter(function ($loan) {
+                return $loan->is_returned === 0;
+            });
+
+            $filteredLoan->each(function ($loan) {
+
+                if ($loan->item_loan->isEmpty()) {
+                    // Delete the loan
+                    $loan->delete();
+                }
+
+                $fine = $this->calculateFine($loan->return_date);
+                $loan->fine = $fine;
+                $loan->save();
+            });
+
+            $totalFine = $filteredLoan->sum('fine');
+
+            $user->total_fine = $totalFine;
+            $user->save();
+        }
+
+        return view('admin.users', ['users' => $users, 'loans' => $loans, 'filteredLoan' => $filteredLoan]);
+    }
+
+    public function calculateFine($returnDate)
+    {
+        $fine = 0;
+
+        if ($returnDate < Carbon::today()) {
+            $diffInDays = Carbon::today()->diffInDays($returnDate);
+            $fine = ($diffInDays + 1) * 5;
+        }
+
+        return $fine;
     }
 
     public function edit($id)
