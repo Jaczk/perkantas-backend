@@ -21,10 +21,6 @@
                             Daftar Barang Pinjaman
                         </div>
                     </div>
-                    <div class="my-4">
-                        <a href="#" onclick="history.back()"
-                            class="w-1/6 btn btn-primary_hover hover:opacity-80">Kembali</a>
-                    </div>
                     @if ($items->count() > 0)
                         <div class="form-group">
                             <div class="grid w-full grid-cols-2 grid-rows-none gap-4 p-3">
@@ -75,16 +71,30 @@
                                 @endforeach
                             </div>
                         </div>
-                        <a href="{{ route('user.loan') }}" class="w-2/5 btn btn-primary mt-[14px]">
-                            Selesaikan Peminjaman
-                        </a>
+                        <div class="flex flex-row">
+                            <div class="p-4 mt-4">
+                                <a href="#" onclick="history.back()"
+                                    class="w-1/4 btn btn-primary bg-primary_hover hover:opacity-80">Kembali</a>
+                            </div>
+                            
+                            <a href="{{ route('user.loan') }}" class="w-3/4 btn btn-primary mt-6 hover:opacity-80">
+                                Selesaikan Peminjaman
+                            </a>
+                        </div>
                     @elseif ($items->isEmpty())
                         <div class="flex justify-center my-10 text-2xl font-bold text-red-600">
                             Anda Tidak Meminjam Apapun!
                         </div>
-                        <a href="{{ route('user.loan') }}" class="w-1/2 btn btn-primary mt-[14px]">
+                        <div class="flex flex-row">
+                          <div class="mt-6 px-5 ">
+                            <a href="#" onclick="history.back()"
+                                class="w-1/4 btn btn-primary_hover hover:opacity-80">Kembali</a>
+                        </div>
+                        <a href="{{ route('user.loan') }}" class="w-3/4 btn btn-primary mt-[14px]">
                             Selesaikan Peminjaman
-                        </a>
+                        </a>  
+                        </div>
+                        
                     @endif
                 </div>
 

@@ -34,7 +34,7 @@ class LoanController extends Controller
             // Check if the loan doesn't have any associated item loans
             if ($loan->item_loan->isEmpty()) {
                 // Delete the loan
-                $loan->delete();
+                $loan->forceDelete();
             }
         }
 

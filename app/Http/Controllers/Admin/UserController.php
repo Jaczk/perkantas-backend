@@ -26,7 +26,7 @@ class UserController extends Controller
 
                 if ($loan->item_loan->isEmpty()) {
                     // Delete the loan
-                    $loan->delete();
+                    $loan->forceDelete();
                 }
 
                 $fine = $this->calculateFine($loan->return_date);

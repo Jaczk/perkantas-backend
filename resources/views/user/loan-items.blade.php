@@ -14,7 +14,7 @@
             <p class="mt-4 text-base leading-7 text-center mb-[50px] text-grey">
                 Pilih Barang Yang akan Anda Pinjam! <br />
                 Batas Pengembalian Barang adalah
-                <span class="text-lg font-bold">1 Hari</span> dihitung dari tanggal
+                <span class="text-lg font-bold text-red-600">1 Hari</span> dihitung dari tanggal
                 peminjaman.
             </p>
             <form class="w-full max-w-3xl card ">
