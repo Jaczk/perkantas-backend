@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('admin.auth');
+        return view('user.auth');
     }
 
     public function authenticate(Request $request)
@@ -29,7 +29,7 @@ class LoginController extends Controller
                 return redirect()->route('admin.dashboard');
             } elseif (auth()->user()->roles == 0) {
                 $request->session()->regenerate();
-                return redirect()->route('admin.category');
+                return redirect()->route('user.dashboard');
             }
         }
 

@@ -13,7 +13,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="mb-3 col-md-12">
                             <a href="{{ route('admin.good.create') }}" class="btn btn-primary text-bold">+ Barang</a>
                             |
                             <a href="{{ route('admin.good.trash') }}">Data Dihapus</a>
@@ -54,23 +54,27 @@
                                             {{-- <td>{{ $good->id }}</td> --}}
                                             <td>{{ $good->goods_name }}</td>
                                             <td>{{ $good->category->category_name ?? '-' }}</td>
+
                                             <td>
                                                 {{ ($good->condition == 'new') ? "BARU" : (($good->condition == 'used') ? "NORMAL" : "RUSAK") }}
                                             </td>
+
                                             @if ($good->is_available == 0)
                                                 <td class="text-center">
                                                     <p class="text-danger text-bold">Tidak Ada</p>
                                                 </td>
                                             @else
+
                                                 <td class="text-success font-weight-bold text-center">
                                                     <p class="text-success text-bold">Ada</p>
+
                                                 </td>
                                             @endif
                                             {{-- <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td> --}}
                                             <td class="text-justify">{{ $good->description }}</td>
                                             <td class="text-center">
-                                                <img class="img-fluid" style="width: 180px"
-                                                    src="{{ asset('storage/images/' . $good->image) }}" alt="">
+                                                <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}"
+                                                    class="img-fluid" style="width: 50%" alt="Image">
                                             </td>
                                             <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.good.edit', $good->id) }}"
@@ -80,7 +84,7 @@
                                                 <form method="post" action="{{ route('admin.good.destroy', $good->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-1 delete-btn">
+                                                    <button type="submit" class="mx-1 btn btn-danger delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>

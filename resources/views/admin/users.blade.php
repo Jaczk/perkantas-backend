@@ -60,7 +60,7 @@
                                                     <i class="fas fa-times fa-lg" style="color: #e00043;"></i>
                                                 </td>
                                             @else
-                                                <td class="text-success font-weight-bold text-center">
+                                                <td class="text-center text-success font-weight-bold">
                                                     <i class="fas fa-check fa-lg" style="color: #19942e;"></i>
                                                 </td>
                                             @endif
@@ -79,7 +79,7 @@
                                                     action="{{ route('admin.user.destroy', $user->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-2 delete-btn">
+                                                    <button type="submit" class="mx-2 btn btn-danger delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
