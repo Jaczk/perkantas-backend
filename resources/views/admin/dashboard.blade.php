@@ -37,7 +37,7 @@
             <div class="icon">
                 <i class="fas fa-people-carry"></i>
             </div>
-            <a href="{{ route('admin.loan') }}" class="small-box-footer">
+            <a href="{{ route('admin.loans') }}" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -64,7 +64,7 @@
             <div class="icon">
                 <i class="fas fa-clock"></i>
             </div>
-            <a href="{{ route('admin.loan') }}" class="small-box-footer">
+            <a href="{{ route('admin.loans') }}" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>

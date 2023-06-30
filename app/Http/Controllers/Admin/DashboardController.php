@@ -21,7 +21,9 @@ class DashboardController extends Controller
             $q->WhereHas('good');})
             ->withWhereHas('user')
             ->where('is_returned', 0)->count();
-        $returnLate = Loan::where('is_returned', 0)
+        $returnLate = Loan::withWhereHas('item_loan', function ($q) {
+            $q->WhereHas('good');})
+            ->where('is_returned', 0)
             ->whereDate('return_date', '<', Carbon::today())
             ->count();
         $brokenItem = Good::where('condition', 'broken')->count();

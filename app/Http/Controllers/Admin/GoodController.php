@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Good;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+
 
 class GoodController extends Controller
 {
@@ -48,11 +50,24 @@ class GoodController extends Controller
             'image' => 'image|mimes:jpg,jpeg,png'
         ]);
 
-        $image = $request->image; //request
-        $ogImageName = Str::random(8) . $image->getClientOriginalName(); //changeName
-        $image->storeAs('public/images', $ogImageName); //save in storageProj
-        $data['image'] = $ogImageName; //inject data only w/ file name
-        // dd($data);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $ogImageName = Str::random(8) . $image->getClientOriginalName();
+
+            // Compress and convert to WebP
+            $compressedImage = Image::make($image)
+                ->resize(800, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->encode('jpg', 75); // Adjust compression quality as needed
+
+            // Save the compressed and converted image
+            $compressedImage->save(storage_path('app/public/images/' . $ogImageName));
+
+            $data['image'] = $ogImageName;
+        }
+
         Good::create($data);
         return redirect()->route('admin.good')->with('success', 'Barang berhasil ditambahkan');
     }
@@ -71,15 +86,27 @@ class GoodController extends Controller
 
         $good = Good::find($id);
 
-        if ($request->image) {
-            $image = $request->image; //request
-            $ogImageName = Str::random(8) . $image->getClientOriginalName(); //changeName
-            $image->storeAs('public/images', $ogImageName); //save in storageProj
-            $data['image'] = $ogImageName; //inject data only w/ file name
-            //delete old image
-            Storage::delete('public/images/'.$good->image);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $ogImageName = Str::random(8) . $image->getClientOriginalName();
+
+            // Compress and convert to WebP
+            $compressedImage = Image::make($image)
+                ->resize(800, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->encode('jpg', 75); // Adjust compression quality as needed
+
+            // Save the compressed and converted image
+            $compressedImage->save(storage_path('app/public/images/' . $ogImageName));
+
+            $data['image'] = $ogImageName;
+
+            // Delete the old image
+            Storage::delete('public/images/' . $good->image);
         }
-        // dd($data);
+
         $good->update($data);
         return redirect()->route('admin.good')->with('success', 'Sukses memperbarui item barang');
     }
@@ -91,18 +118,21 @@ class GoodController extends Controller
         return redirect()->route('admin.good')->with('success', 'Berhasil menghapus item barang');
     }
 
-    public function trash(){
+    public function trash()
+    {
         $trash = Good::onlyTrashed()->get();
-        return view('admin.goods-trashed',['trash' => $trash]);
+        return view('admin.goods-trashed', ['trash' => $trash]);
     }
 
-    public function restore($id){
+    public function restore($id)
+    {
         $trash = Good::withTrashed()->find($id);
         $trash->restore();
         return redirect()->route('admin.good.trash')->with('success', 'Data berhasil dipulihkan.');
     }
 
-    public function forceDelete($id){
+    public function forceDelete($id)
+    {
         $trash = Good::withTrashed()->find($id);
         $trash->forceDelete();
         return redirect()->route('admin.good.trash')->with('success', 'Data berhasil dihapus');
