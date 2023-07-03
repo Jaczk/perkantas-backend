@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('admin.user-edit',['user'=>$user]);
+        return view('admin.user-edit', ['user' => $user]);
     }
 
     public function update(Request $request, $id)
@@ -68,7 +68,7 @@ class UserController extends Controller
 
         $request->validate([
             'phone' => 'required|string',
-            'can_return' =>'required',
+            'can_return' => 'required',
         ]);
 
         $user = User::find($id);
@@ -90,6 +90,4 @@ class UserController extends Controller
 
         return redirect()->route('admin.user')->with('success', 'Berhasil menghapus akun pengguna !');
     }
-
-
 }

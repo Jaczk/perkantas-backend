@@ -36,7 +36,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{  asset('images/perkantas.png') }}" alt="AdminLTELogo" height="180">
+    <img class="animation__shake" src="{{  asset('images/perkantas.png') }}" alt="" height="150">
   </div>
 
   {{-- navbar here --}}
@@ -51,7 +51,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="mb-2 row">
           <div class="col-sm-6">
             <h1 class="m-0 text-bold">@yield('title')</h1>
           </div><!-- /.col -->

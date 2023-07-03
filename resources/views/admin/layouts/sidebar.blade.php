@@ -2,12 +2,13 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #121F3E">
     <!-- Brand Logo -->
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
-        <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-normal" style="color: #f89223">
-            PERKANTAS
-            {{-- <img class ="w-50" src="{{ asset("images/perkantas.png") }}" alt=""> --}}
-        </span>
+
+      <img src="{{ asset("images/perkantas.png") }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">
+        PERKANTAS
+        {{-- <img class ="w-50" src="{{ asset("images/perkantas.png") }}" alt=""> --}}
+      </span>
+
     </a>
 
     <!-- Sidebar -->
