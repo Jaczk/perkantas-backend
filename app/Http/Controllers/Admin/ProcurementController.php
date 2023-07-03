@@ -10,16 +10,19 @@ use Illuminate\Validation\Rules\Enum;
 
 class ProcurementController extends Controller
 {
-    public function index(){
-        $procurements = Procurement::withWhereHas('user')->get();
+    public function index()
+    {
+        $procurements = Procurement::withWhereHas('user')
+            ->orderBy('created_at', 'desc')->get();
 
-        return view('admin.procurements', ['procurements'=>$procurements]);
+        return view('admin.procurements', ['procurements' => $procurements]);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $procurements = Procurement::find($id);
 
-        return view('admin.procurement-edit', ['procurements'=>$procurements]);
+        return view('admin.procurement-edit', ['procurements' => $procurements]);
     }
 
     public function update(Request $request, $id)
@@ -31,7 +34,7 @@ class ProcurementController extends Controller
 
         $procurement = Procurement::find($id);
         $procurement->update($data);
-        return redirect()->route('admin.procurement')->with('success', 'Updated status success');
+        return redirect()->route('admin.procurement')->with('success', 'Berhasil memperbarui data pengajuan barang');
     }
 
     public function delete($id)

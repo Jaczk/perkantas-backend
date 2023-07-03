@@ -74,20 +74,20 @@ class UserController extends Controller
         $user = User::find($id);
 
         $user->update($data);
-        return redirect()->route('admin.user')->with('success', 'User updated successfully');
+        return redirect()->route('admin.user')->with('success', 'Berhasil memperbarui data pengguna');
     }
 
     public function userAccess()
     {
         User::where('roles', 0)->update(['can_return' => 0]);
 
-        return redirect()->route('admin.user')->with('success', 'Reset access to all users succesfully!');
+        return redirect()->route('admin.user')->with('success', 'Reset akses peminjaman barang ke semua pengguna berhasil !');
     }
 
     public function destroy($id)
     {
         User::find($id)->delete();
 
-        return redirect()->route('admin.user')->with('success', 'One user has been deleted !');
+        return redirect()->route('admin.user')->with('success', 'Berhasil menghapus akun pengguna !');
     }
 }

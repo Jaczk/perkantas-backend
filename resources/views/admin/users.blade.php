@@ -17,9 +17,9 @@
                         <form enctype="multipart/form-data" method="POST" action="{{ route('admin.user.access') }}">
                             @csrf
                             @method('PUT')
-                            <div class="mb-3 col-md-12">
-                                <button type="submit" class="btn btn-warning text-bold" onclick="confirmResetForm(event)"
-                                >Reset Akses Pengguna</button>
+                            <div class="col-md-12 mb-3">
+                                <button type="submit" class="btn btn-warning text-bold"
+                                    onclick="confirmResetForm(event)">Reset Akses Pengguna</button>
                             </div>
                         </form>
                     </div>
@@ -66,7 +66,9 @@
                                             @endif
                                             <td>{{ $user->roles == 1 ? 'Admin' : ($user->roles == 0 ? 'User' : 'Deactivated User') }}
                                             </td>
-                                            <td>{{ $user->total_fine }}</td>
+                                            <td>
+                                                {{ $user->total_fine }}
+                                            </td>
                                             <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.user.edit', $user->id) }}"
                                                     class="btn btn-secondary">
@@ -125,25 +127,25 @@
         });
     </script>
 
-<script>
-    function confirmResetForm(event) {
-        event.preventDefault(); // Prevent default form submission
+    <script>
+        function confirmResetForm(event) {
+            event.preventDefault(); // Prevent default form submission
 
-        Swal.fire({
-            title: 'Reset akses pengembalian ?',
-            text: 'Aksi ini akan melakukan reset akses pengembalian pada semua pengguna.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Reset',
-            cancelButtonText: 'Kembali',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // User confirmed, submit the form
-                event.target.form.submit();
-            }
-        });
-    }
-</script>
+            Swal.fire({
+                title: 'Reset akses pengembalian ?',
+                text: 'Aksi ini akan melakukan reset akses pengembalian pada semua pengguna.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Reset',
+                cancelButtonText: 'Kembali',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed, submit the form
+                    event.target.form.submit();
+                }
+            });
+        }
+    </script>
 @endsection
