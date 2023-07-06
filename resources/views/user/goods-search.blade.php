@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="container lg:pr-[70px] py-[50px] px-4 lg:pl-0 lg:ml-12 lg:w-screen md:w-screen sm:w-screen">
-        <section class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row">
-            <div class="flex items-center justify-between gap-4">
+        <section class="flex flex-col flex-wrap gap-6 md:items-center md:flex-row">
+            <div class="flex items-center justify-between gap-3">
                 <a href="#" id="toggleOpenSidebar" class="lg:hidden">
                     <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
                         <input type="text" name="query"
                             class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
                             placeholder="Cari Barang..." />
-                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
+                        <button type="submit" class="w-1/4 px-2 mx-2 btn btn-buttons">Cari</button>
                     </form>
                 <a class="btn btn-buttons" href="{{ route('user.good') }}">
                     Kembali

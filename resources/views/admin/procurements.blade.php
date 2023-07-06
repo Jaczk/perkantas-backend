@@ -13,7 +13,7 @@
 
                 <div class="card-body">
                     {{-- <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="mb-3 col-md-12">
                             <a href="!#" class="btn btn-warning">Create Procurements</a>
                         </div>
                     </div> --}}
@@ -58,12 +58,10 @@
                                             <td>{{ $proc->period }}</td>
                                             <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($proc->created_at)) }}</td>
                                             {{-- <td class="text-justify">{{ $proc->message }}</td> --}}
-                                            @if ($proc->status == 'approved')
-                                                <td class="text-success font-weight-bold">{{ 'DITERIMA' }}</td>
-                                            @elseif ($proc->status == 'pending')
-                                                <td class="text-info font-weight-bold">{{ 'MENUNGGU' }}</td>
-                                            @else
-                                                <td class="text-danger font-weight-bold">{{ 'DITOLAK' }}</td>
+                                            @if ($proc->status == 'added')
+                                                <td class="text-success font-weight-bold">{{ 'TERSEDIA' }}</td>
+                                            @elseif ($proc->status == 'not_added')
+                                                <td class="text-warning font-weight-bold">{{ 'DIAJUKAN' }}</td>
                                             @endif
                                             <td>
                                                 <a href="{{ route('admin.procurement.edit', $proc->id) }}"

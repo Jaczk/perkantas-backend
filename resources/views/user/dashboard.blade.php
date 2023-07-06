@@ -40,13 +40,22 @@
                             </div>
                         </div>
                     </div>
-                    <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
-                        class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
-                        @csrf
-                        <button type="submit">
+                    @if ($user->total_fine > 0)
+                        <button
+                            class="self-end w-1/2 p-2 cursor-not-allowed btn btn-primary hover:text-lg hover:bg-primary_hover"
+                            onclick="alertLoan(event)">
                             Pinjam
                         </button>
-                    </form>
+                    @elseif ($user->total_fine === 0)
+                        <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
+                            class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
+                            @csrf
+                            <button type="submit">
+                                Pinjam
+                            </button>
+                        </form>
+                    @endif
+
                 </div>
                 <!-- Second Card -->
                 <div class="card !gap-y-0 min-h-[100px] bg-white p-5 rounded-3xl">
@@ -123,50 +132,50 @@
                 <div>
                     <!-- Section Header -->
                     <!-- <div class="mb-[30px]">
-                        <div class="flex items-center justify-between gap-6">
-                          <div>
-                            <div class="text-xl font-medium text-dark">Documents</div>
-                            <p class="text-grey">Standard procedure</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card md:min-h-[468px]">
-                        <div class="m-auto text-center">
-                          <div class="text-xl font-bold text-dark">No Documents</div>
-                          <p class="text-grey mt-5 mb-[30px]">
-                            Add guidance or design style for <br />
-                            your employees in company
-                          </p>
-                          <button type="button" class="btn btn-primary">
-                            Upload File
-                          </button>
-                        </div>
-                      </div> -->
+                                <div class="flex items-center justify-between gap-6">
+                                  <div>
+                                    <div class="text-xl font-medium text-dark">Documents</div>
+                                    <p class="text-grey">Standard procedure</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card md:min-h-[468px]">
+                                <div class="m-auto text-center">
+                                  <div class="text-xl font-bold text-dark">No Documents</div>
+                                  <p class="text-grey mt-5 mb-[30px]">
+                                    Add guidance or design style for <br />
+                                    your employees in company
+                                  </p>
+                                  <button type="button" class="btn btn-primary">
+                                    Upload File
+                                  </button>
+                                </div>
+                              </div> -->
                 </div>
 
                 <!-- History -->
                 <div>
                     <!-- Section Header -->
                     <!-- <div class="mb-[30px]">
-                        <div class="flex items-center justify-between gap-6">
-                          <div>
-                            <div class="text-xl font-medium text-dark">History</div>
-                            <p class="text-grey">Track the flow</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card min-h-[468px]">
-                        <div class="m-auto text-center">
-                          <div class="text-xl font-bold text-dark">No History</div>
-                          <p class="text-grey mt-5 mb-[30px]">
-                            Information of employees added <br />
-                            and promoting shown here
-                          </p>
-                          <button type="button" class="btn btn-primary">
-                            Upload File
-                          </button>
-                        </div>
-                      </div> -->
+                                <div class="flex items-center justify-between gap-6">
+                                  <div>
+                                    <div class="text-xl font-medium text-dark">History</div>
+                                    <p class="text-grey">Track the flow</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card min-h-[468px]">
+                                <div class="m-auto text-center">
+                                  <div class="text-xl font-bold text-dark">No History</div>
+                                  <p class="text-grey mt-5 mb-[30px]">
+                                    Information of employees added <br />
+                                    and promoting shown here
+                                  </p>
+                                  <button type="button" class="btn btn-primary">
+                                    Upload File
+                                  </button>
+                                </div>
+                              </div> -->
                 </div>
             </div>
         </section>
@@ -182,6 +191,20 @@
                 toast: true,
                 icon: 'warning',
                 title: 'Harap Menghubungi Admin Terlebih Dahulu',
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            });
+        }
+
+        function alertLoan(event) {
+            event.preventDefault(); // Prevent form submission
+
+            Swal.fire({
+                toast: true,
+                icon: 'warning',
+                title: 'Harap Selesaikan Pembayaran Denda Anda Terlebih Dahulu!',
                 position: 'top-end',
                 showConfirmButton: false,
                 timer: 2000,

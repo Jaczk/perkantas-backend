@@ -39,21 +39,17 @@
                                 class="custom-select font-weight-bold text-danger" 
                             @endif --}}
                                 name="status">
-                                <option class="text-info font-weight-bold" value="pending" @selected($procurements->status == 'pending')>
-                                    MENUNGGU</option>
-                                <option class="text-success font-weight-bold" value="approved" @selected($procurements->status == 'approved')>
-                                    DITERIMA</option>
-                                <option class="text-danger font-weight-bold" value="rejected" @selected($procurements->status == 'rejected')>
-                                    DITOLAK</option>
+                                <option class="text-warning font-weight-bold" value="not_added" @selected($procurements->status == 'not_added')>
+                                    DIAJUKAN</option>
+                                <option class="text-success font-weight-bold" value="added" @selected($procurements->status == 'added')>
+                                    TERSEDIA</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="title">Pesan</label>
-                            {{-- <input type="text" class="form-control" id="message" name="message"
-                            placeholder="pesan ke user" value=""> --}}
                             <textarea placeholder="tulis pesan kepada anggota terkait pengajuan barang..." 
                             name="message" class="form-control" id="message" rows="3">{{ $procurements->message }}</textarea>
-                        </div>
+                        </div> --}}
                     </div>
 
 

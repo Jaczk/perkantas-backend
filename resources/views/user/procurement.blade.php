@@ -50,24 +50,20 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-[30px]">
                 @foreach ($procurements as $procurement)
                     <div
-                        class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4 h-[200px]">
+                        class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4 h-[160px]">
                         <!-- Added h-[200px] for increased height -->
                         <div class="flex flex-row">
                             <img src="/assets/svgs/ric-globe.svg" alt="" class="pl-2 pr-6" />
                             <div>
                                 <div class="flex flex-row justice-between">
                                     <div class="place-items-end">
-                                        @if ($procurement->status === 'pending')
-                                            <div class="text-lg font-bold text-yellow-600 uppercase">
-                                                Menunggu
+                                        @if ($procurement->status === 'not_added')
+                                            <div class="text-lg font-bold text-yellow-600 capitalize">
+                                                Diajukan
                                             </div>
-                                        @elseif ($procurement->status === 'approved')
-                                            <div class="text-lg font-bold text-green-600 uppercase">
-                                                Diterima
-                                            </div>
-                                        @elseif ($procurement->status === 'rejected')
-                                            <div class="text-lg font-bold text-red-600 uppercase">
-                                                Ditolak
+                                        @elseif ($procurement->status === 'added')
+                                            <div class="text-lg font-bold text-green-600 capitalize">
+                                                Tersedia
                                             </div>
                                         @endif
                                     </div>
@@ -77,37 +73,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-1 font-semibold text-dark">
+                                <div class="mb-1 font-semibold capitalize text-dark">
                                     {{ $procurement->goods_name }} ({{ $procurement->goods_amount }} barang)
                                 </div>
                                 <div class="flex flex-wrap">
-                                    @if ($procurement->status === 'pending')
+                                    @if ($procurement->status === 'not_added')
                                         @if ($procurement->message === null)
-                                            <p class="font-light">
-                                                Menunggu Persetujuan Admin...
+                                            <p class="font-light capitalize">
+                                                Terimakasih telah memberikan saran pengajuan barang kepada kami
                                             </p>
                                         @else
                                             <p class="font-light">
                                                 Pesan dari Admin <br>{{ $procurement->message }}
                                             </p>
                                         @endif
-                                    @elseif ($procurement->status === 'approved')
+                                    @elseif ($procurement->status === 'added')
                                         @if ($procurement->message === null)
-                                            <p class="font-light">
-                                                Pengajuan Telah Disetujui
+                                            <p class="font-light capitalize">
+                                                barang yang anda ajukan sudah tersedia di daftar barang
                                             </p>
                                         @else
-                                            <p class="font-light">
-                                                Pesan dari Admin <br>{{ $procurement->message }}
-                                            </p>
-                                        @endif
-                                    @elseif ($procurement->status === 'rejected')
-                                        @if ($procurement->message === null)
-                                            <p class="font-light">
-                                                Pengajuan Anda Ditolak
-                                            </p>
-                                        @else
-                                            <p class="font-light">
+                                            <p class="font-light capitalize">
                                                 Pesan dari Admin <br>{{ $procurement->message }}
                                             </p>
                                         @endif
