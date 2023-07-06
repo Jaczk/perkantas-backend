@@ -54,15 +54,15 @@
                                                     <p class="text-danger text-bold">Tidak Ada</p>
                                                 </td>
                                             @else
-                                                <td class="text-success font-weight-bold text-center">
+                                                <td class="text-center text-success font-weight-bold">
                                                     <p class="text-success text-bold">Ada</p>
                                                 </td>
                                             @endif
                                             {{-- <td>{{ $good->is_available == '0' ? "Not Available" : "Ready"}}</td> --}}
                                             <td class="text-justify">{{ $t->description }}</td>
                                             <td class="text-center">
-                                                <img class="img-fluid" style="width: 180px"
-                                                    src="{{ asset('storage/images/' . $t->image) }}" alt="">
+                                                    <img src="{{ filter_var($t->image, FILTER_VALIDATE_URL) ? $t->image : asset('storage/images/' . $t->image) }}"
+                                                    class="img-fluid" style="width: 180px" alt="Image">
                                             </td>
                                             <td class="flex-row d-flex">
                                                 <form action="{{ route('admin.good.restore', $t->id) }}" method="POST">
@@ -74,7 +74,7 @@
                                                     action="{{ route('admin.good.delete', $t->id) }}">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mx-2 delete-btn">
+                                                    <button type="submit" class="mx-2 btn btn-danger delete-btn">
                                                         Hapus Permanen
                                                     </button>
                                                 </form>

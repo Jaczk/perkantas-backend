@@ -26,7 +26,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="good" class="table table-striped table-hover">
+                            <table id="loan" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Nomor</th>
@@ -71,7 +71,14 @@
                                             @elseif($lo->is_returned == 1)
                                                 <td class="text-success font-weight-bold">{{ 'Dikembalikan' }}</td>
                                             @endif {{-- is_returned comparison --}}
-                                            <td>
+                                            <td class="flex-row d-flex">
+                                                <form method="POST" action="{{ route('admin.loans.return', $lo->id) }}">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <button type="submit" class="mx-1 btn btn-primary return-btn">
+                                                        <i class="fas fa-undo-alt"></i>
+                                                    </button>
+                                                </form>
                                                 <a href="https://wa.me/{{ $lo->user->phone }}" class="btn btn-success"
                                                     target="_blank">
                                                     <i class="fab fa-whatsapp fa-lg"></i>
@@ -95,9 +102,33 @@
     </script> --}}
     <script>
         $(document).ready(function() {
-            $('#good').DataTable({
+            // Initialize DataTable
+            var table = $('#loan').DataTable({
                 dom: 'lBfrtipl',
                 buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            });
+
+            // Apply event listener to return buttons
+            $('#loan').on('click', '.return-btn', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                // Show SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: 'Peminjaman akan ditandai sebagai dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3CCF4E',
+                    cancelButtonColor: '#e31231',
+                    confirmButtonText: 'Selesaikan Peminjaman!',
+                    cancelButtonText: 'Kembali'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form after confirmation
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

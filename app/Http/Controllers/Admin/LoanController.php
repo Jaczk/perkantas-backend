@@ -29,7 +29,7 @@ class LoanController extends Controller
             $filteredLoans = $userLoan->filter(function ($loan) {
                 return $loan->is_returned === 0;
             });
-            
+
             $filteredLoans->each(function ($loan) {
                 $fine = $this->calculateFine($loan->return_date);
                 $loan->fine = $fine;
@@ -58,11 +58,34 @@ class LoanController extends Controller
         return $fine;
     }
 
+    public function return($id)
+    {
+        $items = Item_Loan::with('good')
+            ->where('loan_id', $id)
+            ->whereHas('loan', function ($q){
+                $q->where('is_returned', 0);
+            })
+            ->get();
+
+        foreach ($items as $item) {
+            Good::find($item->good->id)->update([
+                'is_available' => 1
+            ]);
+        }
+        $loan = Loan::find($id);
+        $loan->update([
+            'is_returned' => 1
+        ]);
+
+        return redirect()->route('admin.loans')->with('success', 'Berhasil menyelesaikan peminjaman');
+    }
+
+
     public function destroy($id)
     {
 
         Loan::find($id)->delete();
 
-        return redirect()->route('admin.loan')->with('success', 'One item has been deleted !');
+        return redirect()->route('admin.loans')->with('success', 'Berhasil menghapus peminjaman');
     }
 }

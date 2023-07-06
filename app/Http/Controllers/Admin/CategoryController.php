@@ -35,7 +35,7 @@ class CategoryController extends Controller
             'category_name' => 'required|string'
         ]);
 
-        Category::create($data); 
+        Category::create($data);
         return redirect()->route('admin.category')->with('success', 'Kategori berhasil dibuat');
     }
 
