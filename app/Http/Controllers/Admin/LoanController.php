@@ -24,19 +24,16 @@ class LoanController extends Controller
         $users = User::all();
 
         foreach ($users as $user) {
-            $items = Item_Loan::whereHas('loan', function ($q) use ($user) {
-                    $q->where('user_id', $user->id);
-                })
-                ->get();
+            $userLoan = Loan::where('user_id', $user->id)->get();
 
-            $filteredItems = $items->filter(function ($item) {
-                return $item->loan->is_returned === 0;
+            $filteredLoans = $userLoan->filter(function ($loan) {
+                return $loan->is_returned === 0;
             });
-
-            $filteredItems->each(function ($item) {
-                $fine = $this->calculateFine($item->loan->return_date);
-                $item->loan->fine = $fine;
-                $item->loan->save();
+            
+            $filteredLoans->each(function ($loan) {
+                $fine = $this->calculateFine($loan->return_date);
+                $loan->fine = $fine;
+                $loan->save();
             });
         }
 

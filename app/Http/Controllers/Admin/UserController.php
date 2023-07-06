@@ -42,6 +42,7 @@ class UserController extends Controller
 
         return view('admin.users', ['users' => $users, 'loans' => $loans, 'filteredLoan' => $filteredLoan]);
     }
+    
 
     public function calculateFine($returnDate)
     {
