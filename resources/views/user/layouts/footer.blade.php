@@ -6,7 +6,7 @@
             </div>
             <div class="px-5 mx-4 mt-6 basis-1/2">
                 <div class="grid grid-cols-1 gap-3">
-                    <div class="text-xl font-semibold text-white">About us</div>
+                    <div class="text-xl font-semibold text-white">Tentang Kami</div>
                     <p class="text-justify">
                         Perkantas tersebar di puluhan kota di seluruh Indonesia, terdiri
                         dari 14 Badan Pengurus Cabang/BPC, salah satunya Semarang, 13
@@ -16,7 +16,7 @@
                         pelayanan. Biarlah Tuhan terus berkarya di dalam dan melalui
                         umat-Nya. Soli Deo Gloria!
                     </p>
-                    <h4 class="text-xl font-semibold text-white">Follow Us</h4>
+                    <h4 class="text-xl font-semibold text-white">Ikuti Kami</h4>
                     <div class="flex flex-row p-2">
                         <a href="https://www.facebook.com/PerkantasSMG/?locale=id_ID" target="__blank"><img
                                 src="/assets/images/Facebook_icon_2013.svg.png" alt=""
@@ -37,21 +37,21 @@
                 </div>
             </div>
             <div class="px-5 mx-4 mt-6 basis-1/2">
-                <h2 class="text-xl font-semibold text-white">Hub</h2>
+                <h2 class="text-xl font-semibold text-white">Hubungi Kami</h2>
                 <div class="grid grid-cols-1 gap-3">
                     <div>
-                        <h4 class="text-lg font-semibold text-white">Alamat</h4>
+                        <h4 class="text-lg font-semibold text-white">Alamat Kantor</h4>
                         <p>
                             Jl. Pawiyatan Luhur No.39 Tinjomoyo, Kec. Banyumanik <br />
                             Kota Semarang, Jawa Tengah 50262
                         </p>
                     </div>
                     <div>
-                        <h4 class="text-lg font-semibold text-white">Telepon</h4>
+                        <h4 class="text-lg font-semibold text-white">Nomor Telepon</h4>
                         <p>(024) 76424173</p>
                     </div>
                     <div>
-                        <h4 class="text-lg font-semibold text-white">Email</h4>
+                        <h4 class="text-lg font-semibold text-white">Alamat Email</h4>
                         <p>ptas.smg@gmail.com</p>
                     </div>
                 </div>

@@ -40,13 +40,21 @@
                                     Kembalikan Barang
                                 </a>
                             @endif
-                            <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
-                                class="px-5">
-                                @csrf
-                                <button type="submit" class="btn btn-primary ">
+                            @if ($user->total_fine > 0)
+                                <button
+                                    class="mx-2 cursor-not-allowed btn btn-primary"
+                                    onclick="alertLoan(event)">
                                     Buat Peminjaman
                                 </button>
-                            </form>
+                            @elseif ($user->total_fine === 0)
+                                <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
+                                    class="px-5 btn btn-primary">
+                                    @csrf
+                                    <button type="submit">
+                                        Buat Peminjaman
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -103,7 +111,8 @@
                             <div class="mb-2 font-semibold text-center text-dark">
                                 Nomor Peminjaman {{ $item->loan->id }}
                             </div>
-                            <img src={{ $item->good->image }} width="150" alt="" />
+                            <img src="{{ filter_var($item->good->image, FILTER_VALIDATE_URL) ? $item->good->image : asset('storage/images/' . $item->good->image) }}"
+                                alt="Image" width="150">
                             <p class="text-center text-grey mt-[8px]">
                                 {{ $item->good->goods_name }}
                             </p>
@@ -112,12 +121,12 @@
                             </div>
                             @if (\Carbon\Carbon::now()->greaterThan($item->loan->return_date))
                                 <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
-                                    {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()))) }}
+                                    {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now())))}}
                                     Hari Terlambat
                                 </div>
                             @else
                                 <div class="mt-[10px] px-5 text-green-600 font-bold text-lg flex text-center">
-                                    {{ \Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()) }}
+                                    {{ \Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()) + 1 }}
                                     Hari Lagi
                                 </div>
                             @endif
@@ -144,6 +153,19 @@
                 toast: true,
                 icon: 'warning',
                 title: 'Harap Menghubungi Admin Terlebih Dahulu',
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            });
+        }
+        function alertLoan(event) {
+            event.preventDefault(); // Prevent form submission
+
+            Swal.fire({
+                toast: true,
+                icon: 'warning',
+                title: 'Harap Selesaikan Pembayaran Denda Anda Terlebih Dahulu!',
                 position: 'top-end',
                 showConfirmButton: false,
                 timer: 2000,

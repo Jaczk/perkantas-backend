@@ -38,7 +38,6 @@ class GoodController extends Controller
 
         // Perform the search query to fetch matching goods
         $goods = Good::where('goods_name', 'like', '%' . $searchQuery . '%')
-            ->orWhere('description', 'like', '%' . $searchQuery . '%')
             ->get();
 
         return view('user.goods-search', compact('goods', 'searchQuery'));

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User\LoanController;
+use App\Http\Controllers\User\LoanController as UserLoanController;
+use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\User\RegisterController;
@@ -30,6 +31,7 @@ Route::view('/', 'user.auth')->name('login'); //LoginPage
 Route::get('admin/login', [LoginController::class, 'index'])->name('admin.login');
 Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
 
+
 Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () {
     // Route::view('/', 'admin.dashboard')->name('admin.dashboard');
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -43,6 +45,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
         Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
         Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+        Route::get('/trash', [CategoryController::class, 'trash'])->name('admin.category.trash');
+        Route::put('/restore/{id}', [CategoryController::class, 'restore'])->name('admin.category.restore');
+        Route::delete('/delete/{id}', [CategoryController::class, 'forceDelete'])->name('admin.category.delete');
     });
 
     Route::group(['prefix' => 'good'], function () {
@@ -52,6 +57,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::get('/edit/{id}', [GoodController::class, 'edit'])->name('admin.good.edit');
         Route::put('/update/{id}', [GoodController::class, 'update'])->name('admin.good.update');
         Route::delete('/destroy/{id}', [GoodController::class, 'destroy'])->name('admin.good.destroy');
+        Route::get('/trash', [GoodController::class, 'trash'])->name('admin.good.trash');
+        Route::put('/restore/{id}', [GoodController::class, 'restore'])->name('admin.good.restore');
+        Route::delete('/delete/{id}', [GoodController::class, 'forceDelete'])->name('admin.good.delete');
     });
 
     Route::group(['prefix' => 'user'], function () {
@@ -60,6 +68,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::put('/update/{id}', [AdminController::class, 'update'])->name('admin.user.update');
         Route::delete('/destroy/{id}', [AdminController::class, 'destroy'])->name('admin.user.destroy');
         Route::put('/reset', [AdminController::class, 'userAccess'])->name('admin.user.access');
+    });
+
+    Route::group(['prefix' => 'loans'], function () {
+        Route::get('/', [LoanController::class, 'index'])->name('admin.loans');
+        Route::delete('/destroy/{id}', [ItemLoanController::class, 'destroy'])->name('admin.loans.destroy');
     });
 
     Route::group(['prefix' => 'procurement'], function () {
@@ -97,15 +110,15 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
     });
 
     Route::group(['prefix' => 'loan'], function () {
-        Route::get('/', [LoanController::class, 'index'])->name('user.loan');
-        Route::get('/return', [LoanController::class, 'return'])->name('user.return');
-        Route::post('/store', [LoanController::class, 'store'])->name('user.loan.store');
-        Route::get('/summary', [LoanController::class, 'summary'])->name('user.loan-summary');
-        Route::get('/userSummary/{loanId}', [LoanController::class, 'userSummary'])->name('user.user-summary');
-        Route::post('/deleteItem/{id}', [LoanController::class, 'deleteItems'])->name('user.loan.delete-item');
-        Route::get('/listItems/{loanId}', [LoanController::class, 'listItems'])->name('user.loan-items');
-        Route::post('/addItem/{id}', [LoanController::class, 'addItems'])->name('user.loan.create');
-        Route::post('/returnItems/{id}', [LoanController::class, 'returnItems'])->name('user.return-items');
-        Route::delete('/destroy/{id}', [ItemLoanController::class, 'destroy'])->name('admin.loan.destroy');
+        Route::get('/', [UserLoanController::class, 'index'])->name('user.loan');
+        Route::get('/return', [UserLoanController::class, 'return'])->name('user.return');
+        Route::post('/store', [UserLoanController::class, 'store'])->name('user.loan.store');
+        Route::get('/listItems/{loanId}', [UserLoanController::class, 'listItems'])->name('user.loan-items');
+        Route::post('/addItem/{id}', [UserLoanController::class, 'addItems'])->name('user.loan.create');
+        Route::get('/summary', [UserLoanController::class, 'summary'])->name('user.loan-summary');
+        Route::get('/userSummary/{loanId}', [UserLoanController::class, 'userSummary'])->name('user.user-summary');
+        Route::post('/deleteItem/{id}', [UserLoanController::class, 'deleteItems'])->name('user.loan.delete-item');
+        Route::post('/returnItems/{id}', [UserLoanController::class, 'returnItems'])->name('user.return-items');
+        Route::delete('/destroy/{id}', [ItemUserLoanController::class, 'destroy'])->name('admin.loan.destroy');
     });
 });

@@ -1,4 +1,4 @@
-@extends('user.layouts.forms')
+@extends('user.layouts.forms-loan')
 
 @section('title', 'Pilih Barang')
 
@@ -14,7 +14,7 @@
             <p class="mt-4 text-base leading-7 text-center mb-[50px] text-grey">
                 Pilih Barang Yang akan Anda Pinjam! <br />
                 Batas Pengembalian Barang adalah
-                <span class="text-lg font-bold">1 Minggu</span> dihitung dari tanggal
+                <span class="text-lg font-bold text-red-600">1 Hari</span> dihitung dari tanggal
                 peminjaman.
             </p>
             <form class="w-full max-w-3xl card ">
@@ -26,7 +26,8 @@
                 <div class="form-group ">
                     <div class="grid grid-cols-2 grid-rows-none ">
                         @foreach ($goods as $index => $good)
-                            <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST" class="p-3">
+                            <form action="{{ route('user.loan.create', ['id' => $good->id]) }}" method="POST"
+                                class="p-3">
                                 @csrf
                                 <button type="button" onclick="confirmAddItems({{ $good->id }}, {{ $index }})"
                                     class="card !gap-y-0 bg-white lg:w-[350px] lg:h-[320px] hover:bg-slate-100 border-solid border-2 border-indigo-100 hover:cursor-pointer">
@@ -49,8 +50,8 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <img src="{{ $good->image }}" alt=""
-                                        class="inline-block w-[120px] h-[120px] align-middle my-2">
+                                        <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}"
+                                            alt="Image" class="inline-block w-[120px] h-[120px] align-middle my-2">
                                         @if (Str::length($good->description) < 60)
                                             <p class="my-2 text-grey">
                                                 {{ $good->description }}
@@ -66,9 +67,10 @@
                         @endforeach
                     </div>
                 </div>
-                <a href="{{ route('user.user-summary', ['loanId' => session()->get('loanId')]) }}" class="w-1/2 btn btn-primary mt-[14px]">
+                <a href="{{ route('user.user-summary', ['loanId' => session()->get('loanId')]) }}"
+                    class="w-1/2 btn btn-primary mt-[14px]">
                     Lihat Ringkasan Peminjaman
-                </a>                
+                </a>
             </form>
         </section>
     </div>
@@ -109,12 +111,13 @@
                 })
                 .then(response => {
                     // Handle the response here
+                    
+                    // Reload the page
                     window.location.reload();
                     // Hide the card
                     card.style.display = 'none';
 
-                    // Reload the page
-                    
+
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -122,4 +125,3 @@
         }
     </script>
 @endsection
-

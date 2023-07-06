@@ -29,23 +29,19 @@ class DashboardController extends Controller
             // Check if the loan doesn't have any associated item loans
             if ($loan->item_loan->isEmpty()) {
                 // Delete the loan
-                $loan->delete();
+                $loan->forceDelete();
             }
         }
 
-        $loanItems = Loan::where('user_id', $user->id)->get();
+        $loanFines = Loan::where('user_id', $user->id)->where('is_returned', 0)->get();
 
-        $filteredLoan = $loanItems->filter(function ($loan) {
-            return $loan->is_returned === 0;
+        $loanFines->each(function ($loan) {
+            $fine = $this->calculateFine($loan->return_date);
+            $loan->fine = $fine;
+            $loan->save();
         });
 
-        $filteredLoan->each(function ($item) {
-            $fine = $this->calculateFine($item->return_date);
-            $item->fine = $fine;
-            $item->save();
-        });
-
-        $totalFine = $filteredLoan->sum('fine');
+        $totalFine = $loanFines->sum('fine');
 
         $user->total_fine = $totalFine;
         $user->save(); // Save the updated total fine value for the user

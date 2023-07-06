@@ -21,13 +21,13 @@
             </div>
             <div class="flex items-center gap-4">
                 <form class="shrink md:w-[516px] w-full flex flex-row" action="{{ route('user.procurement.search') }}"
-                        method="GET">
-                        @csrf
-                        <input type="text" name="query"
-                            class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
-                            placeholder="Cari Data Pengajuan..." />
-                        <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
-                    </form>
+                    method="GET">
+                    @csrf
+                    <input type="text" name="query"
+                        class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
+                        placeholder="Cari Data Pengajuan..." />
+                    <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
+                </form>
             </div>
         </section>
 
@@ -50,41 +50,53 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-[30px]">
                 @foreach ($procurements as $procurement)
                     <div
-                        class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4">
+                        class="items-center card !flex-row gap-4 hover:bg-slate-200 hover:cursor-pointer bg-white rounded-2xl p-4 h-[160px]">
+                        <!-- Added h-[200px] for increased height -->
                         <div class="flex flex-row">
                             <img src="/assets/svgs/ric-globe.svg" alt="" class="pl-2 pr-6" />
                             <div>
-                                <div class="place-items-end">
-                                    @if ($procurement->status === 'pending')
-                                        <div class="text-lg font-bold text-yellow-600 uppercase">
-                                            Menunggu
+                                <div class="flex flex-row justice-between">
+                                    <div class="place-items-end">
+                                        @if ($procurement->status === 'not_added')
+                                            <div class="text-lg font-bold text-yellow-600 capitalize">
+                                                Diajukan
+                                            </div>
+                                        @elseif ($procurement->status === 'added')
+                                            <div class="text-lg font-bold text-green-600 capitalize">
+                                                Tersedia
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="place-items-end">
+                                        <div class="pl-32 text-lg font-medium text-dark">
+                                            {{ $procurement->created_at->format('d M Y') }}
                                         </div>
-                                    @elseif ($procurement->status === 'approved')
-                                        <div class="text-lg font-bold text-green-600 uppercase">
-                                            Diterima
-                                        </div>
-                                    @elseif ($procurement->status === 'rejected')
-                                        <div class="text-lg font-bold text-red-600 uppercase">
-                                            Ditolak
-                                        </div>
-                                    @endif
+                                    </div>
                                 </div>
-                                <div class="mb-1 font-semibold text-dark">
-                                    {{ $procurement->goods_name }} ( {{ $procurement->goods_amount }} barang)
+                                <div class="mb-1 font-semibold capitalize text-dark">
+                                    {{ $procurement->goods_name }} ({{ $procurement->goods_amount }} barang)
                                 </div>
-                                <div>
-                                    @if ($procurement->status === 'pending')
-                                        <p class="font-light">
-                                            Menunggu Persetujuan Admin...
-                                        </p>
-                                    @elseif ($procurement->status === 'approved')
-                                        <p class="font-light">
-                                            Pengajuan Telah Disetujui
-                                        </p>
-                                    @elseif ($procurement->status === 'rejected')
-                                        <p class="font-light">
-                                            Pengajuan Anda Ditolak
-                                        </p>
+                                <div class="flex flex-wrap">
+                                    @if ($procurement->status === 'not_added')
+                                        @if ($procurement->message === null)
+                                            <p class="font-light capitalize">
+                                                Terimakasih telah memberikan saran pengajuan barang kepada kami
+                                            </p>
+                                        @else
+                                            <p class="font-light">
+                                                Pesan dari Admin <br>{{ $procurement->message }}
+                                            </p>
+                                        @endif
+                                    @elseif ($procurement->status === 'added')
+                                        @if ($procurement->message === null)
+                                            <p class="font-light capitalize">
+                                                barang yang anda ajukan sudah tersedia di daftar barang
+                                            </p>
+                                        @else
+                                            <p class="font-light capitalize">
+                                                Pesan dari Admin <br>{{ $procurement->message }}
+                                            </p>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -92,6 +104,7 @@
                     </div>
                 @endforeach
             </div>
+
         </section>
         <script src="{{ asset('js/sweet-alert.js') }}"></script>
     </div>

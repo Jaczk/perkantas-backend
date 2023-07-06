@@ -2,13 +2,12 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #121F3E">
     <!-- Brand Logo -->
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
-
-      <img src="{{ asset("images/perkantas.png") }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">
-        PERKANTAS
-        {{-- <img class ="w-50" src="{{ asset("images/perkantas.png") }}" alt=""> --}}
-      </span>
-
+        <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-normal" style="color: #f89223">
+            PERKANTAS
+            {{-- <img class ="w-50" src="{{ asset("images/perkantas.png") }}" alt=""> --}}
+        </span>
     </a>
 
     <!-- Sidebar -->
@@ -64,7 +63,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.loan') }}" class="nav-link">
+                    <a href="{{ route('admin.loans') }}" class="nav-link">
                         <i class="nav-icon fas fa-people-carry"></i>
                         <p>
                             Peminjaman
@@ -81,17 +80,25 @@
                     </a>
                 </li>
 
+                <li class="disabled cursor-default">
+                    <a href="#" class="nav-link disabled cursor-default">
+                    </a>
+                </li>
+
                 <li class="nav-item">
-            <a href="{{ route('user.logout') }}" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt"></i> <!--fontawesome.com v5-->
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
-          
-        </ul>
-      </nav>
+                    <a href="#" class="nav-link" onclick="confirmLogout(event)">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Keluar
+                        </p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
 </aside>
 
 <script>
@@ -100,12 +107,12 @@
 
         Swal.fire({
             title: 'Apakah anda yakin?',
-            text: 'Logout',
+            text: 'Keluar',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, Logout',
+            confirmButtonText: 'Ya, Keluar',
             cancelButtonText: 'Kembali',
         }).then((result) => {
             if (result.isConfirmed) {

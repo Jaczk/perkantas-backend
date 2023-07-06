@@ -26,6 +26,9 @@
     .btn-primary{
         @apply bg-primary text-white
     }
+    .btn-primary_hover{
+        @apply bg-primary_hover text-white
+    }
     .btn-buttons{
         @apply bg-button text-white
     }

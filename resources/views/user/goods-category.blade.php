@@ -15,6 +15,19 @@
                     </svg>
                 </a>
                 <div class="text-[32px] font-semibold text-dark">Daftar Barang</div>
+                <div class="flex items-center gap-4">
+                    {{-- <form class="shrink md:w-[516px] w-full flex flex-row" action="{{ route('user.goods.search') }}"
+                            method="GET">
+                            @csrf
+                            <input type="text" name="query"
+                                class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
+                                placeholder="Cari Barang..." />
+                            <button type="submit" class="w-1/3 px-2 mx-2 btn btn-buttons">Cari</button>
+                        </form> --}}
+                    <a class="btn btn-buttons" href="{{ route('user.good') }}">
+                        Kembali
+                    </a>
+                </div>
             </div>
         </section>
 
