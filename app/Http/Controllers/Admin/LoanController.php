@@ -43,7 +43,6 @@ class LoanController extends Controller
                 $loan->forceDelete();
             }
         }
-        // dd($loans);
         return view('admin.loans-item', ['loans' => $loans]);
     }
 

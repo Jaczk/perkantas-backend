@@ -48,7 +48,7 @@
                                 </button>
                             @elseif ($user->total_fine === 0)
                                 <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
-                                    class="mx-4 px-7 btn btn-primary">
+                                    class="px-5 btn btn-primary">
                                     @csrf
                                     <button type="submit">
                                         Buat Peminjaman
@@ -121,7 +121,7 @@
                             </div>
                             @if (\Carbon\Carbon::now()->greaterThan($item->loan->return_date))
                                 <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
-                                    {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()))) }}
+                                    {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now())))}}
                                     Hari Terlambat
                                 </div>
                             @else

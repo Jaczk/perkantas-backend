@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         $goods = Good::count();
-        $procurements = Procurement::where('status', 'pending')->count();
+        $procurements = Procurement::where('status', 'not_added')->count();
         $loans = Loan::withWhereHas('item_loan', function ($q) {
             $q->WhereHas('good');})
             ->withWhereHas('user')

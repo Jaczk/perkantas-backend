@@ -39,10 +39,10 @@ class LoanController extends Controller
         }
 
         // Calculate and update the fine for each loan
-        $filteredItems->each(function ($item) {
-            $fine = $this->calculateFine($item->loan->return_date);
-            $item->loan->fine = $fine;
-            $item->loan->save();
+        $loans->each(function ($loan) {
+            $fine = $this->calculateFine($loan->return_date);
+            $loan->fine = $fine;
+            $loan->save();
         });
 
         return view('user.loans', compact('items', 'filteredItems', 'user'));
