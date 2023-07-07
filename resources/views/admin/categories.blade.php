@@ -48,7 +48,7 @@
                                             {{-- <td>{{ $category->id }} </td> --}}
                                             <td>{{ $category->category_name }} </td>
                                             <td class="flex-row d-flex">
-                                                <a href="{{ route('admin.category.edit', $category->id) }}"
+                                                <a href="{{ route('admin.category.edit', Crypt::encryptString($category->id)) }}"
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
@@ -60,10 +60,6 @@
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
-                                                {{-- <a href="{{ route('admin.category.destroy', $category->id) }}" class="btn btn-danger mx-2">
-                                                    @csrf
-                                                    <i class="fas fa-trash"></i>
-                                                </a> --}}
                                             </td>
                                         </tr>
                                     @endforeach
