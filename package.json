@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "@cloudinary/url-gen": "^1.10.1",
-        "@cloudinary/vue": "^1.11.2"
+        "@cloudinary/vue": "^1.11.2",
+        "chart.js": "^4.3.0"
     }
 }

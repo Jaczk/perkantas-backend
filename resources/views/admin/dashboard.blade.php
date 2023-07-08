@@ -17,7 +17,7 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-        <div class="p-0 small-box bg-success col mx-3">
+        <div class="p-0 mx-3 small-box bg-success col">
             <div class="inner">
                 <h3>{{ $procurements }}</h3>
                 <p>Pengadaan</p>
@@ -56,7 +56,7 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-        <div class="p-0 small-box bg-danger col mx-3">
+        <div class="p-0 mx-3 small-box bg-danger col">
             <div class="inner">
                 <h3>{{ $returnLate }}</h3>
                 <p>Terlambat Dikembalikan</p>
@@ -80,6 +80,11 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
+    </div>
+
+    {{-- card for chart js --}}
+    <div>
+        
     </div>
 
 @endsection

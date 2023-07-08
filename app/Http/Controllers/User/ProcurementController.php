@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Carbon\Carbon;
+use App\Models\Good;
 use App\Models\Procurement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,7 +31,8 @@ class ProcurementController extends Controller
 
     public function add()
     {
-        return view('user.procurement-add');
+        $goods = Good::all();
+        return view('user.procurement-add',['goods'=>$goods]);
     }
 
     public function store(Request $request)
