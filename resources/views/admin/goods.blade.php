@@ -73,7 +73,7 @@
                                                     class="img-fluid" style="width: 180px" alt="Image">
                                             </td>
                                             <td class="flex-row d-flex">
-                                                <a href="{{ route('admin.good.edit', $good->id) }}"
+                                                <a href="{{ route('admin.good.edit', Crypt::encryptString($good->id)) }}"
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>

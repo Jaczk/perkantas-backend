@@ -7,6 +7,7 @@ use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class UserController extends Controller
 {
@@ -58,8 +59,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::find($id);
-
+        $decryptId = Crypt::decryptString($id);
+        $user = User::find($decryptId);
         return view('admin.user-edit', ['user' => $user]);
     }
 

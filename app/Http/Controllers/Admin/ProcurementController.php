@@ -7,6 +7,7 @@ use App\Models\Procurement;
 use Illuminate\Http\Request;
 use App\Enums\ServerStatus;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Support\Facades\Crypt;
 
 class ProcurementController extends Controller
 {
@@ -20,8 +21,8 @@ class ProcurementController extends Controller
 
     public function edit($id)
     {
-        $procurements = Procurement::find($id);
-
+        $decryptId = Crypt::decryptString($id);
+        $procurements = Procurement::find($decryptId);
         return view('admin.procurement-edit', ['procurements' => $procurements]);
     }
 

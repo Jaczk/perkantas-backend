@@ -64,7 +64,7 @@
                                                 <td class="text-warning font-weight-bold">{{ 'DIAJUKAN' }}</td>
                                             @endif
                                             <td>
-                                                <a href="{{ route('admin.procurement.edit', $proc->id) }}"
+                                                <a href="{{ route('admin.procurement.edit', Crypt::encryptString($proc->id)) }}"
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
