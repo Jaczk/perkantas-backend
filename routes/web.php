@@ -35,6 +35,7 @@ Route::post('admin/login', [LoginController::class, 'authenticate'])->name('admi
 Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () {
     // Route::view('/', 'admin.dashboard')->name('admin.dashboard');
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/chart/{period}', [DashboardController::class, 'procurementChart'])->name('admin.chart');
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
