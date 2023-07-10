@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
 
 
 class GoodController extends Controller
@@ -39,7 +40,8 @@ class GoodController extends Controller
 
     public function edit($id)
     {
-        $goods = Good::find($id);
+        $decryptId = Crypt::decryptString($id);
+        $goods = Good::find($decryptId);
         $categories = Category::all();
 
         return view('admin.good-edit', ['goods' => $goods, 'categories' => $categories]);

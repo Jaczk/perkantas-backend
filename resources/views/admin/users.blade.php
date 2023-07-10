@@ -70,7 +70,7 @@
                                                 {{ $user->total_fine }}
                                             </td>
                                             <td class="flex-row d-flex">
-                                                <a href="{{ route('admin.user.edit', $user->id) }}"
+                                                <a href="{{ route('admin.user.edit', Crypt::encryptString($user->id)) }}"
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>

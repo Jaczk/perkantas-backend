@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Crypt;
 
 class CategoryController extends Controller
 {
@@ -22,7 +23,10 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $category = Category::find($id);
+
+        $decryptId = Crypt::decryptString($id);
+
+        $category = Category::find($decryptId);
 
         return view('admin.category-edit',['category'=> $category]);
     }
