@@ -30,6 +30,8 @@ class DashboardController extends Controller
             ->whereDate('return_date', '<', Carbon::today())
             ->count();
         $brokenItem = Good::where('condition', 'broken')->count();
+        $newItem = Good::where('condition', 'new')->count();
+        $normalItem = Good::where('condition', 'used')->count();
         $userActive = User::where('can_return', 1)->where('roles', 0)->count();
 
         $period = Carbon::now()->format('Ym'); // Replace 'desired_period_value' with the desired period
@@ -50,8 +52,11 @@ class DashboardController extends Controller
             'loans',
             'returnLate',
             'brokenItem',
+            'newItem',
+            'normalItem',
             'userActive',
             'chartData',
+            'selectedPeriod',
             'procurementPeriod',
             'selectedPeriod'
         ));

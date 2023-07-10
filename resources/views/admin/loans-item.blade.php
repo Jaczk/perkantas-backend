@@ -8,6 +8,27 @@
 
     <div class="row">
         <div class="col-md-12">
+            {{-- for Chart --}}
+            <div>
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">Ringkasan Tabel Peminjaman</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="lineChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <div class="card card-primary">
                 <div class="card-header" style="background-color: #121F3E">
                     <h3 class="card-title">Daftar Peminjaman</h3>
@@ -62,7 +83,7 @@
                                                 <td class="text-bold">
                                                     {{ date('D, F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                             @endif {{-- date comparison --}}
-                                            
+
                                             <td>{{ $lo->period }}</td>
                                             <td>{{ $lo->fine }}</td>
 
@@ -130,6 +151,62 @@
                     }
                 });
             });
+        });
+        var lineChartCanvas = $('#lineChart').get(0).getContext('2d');
+        
+        var lineData = {
+            labels: [
+                @foreach ($loanChart as $loan)
+                    '{{ $loan->date }}',
+                @endforeach
+            ],
+            datasets: [
+                {
+                  label: 'Total Peminjaman',
+                  data: [
+                    @foreach ($loanChart as $loan)
+                        {{ $loan->count }},
+                    @endforeach
+                  ],
+                  borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                  ],
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                  ],
+                },
+                {
+                    label: 'Total Pengembalian',
+                    data: [
+                        @foreach ($returnChart as $return)
+                        {{ $return->count }},
+                    @endforeach
+                    ],
+                    borderColor:[
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    type: 'bar'
+                }
+            ]
+        }
+        new Chart(lineChartCanvas, {
+            type: 'line',
+            data: lineData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Ringkasan Peminjaman periode: {{ $period }}'
+                    }
+                }
+            },
         });
     </script>
 @endsection

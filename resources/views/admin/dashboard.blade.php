@@ -42,7 +42,7 @@
             </a>
         </div>
     </div>
-    
+
     <div class="d-flex row justify-content-between"> {{-- row 2 --}}
         <div class="p-0 small-box bg-dark col">
             <div class="inner">
@@ -81,102 +81,65 @@
             </a>
         </div>
     </div>
-    
-    <div class="card card-danger">
-        <div class="card-header">
-            <h3 class="card-title">Ringkasan Tabel</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-        </div>
-    </div>
-    {{-- card for chart js --}}
-    <div class="card card-danger">
-        <div class="card-header">
-            <h3 class="card-title">Ringkasan Pengadaan</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <canvas id="myChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-        </div>
-    </div>
 
-    {{-- <div class="p-0 small-box bg-info col-lg-6">
-        <canvas id="myChart"></canvas>
-        <button onclick="navigate('previous')">Sebelumnya</button>
-        <button onclick="navigate('next')">Selanjutnya</button>
-    </div> --}}
-    {{-- <div class="p-0 small-box bg-info col-lg-6">
-        <canvas id="myChart2"></canvas>
-        <button onclick="navigate('previous')">Sebelumnya</button>
-        <button onclick="navigate('next')">Selanjutnya</button>
-    </div> --}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Tabel Barang</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="pieChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+
+                {{-- card for chart js --}}
+            </div>
+            <div class="col-md-6">
+
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Ringkasan Pengadaan Periode: <span>{{ $selectedPeriod }}</span></h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart3"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    {{-- <div class="card-footer ">
+                        <div class="d-flex justify-content-between">
+                            <button onclick="navigate('previous')" type="button"
+                                class="btn btn-primary ">Sebelumnya</button>
+                            <button onclick="navigate('next')" type="button" class="btn btn-primary ">Selanjutnya</button>
+                        </div>
+                    </div> --}}
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
 @section('js')
     <script>
-        // var ctx = document.getElementById('myChart').getContext('2d');
-        // var currentPeriod = "{{ $selectedPeriod }}";
-
-        
-        // function fetchDataAndRenderChart(period) {
-            //     fetch('/chart/' + period)
-            //         .then(response => response.json())
-            //         .then(data => {
-                //             var chartData = {
-                    //                 labels: data.labels,
-        //                 datasets: [{
-        //                     data: data.values,
-        //                     backgroundColor: [
-        //                         'red',
-        //                         'blue',
-        //                         'green',
-        //                         // Add more colors if needed
-        //                     ],
-        //                 }]
-        //             };
-        //             renderChart(chartData);
-        //         });
-        // }
-        
-        // function renderChart(chartData) {
-            //     var myChart = new Chart(ctx, {
-                //         type: 'pie',
-        //         data: chartData,
-        //         options: pieOptions
-        //     });
-        // }
-        
-        // // Set initial period to current period
-        // var currentDate = new Date();
-        // var currentYearMonth = currentDate.getFullYear() + ("0" + (currentDate.getMonth() + 1)).slice(-2);
-        // currentPeriod = currentYearMonth;
-        
-        // // Initial chart rendering
-        // fetchDataAndRenderChart(currentPeriod);
-        
         //----------------------------------------------------------------------------------------------------------------------------------
-        
-        var pieOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-        };
         //-------------
         //- PIE CHART -
         //-------------
@@ -184,16 +147,12 @@
         var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
         var pieData = {
             labels: [
-                'Barang',
-                'Pengadaan',
-                'Peminjaman',
+                'Barang Baru',
+                'Barang Normal',
                 'Barang Rusak',
-                'Terlambat Dikembalikan',
-                'Pengguna dengan Akses Pengembalian',
             ],
             datasets: [{
-                data: [{{ $goods }}, {{ $procurements }}, {{ $loans }}, {{ $brokenItem }},
-                    {{ $returnLate }}, {{ $userActive }}
+                data: [{{ $newItem }}, {{ $normalItem }}, {{ $brokenItem }}
                 ],
                 backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
             }]
@@ -203,36 +162,68 @@
         new Chart(pieChartCanvas, {
             type: 'pie',
             data: pieData,
-            options: pieOptions
+            options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Ringkasan Tabel Kondisi Barang'
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            }
+        }
         });
 
-        //-------------
-        //- PIE CHART 2-
-        //-------------
-        // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $('#myChart2').get(0).getContext('2d');
-        var pieData2 = {
-            labels: [
-                @foreach ($chartData['labels'] as $label)
-                    '{{ $label }}',
-                @endforeach
-            ],
-            datasets: [{
-                data: [
-                    @foreach ($chartData['values'] as $value)
-                        {{ $value }},
-                    @endforeach
-                ],
-                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-            }]
-        };
+        var ctx = document.getElementById('myChart3').getContext('2d');
+        var currentPeriod = "{{ $selectedPeriod }}";
 
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(pieChartCanvas, {
-            type: 'pie',
-            data: pieData2,
-            options: pieOptions
-        });
+        // Set initial period to current period
+        var currentDate = new Date();
+        var currentYearMonth = currentDate.getFullYear() + ("0" + (currentDate.getMonth() + 1)).slice(-2);
+        currentPeriod = currentYearMonth;
+
+        function fetchDataAndRenderChart(period) {
+            fetch('admin/chart/' + period)
+                .then(response => response.json())
+                .then(data => {
+                    var chartData = {
+                        labels: data.labels,
+                        datasets: [{
+                            data: data.values,
+                            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc',
+                                '#d2d6de'
+                            ],
+                        }]
+                    };
+                    renderChart(chartData);
+                });
+        }
+
+        function renderChart(chartData) {
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: chartData,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Periode: {{ $selectedPeriod }}'
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // Initial chart rendering
+        fetchDataAndRenderChart(currentPeriod);
     </script>
 @endsection
