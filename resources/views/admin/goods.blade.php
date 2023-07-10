@@ -89,10 +89,10 @@
                                                 <td class="text-justify">{{ $good->description }}</td>
                                                 <td class="text-center">
                                                     <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}"
-                                                        class="img-fluid" style="width: 50%" alt="Image">
+                                                        class="img-fluid" style="width: 180px" alt="Image">
                                                 </td>
                                                 <td class="flex-row d-flex">
-                                                    <a href="{{ route('admin.good.edit', $good->id) }}"
+                                                    <a href="{{ route('admin.good.edit',Crypt::encryptString($good->id)) }}"
                                                         class="btn btn-secondary">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
