@@ -68,10 +68,10 @@
     </section>
     <!-- /.content -->
   </div>
-
+  
   {{-- footer here --}}
   @include('admin.layouts.footer')
-
+  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -80,6 +80,7 @@
 </div>
 <!-- ./wrapper -->
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- jQuery -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -117,6 +118,7 @@
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
 <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+
 
 
 
