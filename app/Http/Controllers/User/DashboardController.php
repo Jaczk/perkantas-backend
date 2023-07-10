@@ -60,4 +60,5 @@ class DashboardController extends Controller
 
         return $fine;
     }
+
 }

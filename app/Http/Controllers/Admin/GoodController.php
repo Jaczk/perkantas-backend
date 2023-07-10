@@ -23,7 +23,14 @@ class GoodController extends Controller
             $q->whereNull('deleted_at');
         })->get();
 
-        return view('admin.goods', ['goods' => $goods]);
+        $availableGoods = Good::where('is_available', 1)->count();
+        $unavailableGoods = Good::where('is_available', 0)->count();
+
+        return view('admin.goods', [
+            'goods' => $goods,
+            'availableGoods' => $availableGoods,
+            'unavailableGoods' => $unavailableGoods
+        ]);
     }
 
     public function create()
