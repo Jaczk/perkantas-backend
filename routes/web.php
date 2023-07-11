@@ -9,6 +9,7 @@ use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ItemLoanController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FineController;
 use App\Http\Controllers\Admin\ProcurementController;
 use App\Http\Controllers\Admin\UserController as AdminController;
 use App\Http\Controllers\User\GoodController as UserGoodController;
@@ -49,6 +50,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::get('/trash', [CategoryController::class, 'trash'])->name('admin.category.trash');
         Route::put('/restore/{id}', [CategoryController::class, 'restore'])->name('admin.category.restore');
         Route::delete('/delete/{id}', [CategoryController::class, 'forceDelete'])->name('admin.category.delete');
+    });
+
+    Route::group(['prefix' => 'fine'], function () {
+        Route::get('/', [FineController::class, 'index'])->name('admin.fine');
+        Route::get('/create', [FineController::class, 'create'])->name('admin.fine.create');
+        Route::post('/store', [FineController::class, 'store'])->name('admin.fine.store');
+        Route::get('/edit/{id}', [FineController::class, 'edit'])->name('admin.fine.edit');
+        Route::put('/update/{id}', [FineController::class, 'update'])->name('admin.fine.update');
+        Route::delete('/destroy/{id}', [FineController::class, 'destroy'])->name('admin.fine.destroy');
+        Route::get('/trash', [FineController::class, 'trash'])->name('admin.fine.trash');
+        Route::put('/restore/{id}', [FineController::class, 'restore'])->name('admin.fine.restore');
+        Route::delete('/delete/{id}', [FineController::class, 'forceDelete'])->name('admin.fine.delete');
     });
 
     Route::group(['prefix' => 'good'], function () {

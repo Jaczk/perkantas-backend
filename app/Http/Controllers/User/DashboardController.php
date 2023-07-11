@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Carbon\Carbon;
+use App\Models\Fine;
 use App\Models\Loan;
 use App\Models\User;
 use App\Models\Item_Loan;
@@ -53,9 +54,11 @@ class DashboardController extends Controller
     {
         $fine = 0;
 
+        $fineValue = Fine::where('fine_name', 'loan_fine')->first();
+
         if ($returnDate < Carbon::today()) {
             $diffInDays = Carbon::today()->diffInDays($returnDate);
-            $fine = ($diffInDays + 1) * 5;
+            $fine = ($diffInDays + 1) * $fineValue->value;
         }
 
         return $fine;

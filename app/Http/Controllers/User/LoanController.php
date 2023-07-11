@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\User;
 
 use Exception;
+use Throwable;
 use Carbon\Carbon;
+use App\Models\Fine;
 use App\Models\Good;
 use App\Models\Loan;
 use App\Models\User;
 use App\Models\Item_Loan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Throwable;
 
 class LoanController extends Controller
 {
@@ -52,9 +53,11 @@ class LoanController extends Controller
     {
         $fine = 0;
 
+        $fineValue = Fine::where('fine_name', 'loan_fine')->first();
+
         if ($returnDate < Carbon::today()) {
             $diffInDays = Carbon::today()->diffInDays($returnDate);
-            $fine = ($diffInDays + 1) * 5;
+            $fine = ($diffInDays + 1) * $fineValue->value;
         }
 
         return $fine;

@@ -80,8 +80,17 @@
                     </a>
                 </li>
 
-                <li class="disabled cursor-default">
-                    <a href="#" class="nav-link disabled cursor-default">
+                <li class="nav-item">
+                    <a href="{{ route('admin.fine') }}" class="nav-link">
+                        <i class="nav-icon fas fa-file-excel"></i>
+                        <p>
+                            Denda
+                        </p>
+                    </a>
+                </li>
+
+                <li class="cursor-default disabled">
+                    <a href="#" class="cursor-default nav-link disabled">
                     </a>
                 </li>
 

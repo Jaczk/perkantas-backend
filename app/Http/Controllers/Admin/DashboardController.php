@@ -66,13 +66,14 @@ class DashboardController extends Controller
     {
         $data = Procurement::where('period', $period)
             ->groupBy('goods_name')
-            ->select('goods_name', DB::raw('COUNT(*) as count'))
+            ->select('goods_name', DB::raw('COUNT(*) as count'), DB::raw('SUM(goods_amount) as total'))
             ->get();
 
         $chartData = [
             'labels' => $data->pluck('goods_name'),
             'values' => $data->pluck('count'),
             'period' => $period,
+            'total' => $data->pluck('total')
         ];
 
         return $chartData;
