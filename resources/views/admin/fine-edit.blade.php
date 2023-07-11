@@ -19,7 +19,7 @@
 
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Edit Denda</h3>
+                    <h3 class="card-title">Perbarui Denda</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -29,14 +29,14 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="title">Nama Kategori</label>
+                            <label for="title">Nama Denda</label>
                             <input type="text" class="form-control" id="fine_name" name="fine_name"
-                                placeholder="Alat Musik" value="{{ $fine->fine_name }}">
+                                placeholder="Nama Denda" value="{{ $fine->fine_name }}">
                         </div>
                         <div class="form-group">
                             <label for="title">Nilai Denda</label>
-                            <input type="text" class="form-control" id="value" name="value"
-                                placeholder="Alat Musik" value="{{ $fine->value }}">
+                            <input type="number" class="form-control" id="value" name="value"
+                                placeholder="Nilai Denda" value="{{ $fine->value }}">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -56,7 +56,7 @@
 
             Swal.fire({
                 title: 'Simpan perubahan?',
-                text: 'Kategori akan diperbarui.',
+                text: 'Denda akan diperbarui.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

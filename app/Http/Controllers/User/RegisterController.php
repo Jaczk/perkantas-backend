@@ -17,21 +17,23 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'phone'=>'required|max:12',
-            'email'=>'required|email',
-            'password'=>'required|min:6'
+            'name' => 'required',
+            'phone' => 'required|max:12',
+            'email' => 'required|email',
+            'password' => 'required|min:6'
         ]);
 
         $data = $request->except('_token');
 
         $isEmailExist = User::where('email', $request->email)->exists();
 
-        if ($isEmailExist){
+        if ($isEmailExist) {
             return back()->withErrors([
                 'email' => 'This email already exists'
             ])->withInput();
         }
+        $phoneNumber = $request->input('countryCode') . $request->input('phone');
+        $data['phone'] = $phoneNumber;
 
         $data['roles'] = 0;
         $data['password'] = Hash::make($request->password);
@@ -39,5 +41,5 @@ class RegisterController extends Controller
         User::create($data);
 
         return redirect()->route('user.dashboard');
-    } 
+    }
 }
