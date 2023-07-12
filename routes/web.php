@@ -88,6 +88,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::group(['prefix' => 'loans'], function () {
         Route::get('/', [LoanController::class, 'index'])->name('admin.loans');
         Route::put('/return/{id}', [LoanController::class, 'return'])->name('admin.loans.return');
+        Route::get('/chart/loan/{period}/{type}', [LoanController::class, 'loanChartAjax'])->name('admin.chart.loan.ajax');
         Route::delete('/destroy/{id}', [LoanController::class, 'destroy'])->name('admin.loans.destroy');
     });
 

@@ -26,6 +26,24 @@
                         <canvas id="lineChart"
                             style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <select name="loan_period" id="loan_period" onchange="updateLoanChart()">
+                                @foreach ($loanDrop as $loan)
+                                    <option value="{{ $loan->period }}" @if ($loan->period == $period) selected @endif>
+                                        {{ $loan->period }}</option>
+                                @endforeach
+                            </select>
+                            <select name="loan_type" id="loan_type" onchange="updateLoanChart()">
+                                <option value="peminjaman" @if ($type == 'peminjaman') selected @endif>Peminjaman
+                                </option>
+                                <option value="pengembalian" @if ($type == 'pengembalian') selected @endif>Pengembalian
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -152,61 +170,77 @@
                 });
             });
         });
-        var lineChartCanvas = $('#lineChart').get(0).getContext('2d');
-        
-        var lineData = {
-            labels: [
-                @foreach ($loanChart as $loan)
-                    '{{ $loan->date }}',
-                @endforeach
-            ],
-            datasets: [
-                {
-                  label: 'Total Peminjaman',
-                  data: [
-                    @foreach ($loanChart as $loan)
-                        {{ $loan->count }},
-                    @endforeach
-                  ],
-                  borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                  ],
-                  backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                  ],
-                },
-                {
-                    label: 'Total Pengembalian',
-                    data: [
-                        @foreach ($returnChart as $return)
-                        {{ $return->count }},
-                    @endforeach
-                    ],
-                    borderColor:[
-                        'rgba(54, 162, 235, 1)',
-                    ],
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 1)',
-                    ],
-                    type: 'bar'
-                }
-            ]
-        }
-        new Chart(lineChartCanvas, {
-            type: 'bar',
-            data: lineData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Ringkasan Peminjaman periode: {{ $period }}'
-                    }
-                }
-            },
+        $(document).ready(function() {
+            var lineChartCanvas = document.getElementById('lineChart').getContext('2d');
+            var currentPeriod = "{{ $period }}";
+            var currentType = "peminjaman"; // Set initial loan type to "peminjaman"
+            var myChart;
+
+            function fetchDataAndRenderChart(period, type) {
+                var url = "{{ route('admin.chart.loan.ajax', ['period' => ':period', 'type' => ':type']) }}";
+                url = url.replace(':period', period).replace(':type', type);
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not OK');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Received data:', data);
+
+                        var chartData = {
+                            labels: data.labels,
+                            datasets: data.datasets.map(dataset => ({
+                                label: dataset.label,
+                                data: dataset.data,
+                                backgroundColor: dataset.backgroundColor,
+                                borderColor: dataset.borderColor,
+                                fill: dataset.fill,
+                                type: dataset.type
+                            }))
+                        };
+
+                        // Destroy previous chart instance if exists
+                        if (myChart) {
+                            myChart.destroy();
+                        }
+
+                        // Render new chart
+                        myChart = new Chart(lineChartCanvas, {
+                            type: 'bar',
+                            data: chartData,
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Periode: ' + period
+                                    },
+                                    legend: {
+                                        display: true,
+                                        position: 'bottom'
+                                    }
+                                }
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching chart data:', error);
+                    });
+            }
+
+            // Initial chart rendering
+            fetchDataAndRenderChart(currentPeriod, currentType);
+
+            // Update chart when period or type changes
+            $('#loan_period, #loan_type').on('change', function() {
+                var selectedPeriod = $('#loan_period').val();
+                var selectedType = $('#loan_type').val();
+                fetchDataAndRenderChart(selectedPeriod, selectedType);
+            });
         });
     </script>
 @endsection

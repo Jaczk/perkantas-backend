@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class LoanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
         $loans = Loan::withWhereHas('item_loan', function ($q) {
@@ -44,27 +44,81 @@ class LoanController extends Controller
                 $loan->forceDelete();
             }
         }
-        $period = 202306;
+        $loanDrop = Loan::groupBy('period')->select('period')->get();
+        $period = $request->period ?? Carbon::now()->format('Ym');
+        $type = $request->type ?? 'peminjaman';
         //$period = Carbon::now()->format('Ym'); // Replace 'desired_period_value' with the desired period
 
-        $loanChart = Loan::where('period', $period)
-            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
-            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
-            ->get();
-
-        $returnChart = Loan::where('period', $period)
-            ->where('is_returned', 1)
-            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
-            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
-            ->get();
+        $chartData = $this->loanChart($period, $type);
 
         return view('admin.loans-item', [
             'loans' => $loans,
-            'loanChart' => $loanChart,
-            'returnChart' => $returnChart,
-            'period' => $period
+            'chartData' => $chartData,
+            'period' => $period,
+            'loanDrop' => $loanDrop,
+            'type' => $type
         ]);
     }
+
+    public function loanChartAjax($period, $type)
+    {
+        $chartData = $this->loanChart($period, $type);
+
+        return response()->json($chartData);
+    }
+
+    public static function loanChart($period, $type)
+    {
+        if ($type == 'peminjaman') {
+            $loanChart = Loan::where('period', $period)
+                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
+                ->get();
+
+            $chartData = [
+                'labels' => $loanChart->pluck('date')->toArray(),
+                'datasets' => [
+                    [
+                        'label' => 'Peminjaman',
+                        'data' => $loanChart->pluck('count')->toArray(),
+                        'backgroundColor' => 'rgba(255, 99, 132, 1)',
+                        'borderColor' => 'rgba(255, 99, 132, 1)',
+                        'fill' => false,
+                        'type' => 'bar'
+                    ]
+                ]
+            ];
+        } elseif ($type == 'pengembalian') {
+            $returnChart = Loan::where('period', $period)
+                ->where('is_returned', 1)
+                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
+                ->get();
+
+            $chartData = [
+                'labels' => $returnChart->pluck('date')->toArray(),
+                'datasets' => [
+                    [
+                        'label' => 'Pengembalian',
+                        'data' => $returnChart->pluck('count')->toArray(),
+                        'backgroundColor' => 'rgba(54, 162, 235, 1)',
+                        'borderColor' => 'rgba(54, 162, 235, 1)',
+                        'fill' => false,
+                        'type' => 'bar'
+                    ]
+                ]
+            ];
+        } else {
+            // Invalid type
+            $chartData = [
+                'labels' => [],
+                'datasets' => []
+            ];
+        }
+
+        return $chartData;
+    }
+
 
     public function calculateFine($returnDate)
     {
@@ -77,6 +131,8 @@ class LoanController extends Controller
 
         return $fine;
     }
+
+
 
     public function return($id)
     {
