@@ -109,7 +109,7 @@
 
                 <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Ringkasan Pengadaan Periode: <span>{{ $selectedPeriod }}</span></h3>
+                        <h3 class="card-title">Ringkasan Pengadaan Periode</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -123,13 +123,17 @@
                         <canvas id="myChart3"
                             style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
-                    {{-- <div class="card-footer ">
+                    <div class="card-footer ">
                         <div class="d-flex justify-content-between">
-                            <button onclick="navigate('previous')" type="button"
-                                class="btn btn-primary ">Sebelumnya</button>
-                            <button onclick="navigate('next')" type="button" class="btn btn-primary ">Selanjutnya</button>
+                            <select name="period" id="pp" onchange="updateChart(this)">
+                                @foreach ($procurementDrop as $proc)
+                                    <option value="{{ $proc->period }}" @if ($proc->period == $period) selected @endif>
+                                        {{ $proc->period }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,8 +156,7 @@
                 'Barang Rusak',
             ],
             datasets: [{
-                data: [{{ $newItem }}, {{ $normalItem }}, {{ $brokenItem }}
-                ],
+                data: [{{ $newItem }}, {{ $normalItem }}, {{ $brokenItem }}],
                 backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
             }]
         };
@@ -163,55 +166,67 @@
             type: 'pie',
             data: pieData,
             options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Ringkasan Tabel Kondisi Barang'
-                },
-                legend: {
-                    display: true,
-                    position: 'bottom'
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Ringkasan Tabel Kondisi Barang'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
                 }
             }
-        }
         });
 
         var ctx = document.getElementById('myChart3').getContext('2d');
-        var currentPeriod = "{{ $selectedPeriod }}";
-
-        // Set initial period to current period
-        var currentDate = new Date();
-        var currentYearMonth = currentDate.getFullYear() + ("0" + (currentDate.getMonth() + 1)).slice(-2);
-        currentPeriod = currentYearMonth;
+        var currentPeriod = "{{ $period }}";
+        var myChart;
 
         function fetchDataAndRenderChart(period) {
-            fetch('admin/chart/' + period)
-                .then(response => response.json())
+            fetch('admin/chart/ajax/' + period)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not OK');
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log('Received data:', data);
+
                     var chartData = {
                         labels: data.labels,
                         datasets: [{
-                            data: data.total,
-                            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc',
-                                '#d2d6de'
-                            ],
+                            data: data.datasets[0].data,
+                            backgroundColor: data.datasets[0].backgroundColor,
                         }]
                     };
-                    renderChart(chartData);
+
+                    // Update the chart title
+                    myChart.options.plugins.title.text = 'Periode: ' + period;
+
+                    // Update the chart data
+                    myChart.data = chartData;
+
+                    // Redraw the chart
+                    myChart.update();
+                })
+                .catch(error => {
+                    console.error('Error fetching chart data:', error);
                 });
         }
 
         function renderChart(chartData) {
-            var myChart = new Chart(ctx, {
+            myChart = new Chart(ctx, {
                 type: 'pie',
                 data: chartData,
                 options: {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Periode: {{ $selectedPeriod }}'
+                            text: 'Periode: ' + currentPeriod
                         },
                         legend: {
                             display: true,
@@ -222,8 +237,15 @@
             });
         }
 
-
         // Initial chart rendering
+        renderChart({}); // Create an empty chart initially
+
+        // Fetch and render chart data for the current period
         fetchDataAndRenderChart(currentPeriod);
+
+        function updateChart(option) {
+            var selectedPeriod = option.value;
+            fetchDataAndRenderChart(selectedPeriod);
+        }
     </script>
 @endsection

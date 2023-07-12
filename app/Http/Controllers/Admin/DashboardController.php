@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $goods = Good::count();
         $procurements = Procurement::where('status', 'not_added')->count();
@@ -34,17 +34,10 @@ class DashboardController extends Controller
         $normalItem = Good::where('condition', 'used')->count();
         $userActive = User::where('can_return', 1)->where('roles', 0)->count();
 
-        $period = Carbon::now()->format('Ym'); // Replace 'desired_period_value' with the desired period
+        $procurementDrop = Procurement::groupBy('period')->select('period')->get();
 
-        $chartData = $this->procurementChart($period);
-
-        // Set the initial selected period
-        $selectedPeriod = $period;
-
-        $procurementPeriod = Procurement::where('period', $period)
-            ->groupBy('goods_name')
-            ->select('goods_name', DB::raw('COUNT(*) as count'))
-            ->get();
+        $period = $request->period ?? Carbon::now()->format('Ym');
+        $chartData = $this->procurementChartAjax($request->period);
 
         return view('admin.dashboard', compact(
             'goods',
@@ -56,11 +49,19 @@ class DashboardController extends Controller
             'normalItem',
             'userActive',
             'chartData',
-            'selectedPeriod',
-            'procurementPeriod',
-            'selectedPeriod'
+            'procurementDrop',
+            'period'
+
         ));
     }
+
+    public function procurementChartAjax($period)
+    {
+        $chartData = $this->procurementChart($period);
+
+        return response()->json($chartData);
+    }
+
 
     public static function procurementChart($period)
     {
@@ -70,10 +71,13 @@ class DashboardController extends Controller
             ->get();
 
         $chartData = [
-            'labels' => $data->pluck('goods_name'),
-            'values' => $data->pluck('count'),
-            'period' => $period,
-            'total' => $data->pluck('total')
+            'labels' => $data->pluck('goods_name')->toArray(),
+            'datasets' => [
+                [
+                    'data' => $data->pluck('count')->toArray(),
+                    'backgroundColor' => ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de']
+                ]
+            ]
         ];
 
         return $chartData;
