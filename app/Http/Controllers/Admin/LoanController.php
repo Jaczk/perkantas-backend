@@ -114,18 +114,24 @@ class LoanController extends Controller
                 ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
                 ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
                 ->get();
-
+        
             $loanChart = Loan::where('period', $period)
                 ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
                 ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
                 ->get();
-
+        
+            // Get distinct dates from both datasets
+            $dates = collect($returnChart->pluck('date'))
+                ->concat($loanChart->pluck('date'))
+                ->unique();
+        
+            // Create an empty array to hold the chart data
             $chartData = [
-                'labels' => $returnChart->pluck('date')->toArray(),
+                'labels' => [],
                 'datasets' => [
                     [
                         'label' => 'Pengembalian',
-                        'data' => $returnChart->pluck('count')->toArray(),
+                        'data' => [],
                         'backgroundColor' => 'rgba(54, 162, 235, 1)',
                         'borderColor' => 'rgba(54, 162, 235, 1)',
                         'fill' => false,
@@ -133,7 +139,7 @@ class LoanController extends Controller
                     ],
                     [
                         'label' => 'Pinjaman',
-                        'data' => $loanChart->pluck('count')->toArray(),
+                        'data' => [],
                         'backgroundColor' => 'rgba(255, 99, 132, 1)',
                         'borderColor' => 'rgba(255, 99, 132, 1)',
                         'fill' => false,
@@ -141,7 +147,31 @@ class LoanController extends Controller
                     ]
                 ]
             ];
-        } else {
+        
+            // Populate the chart data with the available return and loan values
+            foreach ($dates as $date) {
+                $returnCount = $returnChart->firstWhere('date', $date);
+                $loanCount = $loanChart->firstWhere('date', $date);
+        
+                // Add the date to the labels array
+                $chartData['labels'][] = $date;
+        
+                // Add the return count or 0 if not available
+                if ($returnCount) {
+                    $chartData['datasets'][0]['data'][] = $returnCount->count;
+                } else {
+                    $chartData['datasets'][0]['data'][] = 0;
+                }
+        
+                // Add the loan count or 0 if not available
+                if ($loanCount) {
+                    $chartData['datasets'][1]['data'][] = $loanCount->count;
+                } else {
+                    $chartData['datasets'][1]['data'][] = 0;
+                }
+            }
+        }
+         else {
             // Invalid type
             $chartData = [
                 'labels' => [],

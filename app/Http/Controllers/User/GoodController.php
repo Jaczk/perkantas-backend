@@ -14,11 +14,8 @@ class GoodController extends Controller
         $categories = Category::has('good')->get();
 
         $goods = Good::with([
-            'category',
-            'item_loan'
-        ])->whereHas('category', function ($q) {
-            $q->whereNull('deleted_at');
-        })->get();
+            'category'
+        ])->get();
 
         return view('user.goods', ['goods' => $goods, 'categories' => $categories]);
     }
