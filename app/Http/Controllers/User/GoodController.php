@@ -11,7 +11,7 @@ class GoodController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::has('good')->get();
 
         $goods = Good::with([
             'category',

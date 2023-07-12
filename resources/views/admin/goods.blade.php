@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card card-danger">
+                            <div class="card card-success">
                                 <div class="card-header">
                                     <h3 class="card-title">Tabel Barang Berdasarkan Kategori</h3>
                                     <div class="card-tools">
