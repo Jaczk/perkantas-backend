@@ -15,23 +15,28 @@ use Illuminate\Support\Facades\Crypt;
 class GoodController extends Controller
 {
     public function index()
-    {
-        $goods = Good::with([
-            'category',
-            'item_loan'
-        ])->whereHas('category', function ($q) {
+{
+    $goods = Good::with(['category', 'item_loan'])
+        ->whereHas('category', function ($q) {
             $q->whereNull('deleted_at');
         })->get();
 
-        $availableGoods = Good::where('is_available', 1)->count();
-        $unavailableGoods = Good::where('is_available', 0)->count();
+    $availableGoods = Good::where('is_available', 1)->count();
+    $unavailableGoods = Good::where('is_available', 0)->count();
 
-        return view('admin.goods', [
-            'goods' => $goods,
-            'availableGoods' => $availableGoods,
-            'unavailableGoods' => $unavailableGoods
-        ]);
-    }
+    $goodCategories = Good::join('categories', 'goods.category_id', '=', 'categories.id')
+        ->selectRaw('count(*) as total, categories.category_name')
+        ->groupBy('categories.category_name')
+        ->get();
+
+    return view('admin.goods', [
+        'goods' => $goods,
+        'availableGoods' => $availableGoods,
+        'unavailableGoods' => $unavailableGoods,
+        'goodCategories' => $goodCategories
+    ]);
+}
+
 
     public function create()
     {

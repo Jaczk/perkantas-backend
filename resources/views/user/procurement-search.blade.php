@@ -44,7 +44,8 @@
             </div>
 
             @if ($procurements->isEmpty())
-                <p class="pt-8 text-4xl font-bold text-dark">Tidak Ada Form Pengajuan Barang dengan Kata Pencarian di atas!</p>
+                <p class="pt-8 text-4xl font-bold text-dark">Tidak Ada Form Pengajuan Barang dengan Kata Pencarian di atas!
+                </p>
             @else
                 <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-[30px]">
                     @foreach ($procurements as $procurement)
@@ -54,17 +55,13 @@
                                 <img src="/assets/svgs/ric-globe.svg" alt="" class="pl-2 pr-6" />
                                 <div>
                                     <div class="place-items-end">
-                                        @if ($procurement->status === 'pending')
-                                            <div class="text-lg font-bold text-yellow-600 uppercase">
-                                                Menunggu
+                                        @if ($procurement->status === 'not_added')
+                                            <div class="text-lg font-bold text-yellow-600 capitalize">
+                                                Diajukan
                                             </div>
-                                        @elseif ($procurement->status === 'approved')
-                                            <div class="text-lg font-bold text-green-600 uppercase">
-                                                Diterima
-                                            </div>
-                                        @elseif ($procurement->status === 'rejected')
-                                            <div class="text-lg font-bold text-red-600 uppercase">
-                                                Ditolak
+                                        @elseif ($procurement->status === 'added')
+                                            <div class="text-lg font-bold text-green-600 capitalize">
+                                                Tersedia
                                             </div>
                                         @endif
                                     </div>
@@ -72,18 +69,26 @@
                                         {{ $procurement->goods_name }} ( {{ $procurement->goods_amount }} barang)
                                     </div>
                                     <div>
-                                        @if ($procurement->status === 'pending')
-                                            <p class="font-light">
-                                                Menunggu Persetujuan Admin...
-                                            </p>
-                                        @elseif ($procurement->status === 'approved')
-                                            <p class="font-light">
-                                                Pengajuan Telah Disetujui
-                                            </p>
-                                        @elseif ($procurement->status === 'rejected')
-                                            <p class="font-light">
-                                                Pengajuan Anda Ditolak
-                                            </p>
+                                        @if ($procurement->status === 'not_added')
+                                            @if ($procurement->message === null)
+                                                <p class="font-light capitalize">
+                                                    Terimakasih telah memberikan saran pengajuan barang kepada kami
+                                                </p>
+                                            @else
+                                                <p class="font-light">
+                                                    Pesan dari Admin <br>{{ $procurement->message }}
+                                                </p>
+                                            @endif
+                                        @elseif ($procurement->status === 'added')
+                                            @if ($procurement->message === null)
+                                                <p class="font-light capitalize">
+                                                    barang yang anda ajukan sudah tersedia di daftar barang
+                                                </p>
+                                            @else
+                                                <p class="font-light capitalize">
+                                                    Pesan dari Admin <br>{{ $procurement->message }}
+                                                </p>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>

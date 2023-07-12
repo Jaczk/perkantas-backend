@@ -74,7 +74,7 @@ class DashboardController extends Controller
             'labels' => $data->pluck('goods_name')->toArray(),
             'datasets' => [
                 [
-                    'data' => $data->pluck('count')->toArray(),
+                    'data' => $data->pluck('total')->toArray(),
                     'backgroundColor' => ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de']
                 ]
             ]
