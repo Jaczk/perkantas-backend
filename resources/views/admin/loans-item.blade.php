@@ -39,6 +39,8 @@
                                 </option>
                                 <option value="pengembalian" @if ($type == 'pengembalian') selected @endif>Pengembalian
                                 </option>
+                                <option value="pinjam-kembali" @if ($type == 'pinjam-kembali') selected @endif>pinjam-kembali
+                                </option>
                             </select>
                         </div>
                     </div>

@@ -108,6 +108,39 @@ class LoanController extends Controller
                     ]
                 ]
             ];
+        } elseif ($type == 'pinjam-kembali') {
+            $returnChart = Loan::where('period', $period)
+                ->where('is_returned', 1)
+                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
+                ->get();
+
+            $loanChart = Loan::where('period', $period)
+                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
+                ->get();
+
+            $chartData = [
+                'labels' => $returnChart->pluck('date')->toArray(),
+                'datasets' => [
+                    [
+                        'label' => 'Pengembalian',
+                        'data' => $returnChart->pluck('count')->toArray(),
+                        'backgroundColor' => 'rgba(54, 162, 235, 1)',
+                        'borderColor' => 'rgba(54, 162, 235, 1)',
+                        'fill' => false,
+                        'type' => 'bar'
+                    ],
+                    [
+                        'label' => 'Pinjaman',
+                        'data' => $loanChart->pluck('count')->toArray(),
+                        'backgroundColor' => 'rgba(255, 99, 132, 1)',
+                        'borderColor' => 'rgba(255, 99, 132, 1)',
+                        'fill' => false,
+                        'type' => 'bar'
+                    ]
+                ]
+            ];
         } else {
             // Invalid type
             $chartData = [
