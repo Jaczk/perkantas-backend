@@ -15,27 +15,27 @@ use Illuminate\Support\Facades\Crypt;
 class GoodController extends Controller
 {
     public function index()
-{
-    $goods = Good::with(['category', 'item_loan'])
-        ->whereHas('category', function ($q) {
-            $q->whereNull('deleted_at');
-        })->get();
+    {
+        $goods = Good::with(['category', 'item_loan'])
+            ->whereHas('category', function ($q) {
+                $q->whereNull('deleted_at');
+            })->get();
 
-    $availableGoods = Good::where('is_available', 1)->count();
-    $unavailableGoods = Good::where('is_available', 0)->count();
+        $availableGoods = Good::where('is_available', 1)->count();
+        $unavailableGoods = Good::where('is_available', 0)->count();
 
-    $goodCategories = Good::join('categories', 'goods.category_id', '=', 'categories.id')
-        ->selectRaw('count(*) as total, categories.category_name')
-        ->groupBy('categories.category_name')
-        ->get();
+        $goodCategories = Good::join('categories', 'goods.category_id', '=', 'categories.id')
+            ->selectRaw('count(*) as total, categories.category_name')
+            ->groupBy('categories.category_name')
+            ->get();
 
-    return view('admin.goods', [
-        'goods' => $goods,
-        'availableGoods' => $availableGoods,
-        'unavailableGoods' => $unavailableGoods,
-        'goodCategories' => $goodCategories
-    ]);
-}
+        return view('admin.goods', [
+            'goods' => $goods,
+            'availableGoods' => $availableGoods,
+            'unavailableGoods' => $unavailableGoods,
+            'goodCategories' => $goodCategories
+        ]);
+    }
 
 
     public function create()
@@ -127,10 +127,24 @@ class GoodController extends Controller
 
     public function destroy($id)
     {
-        Good::find($id)->delete();
+        $good = Good::find($id);
+
+        // Check if any associated ItemLoan records have is_returned = 0
+        $hasActiveLoans = $good->item_loan()->whereHas('loan', function ($query) {
+            $query->where('is_returned', 0);
+        })->exists();
+
+        if ($hasActiveLoans) {
+            return redirect()->route('admin.good')
+            ->with('error', 'Gagal menghapus item barang. Item barang masih dipinjam.');
+        }
+
+        // If there are no active loans, proceed with deletion
+        $good->delete();
 
         return redirect()->route('admin.good')->with('success', 'Berhasil menghapus item barang');
     }
+
 
     public function trash()
     {

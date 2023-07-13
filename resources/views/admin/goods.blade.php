@@ -54,7 +54,6 @@
                     <div class="card-header" style="background-color: #121F3E">
                         <h3 class="card-title">Daftar Barang</h3>
                     </div>
-
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-12">
@@ -68,6 +67,14 @@
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
