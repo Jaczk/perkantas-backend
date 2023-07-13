@@ -67,7 +67,7 @@
                         @endforeach
                     </div>
                 </div>
-                <a href="{{ route('user.user-summary', ['loanId' => session()->get('loanId')]) }}"
+                <a href="{{ route('user.user-summary', ['loanId' => Crypt::encrypt(session()->get('loanId'))]) }}"
                     class="w-1/2 btn btn-primary mt-[14px]">
                     Lihat Ringkasan Peminjaman
                 </a>

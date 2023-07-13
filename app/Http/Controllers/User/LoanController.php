@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Item_Loan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class LoanController extends Controller
 {
@@ -74,12 +75,12 @@ class LoanController extends Controller
 
         $loan = Loan::create($data);
 
-        return redirect()->route('user.loan-items', ['loanId' => $loan->id]);
+        return redirect()->route('user.loan-items', ['loanId' => Crypt::encrypt($loan->id)]);
     }
 
     public function listItems($loanId)
     {
-        session()->put('loanId', $loanId);
+        session()->put('loanId', Crypt::decrypt($loanId));
 
         $goods = Good::with('category')->where('is_available', 1)->get();
 
