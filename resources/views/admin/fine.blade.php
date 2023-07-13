@@ -13,9 +13,9 @@
 
                 <div class="card-body">
                     <div class="col">
-                        <div class="mb-3 col-md-12">
+                        {{-- <div class="mb-3 col-md-12">
                             <a href="{{ route('admin.fine.trash') }}">Data Dihapus</a>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 col-md-12">
                             <p class="font-italic text-bold">
                                 Nilai Denda dalam satuan ribuan rupiah. (cont: 5 melambangkan Rp 5.000)
@@ -58,14 +58,14 @@
                                                     class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form method="post"
+                                                {{-- <form method="post"
                                                     action="{{ route('admin.fine.destroy', $fine->id) }}">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="mx-2 btn btn-danger delete-btn">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

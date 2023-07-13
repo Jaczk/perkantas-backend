@@ -23,26 +23,30 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form enctype="multipart/form-data" method="POST"
-                    action="{{ route('admin.user.update', $user->id) }}">
+                <form enctype="multipart/form-data" method="POST" action="{{ route('admin.user.update', $user->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="title">Nomor Telepon Pengguna</label>
                             <input type="text" class="form-control" id="phone" name="phone"
                                 placeholder="+62_phone number" value="{{ $user->phone }}">
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label for="title">Nomor Telepon Pengguna</label>
+                            <input type="text" class="form-control" id="phone" name="phone" maxlength="15"
+                                placeholder="contoh : +6281322224545" value="{{ $user->phone }}" required>
+                            <span id="phone-error" class="text-danger text-bold"></span>
                         </div>
+
                         <div class="mb-3">
                             <label for="status" class="form-label">Akes Pengembalian </label>
-                                <select class="custom-select" name="can_return">
-                                    <option value = 0 @selected($user->can_return == "0")
-                                        @class(['bg-warning text-white' => $user->can_return == "0"])
-                                        >NOT ALLOWED</option>
-                                    <option value = 1 @selected($user->can_return == "1")
-                                        @class(['bg-warning text-white' => $user->can_return == "1"])
-                                        >ALLOWED</option>
-                                </select>
+                            <select class="custom-select" name="can_return">
+                                <option value=0 @selected($user->can_return == '0') @class(['bg-warning text-white' => $user->can_return == '0'])>NOT ALLOWED
+                                </option>
+                                <option value=1 @selected($user->can_return == '1') @class(['bg-warning text-white' => $user->can_return == '1'])>ALLOWED</option>
+                            </select>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -76,5 +80,20 @@
                 }
             });
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#phone').on('input', function() {
+                var phone = $(this).val();
+                var pattern = /^\+62\d{0,}$/;
+                var isValid = pattern.test(phone);
+
+                if (!isValid) {
+                    $('#phone-error').text('Nomor telepon tidak valid');
+                } else {
+                    $('#phone-error').text('');
+                }
+            });
+        });
     </script>
 @endsection

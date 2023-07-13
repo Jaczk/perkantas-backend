@@ -72,8 +72,8 @@ class UserController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
-            'phone' => 'required|string',
-            'can_return' => 'required',
+            'phone' => 'required|max:15|regex:/^\+62\d{0,}$/',
+            'can_return' => 'required'
         ]);
 
         $user = User::find($id);
