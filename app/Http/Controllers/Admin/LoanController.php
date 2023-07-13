@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Models\Fine;
 use App\Models\Good;
 use App\Models\Loan;
 use App\Models\User;
 use App\Models\Item_Loan;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class LoanController extends Controller
 {
@@ -60,123 +61,75 @@ class LoanController extends Controller
         ]);
     }
 
-    public function loanChartAjax($period, $type)
+    public function loanChartAjax($period)
     {
-        $chartData = $this->loanChart($period, $type);
+        $chartData = $this->loanChart($period);
 
         return response()->json($chartData);
     }
 
-    public static function loanChart($period, $type)
+    public static function loanChart($period)
     {
-        if ($type == 'peminjaman') {
-            $loanChart = Loan::where('period', $period)
-                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
-                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
-                ->get();
+        $loanChart = Loan::where('period', $period)
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
+            ->get();
 
-            $chartData = [
-                'labels' => $loanChart->pluck('date')->toArray(),
-                'datasets' => [
-                    [
-                        'label' => 'Peminjaman',
-                        'data' => $loanChart->pluck('count')->toArray(),
-                        'backgroundColor' => 'rgba(255, 99, 132, 1)',
-                        'borderColor' => 'rgba(255, 99, 132, 1)',
-                        'fill' => false,
-                        'type' => 'bar'
-                    ]
-                ]
-            ];
-        } elseif ($type == 'pengembalian') {
-            $returnChart = Loan::where('period', $period)
-                ->where('is_returned', 1)
-                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
-                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
-                ->get();
+        $returnChart = Loan::where('period', $period)
+            ->where('is_returned', 1)
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
+            ->get();
 
-            $chartData = [
-                'labels' => $returnChart->pluck('date')->toArray(),
-                'datasets' => [
-                    [
-                        'label' => 'Pengembalian',
-                        'data' => $returnChart->pluck('count')->toArray(),
-                        'backgroundColor' => 'rgba(54, 162, 235, 1)',
-                        'borderColor' => 'rgba(54, 162, 235, 1)',
-                        'fill' => false,
-                        'type' => 'bar'
-                    ]
+        // Get distinct dates from both datasets
+        $dates = collect($returnChart->pluck('date'))
+            ->concat($loanChart->pluck('date'))
+            ->unique();
+
+        // Create an empty array to hold the chart data
+        $chartData = [
+            'labels' => [],
+            'datasets' => [
+                [
+                    'label' => 'Dikembalikan',
+                    'data' => [],
+                    'backgroundColor' => 'rgba(54, 162, 235, 1)',
+                    'borderColor' => 'rgba(54, 162, 235, 1)',
+                    'fill' => false,
+                    'type' => 'bar'
+                ],
+                [
+                    'label' => 'Dipinjam',
+                    'data' => [],
+                    'backgroundColor' => 'rgba(255, 99, 132, 1)',
+                    'borderColor' => 'rgba(255, 99, 132, 1)',
+                    'fill' => false,
+                    'type' => 'bar'
                 ]
-            ];
-        } elseif ($type == 'pinjam-kembali') {
-            $returnChart = Loan::where('period', $period)
-                ->where('is_returned', 1)
-                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
-                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
-                ->get();
-        
-            $loanChart = Loan::where('period', $period)
-                ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
-                ->selectRaw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(*) as count')
-                ->get();
-        
-            // Get distinct dates from both datasets
-            $dates = collect($returnChart->pluck('date'))
-                ->concat($loanChart->pluck('date'))
-                ->unique();
-        
-            // Create an empty array to hold the chart data
-            $chartData = [
-                'labels' => [],
-                'datasets' => [
-                    [
-                        'label' => 'Pengembalian',
-                        'data' => [],
-                        'backgroundColor' => 'rgba(54, 162, 235, 1)',
-                        'borderColor' => 'rgba(54, 162, 235, 1)',
-                        'fill' => false,
-                        'type' => 'bar'
-                    ],
-                    [
-                        'label' => 'Pinjaman',
-                        'data' => [],
-                        'backgroundColor' => 'rgba(255, 99, 132, 1)',
-                        'borderColor' => 'rgba(255, 99, 132, 1)',
-                        'fill' => false,
-                        'type' => 'bar'
-                    ]
-                ]
-            ];
-        
-            // Populate the chart data with the available return and loan values
-            foreach ($dates as $date) {
-                $returnCount = $returnChart->firstWhere('date', $date);
-                $loanCount = $loanChart->firstWhere('date', $date);
-        
-                // Add the date to the labels array
-                $chartData['labels'][] = $date;
-        
-                // Add the return count or 0 if not available
-                if ($returnCount) {
-                    $chartData['datasets'][0]['data'][] = $returnCount->count;
-                } else {
-                    $chartData['datasets'][0]['data'][] = 0;
-                }
-        
-                // Add the loan count or 0 if not available
-                if ($loanCount) {
-                    $chartData['datasets'][1]['data'][] = $loanCount->count;
-                } else {
-                    $chartData['datasets'][1]['data'][] = 0;
-                }
+            ]
+        ];
+
+        // Populate the chart data with the available return and loan values
+        foreach ($dates as $date) {
+            $returnCount = $returnChart->firstWhere('date', $date);
+            $loanCount = $loanChart->firstWhere('date', $date);
+
+            // Add the date to the labels array
+            $chartData['labels'][] = $date;
+
+            // Add the return count or 0 if not available
+            if ($returnCount) {
+                $chartData['datasets'][0]['data'][] = $returnCount->count;
+            } else {
+                $chartData['datasets'][0]['data'][] = 0;
             }
-        }
-         else {
-            // Invalid type
-            $chartData = [
-                'labels' => [],
-                'datasets' => []
-            ];
+
+            // Add the loan count or 0 if not available
+            if ($loanCount) {
+                $chartData['datasets'][1]['data'][] = $loanCount->count;
+            } else {
+                $chartData['datasets'][1]['data'][] = 0;
+            }
         }
 
         return $chartData;
@@ -187,9 +140,11 @@ class LoanController extends Controller
     {
         $fine = 0;
 
+        $fineValue = Fine::where('fine_name', 'loan_fine')->first();
+
         if ($returnDate < Carbon::today()) {
             $diffInDays = Carbon::today()->diffInDays($returnDate);
-            $fine = ($diffInDays + 1) * 5;
+            $fine = ($diffInDays + 1) * $fineValue->value;
         }
 
         return $fine;

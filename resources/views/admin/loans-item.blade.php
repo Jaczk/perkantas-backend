@@ -34,18 +34,9 @@
                                         {{ $loan->period }}</option>
                                 @endforeach
                             </select>
-                            <select name="loan_type" id="loan_type" onchange="updateLoanChart()">
-                                <option value="peminjaman" @if ($type == 'peminjaman') selected @endif>Peminjaman
-                                </option>
-                                <option value="pengembalian" @if ($type == 'pengembalian') selected @endif>Pengembalian
-                                </option>
-                                <option value="pinjam-kembali" @if ($type == 'pinjam-kembali') selected @endif>pinjam-kembali
-                                </option>
-                            </select>
+                            <input type="hidden" name="loan_type" id="loan_type" value="pinjam-kembali">
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -175,12 +166,11 @@
         $(document).ready(function() {
             var lineChartCanvas = document.getElementById('lineChart').getContext('2d');
             var currentPeriod = "{{ $period }}";
-            var currentType = "peminjaman"; // Set initial loan type to "peminjaman"
             var myChart;
 
-            function fetchDataAndRenderChart(period, type) {
-                var url = "{{ route('admin.chart.loan.ajax', ['period' => ':period', 'type' => ':type']) }}";
-                url = url.replace(':period', period).replace(':type', type);
+            function fetchDataAndRenderChart(period) {
+                var url = "{{ route('admin.chart.loan.ajax', ':period') }}";
+                url = url.replace(':period', period);
 
                 fetch(url)
                     .then(response => {
@@ -235,13 +225,12 @@
             }
 
             // Initial chart rendering
-            fetchDataAndRenderChart(currentPeriod, currentType);
+            fetchDataAndRenderChart(currentPeriod);
 
-            // Update chart when period or type changes
-            $('#loan_period, #loan_type').on('change', function() {
-                var selectedPeriod = $('#loan_period').val();
-                var selectedType = $('#loan_type').val();
-                fetchDataAndRenderChart(selectedPeriod, selectedType);
+            // Update chart when period changes
+            $('#loan_period').on('change', function() {
+                var selectedPeriod = $(this).val();
+                fetchDataAndRenderChart(selectedPeriod);
             });
         });
     </script>

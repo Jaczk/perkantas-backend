@@ -27,7 +27,7 @@ class RegisterController extends Controller
 
         $isEmailExist = User::where('email', $request->email)->exists();
 
-        if ($isEmailExist) {
+        if ($isEmailExist ) {
             return back()->withErrors([
                 'email' => 'This email already exists'
             ])->withInput();

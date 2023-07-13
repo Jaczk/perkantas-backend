@@ -59,13 +59,8 @@
                     <label for="" class="text-grey">Nomor Telepon</label>
                     <p id="phone-error" class="hidden text-base font-semibold text-red-600">Tolong Masukkan nomor Telepon kurang dari 11 angka</p>
                     <div class="flex">
-                        <select name="countryCode" class="w-1/6 px-4 py-2 mr-2 rounded-full input-field">
-                            <option value="+62">+62 </option>
-                            <option value="+1">+1 </option>
-                            <option value="+91">+91 </option>
-                            <!-- Add more country codes as needed -->
-                        </select>
-                        <input type="text" class="w-4/5 input-field" id="phone-input" name="phone" placeholder="Nomor Telepon" />
+                        <input type="text" disabled="true" value="+62" name="countryCode" class="w-1/6 px-4 py-2 mr-2 rounded-full cursor-not-allowed input-field disabled:opacity-75">
+                        <input type="number" class="w-4/5 input-field" id="phone-input" name="phone" placeholder="Nomor Telepon" />
                     </div>
                 </div>
                 <button type="submit" class="w-full btn btn-primary mt-[14px]">

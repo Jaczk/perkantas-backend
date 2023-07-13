@@ -12,11 +12,17 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="row">
+                    <div class="col">
                         <div class="mb-3 col-md-12">
                             <a href="{{ route('admin.fine.trash') }}">Data Dihapus</a>
                         </div>
+                        <div class="mb-3 col-md-12">
+                            <p class="font-italic text-bold">
+                                Nilai Denda dalam satuan ribuan rupiah. (cont: 5 melambangkan Rp 5.000)
+                            </p>
+                        </div>
                     </div>
+                    
 
                     @if (session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -46,7 +52,7 @@
                                             <td>{{ $counter++ }}</td>
                                             {{-- <td>{{ $fine->id }} </td> --}}
                                             <td>{{ $fine->fine_name }} </td>
-                                            <td>{{ $fine->value }} </td>
+                                            <td>{{ $fine->value }}</td>
                                             <td class="flex-row d-flex">
                                                 <a href="{{ route('admin.fine.edit', Crypt::encryptString($fine->id)) }}"
                                                     class="btn btn-secondary">

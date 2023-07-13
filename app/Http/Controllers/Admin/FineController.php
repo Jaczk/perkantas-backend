@@ -49,7 +49,6 @@ class FineController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
-            'fine_name' => 'required|string',
             'value' => 'required|integer'
         ]);
 

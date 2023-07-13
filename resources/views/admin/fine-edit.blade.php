@@ -23,21 +23,18 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form enctype="multipart/form-data" method="POST"
-                    action="{{ route('admin.fine.update', $fine->id) }}">
+                <form enctype="multipart/form-data" method="POST" action="{{ route('admin.fine.update', $fine->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="title">Nama Denda</label>
-                            <input type="text" class="form-control" id="fine_name" name="fine_name"
-                                placeholder="Nama Denda" value="{{ $fine->fine_name }}">
-                        </div>
                         <div class="form-group">
                             <label for="title">Nilai Denda</label>
                             <input type="number" class="form-control" id="value" name="value"
                                 placeholder="Nilai Denda" value="{{ $fine->value }}">
                         </div>
+                        <p class="font-italic text-bold">
+                            Nilai Denda dalam satuan ribuan rupiah. (cont: 5 melambangkan Rp 5.000)
+                        </p>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
