@@ -28,15 +28,21 @@ class ProcurementController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->except('_token');
+        $data = $request->except('_token', '_method');
         $request->validate([
             'status' => 'required',
         ]);
 
         $procurement = Procurement::find($id);
-        $procurement->update($data);
+        $goodsName = $procurement->goods_name;
+
+        // Update all procurements with the same goods_name
+        Procurement::where('goods_name', $goodsName)->update($data);
+
         return redirect()->route('admin.procurement')->with('success', 'Berhasil memperbarui data pengajuan barang');
     }
+
+
 
     public function delete($id)
     {
