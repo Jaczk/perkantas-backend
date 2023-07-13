@@ -85,8 +85,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <div class="card card-warning">
-                    <div class="card-header">
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: #2b3a8f">
                         <h3 class="card-title">Tabel Barang</h3>
                     </div>
                     <div class="card-body">
@@ -99,9 +99,9 @@
             </div>
             <div class="col-md-6">
 
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Ringkasan Pengadaan Periode</h3>
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: #2b3a8f">
+                        <h3 class="card-title" >Ringkasan Pengadaan Periode</h3>
                     </div>
                     <div class="card-body">
                         <canvas id="myChart3"
