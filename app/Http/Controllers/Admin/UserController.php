@@ -91,8 +91,18 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::find($id)->delete();
+        $user = User::find($id);
 
+        $hasActiveLoans = $user->whereHas('loan', function ($q) {
+            $q->where('is_returned', 0);
+        })->exists();
+
+        if ($hasActiveLoans) {
+            return redirect()->route('admin.user')->with('error', 'Gagal menghapus akun pengguna, karena pengguna masih memiliki pinjaman aktif !');
+        }
+
+        $user->delete();
+        
         return redirect()->route('admin.user')->with('success', 'Berhasil menghapus akun pengguna !');
     }
 }

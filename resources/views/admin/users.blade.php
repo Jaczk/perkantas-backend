@@ -17,7 +17,7 @@
                         <form enctype="multipart/form-data" method="POST" action="{{ route('admin.user.access') }}">
                             @csrf
                             @method('PUT')
-                            <div class="col-md-12 mb-3">
+                            <div class="mb-3 col-md-12">
                                 <button type="submit" class="btn btn-warning text-bold"
                                     onclick="confirmResetForm(event)">Reset Akses Pengguna</button>
                             </div>
@@ -32,6 +32,14 @@
                             </button>
                         </div>
                     @endif
+                    @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
 
                     <div class="row">
                         <div class="col-md-12">
