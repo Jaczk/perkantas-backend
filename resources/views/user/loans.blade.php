@@ -118,18 +118,27 @@
                                 {{ \Carbon\Carbon::parse($item->loan->return_date)->format('d-m-Y') }}
                             </div>
                             @if (\Carbon\Carbon::now()->greaterThan($item->loan->return_date))
-                                <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
-                                    {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()))) }}
-                                    Hari Terlambat
-                                </div>
+                                @php
+                                    $returnDate = \Carbon\Carbon::parse($item->loan->return_date);
+                                @endphp
+                                @if ($returnDate->isToday())
+                                    <div class="mt-[10px] px-5 text-red-600 font-bold text-2xl flex text-center uppercase">
+                                        Hari ini!
+                                    </div>
+                                @else
+                                    <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
+                                        {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()))) }}
+                                        Hari Terlambat
+                                    </div>
+                                @endif
                             @else
                                 @php
                                     $returnDate = \Carbon\Carbon::parse($item->loan->return_date);
                                     $daysRemaining = $returnDate->diffInDays(\Carbon\Carbon::now()) + 1;
                                 @endphp
                                 @if ($returnDate->isToday())
-                                    <div class="mt-[10px] px-5 text-red-600 font-bold text-2xl uppercase flex text-center">
-                                        Hari ini!
+                                    <div class="mt-[10px] px-5 text-red-600 font-bold text-2xl flex text-center">
+                                        Hari Ini!
                                     </div>
                                 @else
                                     <div class="mt-[10px] px-5 text-green-600 font-bold text-lg flex text-center">
