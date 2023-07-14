@@ -57,10 +57,10 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="text-grey">Nomor Telepon</label>
-                    <p id="phone-error" class="hidden text-base font-semibold text-red-600">Tolong masukkan nomor telepon kurang dari 11 angka</p>
+                    <p id="phone-error" class="hidden text-base font-semibold text-red-600">Tolong masukkan nomor telepon kurang dari 13 angka</p>
                     <div class="flex">
                         <input type="text" disabled="true" value="+62" name="countryCode" class="w-1/6 px-4 py-2 mr-2 rounded-full cursor-not-allowed input-field disabled:opacity-75">
-                        <input type="number" class="w-4/5 input-field" id="phone-input" name="phone" placeholder="Nomor Telepon" />
+                        <input type="number" class="w-4/5 input-field" id="phone-input" name="phone" placeholder="Nomor Telepon"/>
                     </div>
                 </div>
                 <button type="submit" class="w-full btn btn-primary mt-[14px]">
@@ -77,7 +77,7 @@
     
         phoneInput.addEventListener('input', function() {
             const phoneNumber = this.value;
-            if (phoneNumber.length > 11) {
+            if (phoneNumber.length > 12) {
                 phoneError.classList.remove('hidden');
             } else {
                 phoneError.classList.add('hidden');

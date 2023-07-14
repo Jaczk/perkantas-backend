@@ -59,7 +59,8 @@
                             <table id="loan" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nomor</th>
+                                        <th>#</th>
+                                        <th>No.Peminjaman</th>
                                         <th>Username</th>
                                         <th>Barang</th>
                                         <th>Tanggal Pinjam</th>
@@ -72,9 +73,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $lo->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            <td class="text-center">{{ $lo->id }}</td>
                                             <td>{{ $lo->user->name }}</td>
                                             <td>
                                                 @foreach ($lo['item_loan'] as $item)

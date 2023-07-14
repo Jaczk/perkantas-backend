@@ -68,7 +68,7 @@
                                                 <form action="{{ route('admin.good.restore', $t->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
-                                                    <button type="submit" class="btn btn-success restore-btn">Restore</button>
+                                                    <button type="submit" class="btn btn-success restore-btn">Kembalikan</button>
                                                 </form>
                                                 <form method="post"
                                                     action="{{ route('admin.good.delete', $t->id) }}">

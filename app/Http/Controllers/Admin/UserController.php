@@ -72,6 +72,7 @@ class UserController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
+            'roles'=> 'required',
             'phone' => 'required|max:15|regex:/^\+62\d{0,}$/',
             'can_return' => 'required'
         ]);
