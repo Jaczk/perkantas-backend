@@ -13,6 +13,9 @@
                 Batas Pengembalian Barang adalah
                 <span class="text-lg font-bold text-red-600">1 Hari</span> dihitung
                 dari tanggal peminjaman.
+                <br> <br>
+                Jika tidak jadi meminjam barang, silahkan <span class="font-bold">Batalkan Peminjaman</span> lalu <span
+                    class="font-bold">Selesaikan Peminjaman</span>
             </p>
             <form class="w-full max-w-3xl card">
                 <div class="flex flex-col items-center mb-[14px]">
@@ -28,7 +31,7 @@
                                     <div class="p-5 text-center border-2 border-indigo-100 border-solid card"
                                         id="card{{ $index }}">
                                         <div class="font-semibold text-center text-dark justice-evenly">
-                                            <div>{{ $item->good->goods_name }} ({{ $item->good->id }}) </div>
+                                            <div>{{ $item->good->goods_name }} </div>
                                             <div>
                                                 @if ($item->good->condition === 'broken')
                                                     <p class="mt-5 font-bold text-center text-red-600 uppercase">
@@ -73,11 +76,11 @@
                         </div>
                         <div class="flex flex-row">
                             <div class="p-4 mt-4">
-                                <a href="#" onclick="history.back()"
-                                    class="w-1/4 btn btn-primary bg-primary_hover hover:opacity-80">Kembali</a>
+                                <a href="{{ route('user.loan.back') }}"
+                                    class="w-1/4 btn btn-primary_hover hover:opacity-80">Kembali</a>
                             </div>
-                            
-                            <a href="{{ route('user.loan') }}" class="w-3/4 btn btn-primary mt-6 hover:opacity-80">
+
+                            <a href="{{ route('user.loan') }}" class="w-3/4 mt-6 btn btn-primary hover:opacity-80">
                                 Selesaikan Peminjaman
                             </a>
                         </div>
@@ -86,15 +89,16 @@
                             Anda Tidak Meminjam Apapun!
                         </div>
                         <div class="flex flex-row">
-                          <div class="mt-6 px-5 ">
-                            <a href="#" onclick="history.back()"
-                                class="w-1/4 btn btn-primary_hover hover:opacity-80">Kembali</a>
+                            <div class="px-5 mt-6 ">
+                                <a href="{{ route('user.loan.back') }}"
+                                    class="w-1/4 btn btn-primary_hover hover:opacity-80">Kembali</a>
+
+                            </div>
+                            <a href="{{ route('user.loan') }}" class="w-3/4 btn btn-primary mt-[14px]">
+                                Selesaikan Peminjaman
+                            </a>
                         </div>
-                        <a href="{{ route('user.loan') }}" class="w-3/4 btn btn-primary mt-[14px]">
-                            Selesaikan Peminjaman
-                        </a>  
-                        </div>
-                        
+
                     @endif
                 </div>
 

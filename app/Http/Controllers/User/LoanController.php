@@ -74,7 +74,7 @@ class LoanController extends Controller
         $data['period'] = Carbon::now()->format('Ym');
 
         $loan = Loan::create($data);
-        
+
         return redirect()->route('user.loan-items', ['loanId' => Crypt::encrypt($loan->id)]);
     }
 
@@ -82,7 +82,7 @@ class LoanController extends Controller
     {
         session()->put('loanId', Crypt::decrypt($loanId));
 
-        $goods = Good::with('category')->where('is_available', 1)->get();
+        $goods = Good::with('category')->where('is_available', 1)->orderBy('goods_name', 'ASC')->get();
 
         return view('user.loan-items', compact('goods'));
     }
@@ -104,6 +104,13 @@ class LoanController extends Controller
         ]);
 
         return redirect()->back()->with('refresh', true);
+    }
+
+    public function backSummary()
+    {
+        $loanId = session()->get('loanId');
+        
+        return redirect()->route('user.loan-items', ['loanId' => Crypt::encrypt($loanId)])->with('refresh', true);
     }
 
 

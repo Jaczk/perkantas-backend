@@ -39,6 +39,10 @@ class DashboardController extends Controller
         $period = $request->period ?? Carbon::now()->format('Ym');
         $chartData = $this->procurementChartAjax($request->period);
 
+        $itemChartData = $this->itemLoanChartAjax($request->period);
+
+        $itemDrop = Loan::groupBy('period')->select('period')->get();
+
         return view('admin.dashboard', compact(
             'goods',
             'procurements',
@@ -50,6 +54,8 @@ class DashboardController extends Controller
             'userActive',
             'chartData',
             'procurementDrop',
+            'itemChartData',
+            'itemDrop',
             'period'
 
         ));
@@ -75,14 +81,48 @@ class DashboardController extends Controller
             'datasets' => [
                 [
                     'data' => $data->pluck('total')->toArray(),
-                    'backgroundColor' => ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de',
-                    '#9BE8D8', '#CBFFA9', '#9BCDD2', '#E1AEFF', '#0079FF', '#FDCEDF', '#B799FF',
-                    '#D25380', '#E3F2C1', '#6C9BCF', '#408E91'
-                ]
+                    'backgroundColor' => [
+                        '#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de',
+                        '#9BE8D8', '#CBFFA9', '#9BCDD2', '#E1AEFF', '#0079FF', '#FDCEDF', '#B799FF',
+                        '#D25380', '#E3F2C1', '#6C9BCF', '#408E91'
+                    ]
                 ]
             ]
         ];
 
         return $chartData;
+    }
+
+    public function itemLoanChartAjax($period)
+    {
+        $itemChartData = $this->itemLoanChart($period);
+
+        return response()->json($itemChartData);
+    }
+
+    public static function itemLoanChart($period)
+    {
+        $data = Item_Loan::whereHas('loan', function ($q) use ($period) {
+            $q->where('period', $period);
+        })->join('goods', 'item__loans.good_id', '=', 'goods.id')
+            ->groupBy('goods.goods_name')
+            ->select('goods.goods_name', DB::raw('COUNT(*) as count'))
+            ->get();
+
+        $itemChartData = [
+            'labels' => $data->pluck('goods_name')->toArray(),
+            'datasets' => [
+                [
+                    'data' => $data->pluck('count')->toArray(),
+                    'backgroundColor' => [
+                        '#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de',
+                        '#9BE8D8', '#CBFFA9', '#9BCDD2', '#E1AEFF', '#0079FF', '#FDCEDF', '#B799FF',
+                        '#D25380', '#E3F2C1', '#6C9BCF', '#408E91'
+                    ]
+                ]
+            ]
+        ];
+
+        return $itemChartData;
     }
 }

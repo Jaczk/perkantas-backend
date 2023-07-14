@@ -11,15 +11,17 @@
         @endif
         <section class="py-[70px] flex flex-col items-center justify-center px-4">
             <div class="text-[32px] font-semibold text-dark">Pilih Barang</div>
-            <p class="mt-4 text-base leading-7 text-center mb-[50px] text-grey">
+            <p class="mt-4 mb-2 text-base leading-7 text-center text-grey">
                 Pilih Barang Yang akan Anda Pinjam! <br />
                 Batas Pengembalian Barang adalah
                 <span class="text-lg font-bold text-red-600">1 Hari</span> dihitung dari tanggal
                 peminjaman.
+                <br> <br>
+                Jika tidak jadi meminjam barang, silahkan menuju ke halaman ringkasan kemudian selesaikan peminjaman
             </p>
             <form class="w-full max-w-3xl card ">
                 <div class="flex flex-col items-center mb-[14px]">
-                    <div class="mt-6 mb-1 text-2xl font-semibold">
+                    <div class="mb-1 text-2xl font-semibold ">
                         Daftar Barang yang Tersedia
                     </div>
                 </div>
@@ -33,7 +35,7 @@
                                     class="card !gap-y-0 bg-white lg:w-[350px] lg:h-[320px] hover:bg-slate-100 border-solid border-2 border-indigo-100 hover:cursor-pointer">
                                     <div class="p-2 mx-auto space-x-0">
                                         <div class="font-semibold text-center text-dark justice-between">
-                                            <div>{{ $good->goods_name }} ({{ $good->id }})</div>
+                                            <div>{{ $good->goods_name }}</div>
                                             <div>
                                                 @if ($good->condition === 'broken')
                                                     <p class="my-2 font-bold text-center text-red-600 uppercase">
@@ -68,7 +70,7 @@
                     </div>
                 </div>
                 <a href="{{ route('user.user-summary', ['loanId' => Crypt::encrypt(session()->get('loanId'))]) }}"
-                    class="w-1/2 btn btn-primary mt-[14px]">
+                    class="w-2/5 btn btn-primary mt-[14px] p-3 fixed bottom-3 text-xl">
                     Lihat Ringkasan Peminjaman
                 </a>
             </form>

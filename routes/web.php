@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
 
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/chart/ajax/{period}', [DashboardController::class, 'procurementChartAjax'])->name('admin.chart.ajax');
+    Route::get('/itemChart/ajax/{period}', [DashboardController::class, 'itemLoanChartAjax'])->name('admin.itemchart.ajax');
 
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
@@ -132,6 +133,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
         Route::post('/store', [UserLoanController::class, 'store'])->name('user.loan.store');
         Route::get('/listItems/{loanId}', [UserLoanController::class, 'listItems'])->name('user.loan-items');
         Route::post('/addItem/{id}', [UserLoanController::class, 'addItems'])->name('user.loan.create');
+        Route::get('/backSummary', [UserLoanController::class, 'backSummary'])->name('user.loan.back');
         Route::get('/summary', [UserLoanController::class, 'summary'])->name('user.loan-summary');
         Route::get('/userSummary/{loanId}', [UserLoanController::class, 'userSummary'])->name('user.user-summary');
         Route::post('/deleteItem/{id}', [UserLoanController::class, 'deleteItems'])->name('user.loan.delete-item');
