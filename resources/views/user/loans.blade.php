@@ -32,11 +32,11 @@
                         </div>
                         <div class="flex flex-row">
                             @if ($user->can_return === 0)
-                                <button class="cursor-not-allowed btn btn-primary" onclick="alertReturn(event)">
+                                <button class="cursor-not-allowed btn btn-primary mx-5" onclick="alertReturn(event)">
                                     Kembalikan Barang
                                 </button>
                             @elseif ($user->can_return === 1)
-                                <a href="{{ route('user.return') }}" class="btn btn-primary">
+                                <a href="{{ route('user.return') }}" class="btn btn-primary mx-5">
                                     Kembalikan Barang
                                 </a>
                             @endif

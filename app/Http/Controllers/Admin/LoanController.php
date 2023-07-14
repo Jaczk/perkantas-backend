@@ -84,7 +84,10 @@ class LoanController extends Controller
         // Get distinct dates from both datasets
         $dates = collect($returnChart->pluck('date'))
             ->concat($loanChart->pluck('date'))
-            ->unique();
+            ->unique()
+            ->sortBy(function ($date) {
+                return Carbon::parse($date);
+            });
 
         // Create an empty array to hold the chart data
         $chartData = [
