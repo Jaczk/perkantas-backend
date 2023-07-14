@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <a href="{{ route('user.user-summary', ['loanId' => Crypt::encrypt(session()->get('loanId'))]) }}"
-                    class="w-2/5 btn btn-primary mt-[14px] p-3 fixed bottom-3 text-xl">
+                    class="w-2/5 btn btn-primary mt-[14px] p-2 fixed bottom-3 text-xl">
                     Lihat Ringkasan Peminjaman
                 </a>
             </form>
