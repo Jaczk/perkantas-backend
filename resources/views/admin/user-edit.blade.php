@@ -27,11 +27,13 @@
                     @csrf
                     @method('PUT')
                     <div class="card-body">
-                        {{-- <div class="form-group">
-                            <label for="title">Nomor Telepon Pengguna</label>
-                            <input type="text" class="form-control" id="phone" name="phone"
-                                placeholder="+62_phone number" value="{{ $user->phone }}">
-                        </div> --}}
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Tipe Pengguna</label>
+                            <select class="custom-select" name="roles">
+                                <option value=0 @selected($user->roles == '0') @class(['bg-warning text-white' => $user->roles == '0'])>User</option>
+                                <option value=1 @selected($user->roles == '1') @class(['bg-warning text-white' => $user->roles == '1'])>Admin</option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="title">Nomor Telepon Pengguna</label>

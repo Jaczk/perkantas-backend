@@ -20,7 +20,7 @@ class LoanController extends Controller
         $loans = Loan::withWhereHas('item_loan', function ($q) {
             $q->WhereHas('good');
         })
-            ->withWhereHas('user')
+            ->withWhereHas('user')->orderBy('created_at', 'desc')
             ->get();
 
         $users = User::all();

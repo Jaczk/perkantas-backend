@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Dashboard')
+@section('title', 'Dasbor')
 
 @section('content')
     {{-- <h1>ini dashboard</h1> --}}

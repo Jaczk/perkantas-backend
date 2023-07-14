@@ -17,7 +17,7 @@
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -59,11 +59,13 @@
                             <table id="loan" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nomor</th>
+                                        <th>#</th>
+                                        <th>No.Peminjaman</th>
                                         <th>Username</th>
                                         <th>Barang</th>
                                         <th>Tanggal Pinjam</th>
-                                        <th>Tanggal Kembali</th>
+                                        <th>Tenggat</th>
+                                        <th>Tanggal Dikembalikan</th>
                                         <th>Periode</th>
                                         <th>Denda</th>
                                         <th>Status</th>
@@ -71,9 +73,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $lo->id }}</td>
+                                            <td>{{ $counter++ }}</td>
+                                            <td class="text-center">{{ $lo->id }}</td>
                                             <td>{{ $lo->user->name }}</td>
                                             <td>
                                                 @foreach ($lo['item_loan'] as $item)
@@ -82,16 +86,23 @@
                                                     </li>
                                                 @endforeach
                                             </td>
-                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($lo->created_at)) }}
+                                            <td class="text-bold">{{ date('F j, Y h:i A', strtotime($lo->created_at)) }}
 
                                             </td>
                                             @if ($carbon::now()->greaterThan($lo->return_date) && $lo->is_returned === 0)
                                                 <td class="text-danger text-bold">
-                                                    {{ date('D, F j, Y h:i A', strtotime($lo->return_date)) }}</td>
+                                                    {{ date('F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                             @else
                                                 <td class="text-bold">
-                                                    {{ date('D, F j, Y h:i A', strtotime($lo->return_date)) }}</td>
+                                                    {{ date('F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                             @endif {{-- date comparison --}}
+
+                                            @if (($lo->is_returned) === 1)
+                                                <td class="text-bold">
+                                                    {{ date('F j, Y h:i A', strtotime($lo->updated_at)) }}</td>
+                                            @else
+                                                <td class="text-center">-</td>
+                                            @endif
 
                                             <td>{{ $lo->period }}</td>
                                             <td>{{ $lo->fine }}</td>

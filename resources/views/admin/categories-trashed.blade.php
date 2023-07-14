@@ -43,7 +43,7 @@
                                                 <form action="{{ route('admin.category.restore', $t->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
-                                                    <button type="submit" class="btn btn-success restore-btn">Restore</button>
+                                                    <button type="submit" class="btn btn-success restore-btn">Kembalikan</button>
                                                 </form>
                                                 <form method="post"
                                                     action="{{ route('admin.category.delete', $t->id) }}">
