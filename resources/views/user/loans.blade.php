@@ -41,9 +41,7 @@
                                 </a>
                             @endif
                             @if ($user->total_fine > 0)
-                                <button
-                                    class="mx-2 cursor-not-allowed btn btn-primary"
-                                    onclick="alertLoan(event)">
+                                <button class="mx-2 cursor-not-allowed btn btn-primary" onclick="alertLoan(event)">
                                     Buat Peminjaman
                                 </button>
                             @elseif ($user->total_fine === 0)
@@ -121,14 +119,23 @@
                             </div>
                             @if (\Carbon\Carbon::now()->greaterThan($item->loan->return_date))
                                 <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
-                                    {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now())))}}
+                                    {{ abs(intval(\Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()))) }}
                                     Hari Terlambat
                                 </div>
                             @else
-                                <div class="mt-[10px] px-5 text-green-600 font-bold text-lg flex text-center">
-                                    {{ \Carbon\Carbon::parse($item->loan->return_date)->diffInDays(\Carbon\Carbon::now()) + 1 }}
-                                    Hari Lagi
-                                </div>
+                                @php
+                                    $returnDate = \Carbon\Carbon::parse($item->loan->return_date);
+                                    $daysRemaining = $returnDate->diffInDays(\Carbon\Carbon::now()) + 1;
+                                @endphp
+                                @if ($returnDate->isToday())
+                                    <div class="mt-[10px] px-5 text-red-600 font-bold text-2xl uppercase flex text-center">
+                                        Hari ini!
+                                    </div>
+                                @else
+                                    <div class="mt-[10px] px-5 text-green-600 font-bold text-lg flex text-center">
+                                        {{ $daysRemaining }} Hari Lagi
+                                    </div>
+                                @endif
                             @endif
                             @if ($item->loan->fine > 0)
                                 <div class="mt-[10px] px-5 text-red-600 font-bold text-lg flex text-center">
@@ -159,6 +166,7 @@
                 timerProgressBar: true,
             });
         }
+
         function alertLoan(event) {
             event.preventDefault(); // Prevent form submission
 

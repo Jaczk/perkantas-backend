@@ -74,7 +74,7 @@ class LoanController extends Controller
         $data['period'] = Carbon::now()->format('Ym');
 
         $loan = Loan::create($data);
-
+        
         return redirect()->route('user.loan-items', ['loanId' => Crypt::encrypt($loan->id)]);
     }
 
