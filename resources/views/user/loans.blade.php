@@ -5,7 +5,7 @@
 @section('content')
     <div>
         <!-- Main Content -->
-        <div class="lg:pr-[70px] py-[50px] px-4 lg:pl-0 lg:ml-12">
+        <div class="lg:pr-[70px] py-[50px] px-4 lg:pl-0 lg:ml-12 w-full">
             <!-- Top Section -->
             <section class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row">
                 <div class="flex items-center justify-between gap-4">
@@ -32,11 +32,11 @@
                         </div>
                         <div class="flex flex-row">
                             @if ($user->can_return === 0)
-                                <button class="cursor-not-allowed btn btn-primary mx-5" onclick="alertReturn(event)">
+                                <button class="mx-5 cursor-not-allowed btn btn-primary" onclick="alertReturn(event)">
                                     Kembalikan Barang
                                 </button>
                             @elseif ($user->can_return === 1)
-                                <a href="{{ route('user.return') }}" class="btn btn-primary mx-5">
+                                <a href="{{ route('user.return') }}" class="mx-5 btn btn-primary">
                                     Kembalikan Barang
                                 </a>
                             @endif
@@ -58,16 +58,18 @@
                 </div>
 
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-11">
-                    <div class="card gap-y-10">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-grey">Total Peminjaman Barang</p>
-                                <div class="text-[32px] font-bold text-dark mt-[6px]">
-                                    {{ count($items) }}
+                    <a href="{{ route('user.loan.history') }}">
+                        <div class="card gap-y-10 hover:bg-slate-100">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-grey">Total Peminjaman Barang</p>
+                                    <div class="text-[32px] font-bold text-dark mt-[6px]">
+                                        {{ count($items) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     <div class="card gap-y-10">
                         <div class="flex items-center justify-between">
                             <div>
