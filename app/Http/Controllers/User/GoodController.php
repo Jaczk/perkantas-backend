@@ -15,7 +15,7 @@ class GoodController extends Controller
 
         $goods = Good::with([
             'category'
-        ])->get();
+        ])->orderBy('goods_name')->get();
 
         return view('user.goods', ['goods' => $goods, 'categories' => $categories]);
     }
