@@ -31,7 +31,7 @@ class ProcurementController extends Controller
 
     public function add()
     {
-        $goods = Good::all();
+        $goods = Good::orderBy('goods_name')->get();
         return view('user.procurement-add',['goods'=>$goods]);
     }
 

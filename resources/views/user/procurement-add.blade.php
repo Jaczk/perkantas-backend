@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="goods" class="text-lg font-medium">Pilih Barang</label>
                     <div class="select-field">
-                        <select name="goods_name" id="goods" class="input-field w-full" onchange="toggleInput()">
+                        <select name="goods_name" id="goods" class="w-full input-field" onchange="toggleInput()">
                             <option value="" selected disabled>Pilih Barang Yang Sudah Ada</option>
                             @foreach ($goods as $good)
                                 <option value="{{ $good->goods_name }}">{{ $good->goods_name }}</option>
