@@ -100,10 +100,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::delete('/destroy/{id}', [ProcurementController::class, 'destroy'])->name('admin.procurement.destroy');
     });
 
-    Route::group(['prefix' => 'loan'], function () {
-        Route::get('/', [ItemLoanController::class, 'index'])->name('admin.loan');
-        Route::delete('/destroy/{id}', [ItemLoanController::class, 'destroy'])->name('admin.loan.destroy');
-    });
+    // Route::group(['prefix' => 'loan'], function () {
+    //     Route::get('/', [ItemLoanController::class, 'index'])->name('admin.loan');
+    //     Route::delete('/destroy/{id}', [ItemLoanController::class, 'destroy'])->name('admin.loan.destroy');
+    // });
 });
 
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
@@ -139,5 +139,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['admin.auth']], function () {
         Route::post('/deleteItem/{id}', [UserLoanController::class, 'deleteItems'])->name('user.loan.delete-item');
         Route::post('/returnItems/{id}', [UserLoanController::class, 'returnItems'])->name('user.return-items');
         Route::delete('/destroy/{id}', [ItemUserLoanController::class, 'destroy'])->name('admin.loan.destroy');
+        Route::get('/history', [UserLoanController::class, 'history'])->name('user.loan.history');
     });
 });

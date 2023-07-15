@@ -94,10 +94,6 @@
                             Kembalikan
                         </a>
                     @endif
-                    {{-- <button href="#" v-else-if="can_return === 1"
-                        class="self-end w-2/3 btn btn-primary hover:text-lg">
-                        Kembalikan
-                    </button> --}}
                 </div>
             </div>
         </section>
@@ -116,66 +112,9 @@
                                         Rp {{ $totalFine }}000
                                     </div>
                                 @endif
-
                             </div>
                         </div>
-                        {{-- <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
-                            class="self-end w-2/5 p-2 btn btn-primary hover:text-lg hover:bg-primary_hover">
-                            @csrf
-                            <button type="submit">
-                                Pinjam
-                            </button>
-                        </form> --}}
                     </div>
-                </div>
-                <!-- Documents -->
-                <div>
-                    <!-- Section Header -->
-                    <!-- <div class="mb-[30px]">
-                                <div class="flex items-center justify-between gap-6">
-                                  <div>
-                                    <div class="text-xl font-medium text-dark">Documents</div>
-                                    <p class="text-grey">Standard procedure</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="card md:min-h-[468px]">
-                                <div class="m-auto text-center">
-                                  <div class="text-xl font-bold text-dark">No Documents</div>
-                                  <p class="text-grey mt-5 mb-[30px]">
-                                    Add guidance or design style for <br />
-                                    your employees in company
-                                  </p>
-                                  <button type="button" class="btn btn-primary">
-                                    Upload File
-                                  </button>
-                                </div>
-                              </div> -->
-                </div>
-
-                <!-- History -->
-                <div>
-                    <!-- Section Header -->
-                    <!-- <div class="mb-[30px]">
-                                <div class="flex items-center justify-between gap-6">
-                                  <div>
-                                    <div class="text-xl font-medium text-dark">History</div>
-                                    <p class="text-grey">Track the flow</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="card min-h-[468px]">
-                                <div class="m-auto text-center">
-                                  <div class="text-xl font-bold text-dark">No History</div>
-                                  <p class="text-grey mt-5 mb-[30px]">
-                                    Information of employees added <br />
-                                    and promoting shown here
-                                  </p>
-                                  <button type="button" class="btn btn-primary">
-                                    Upload File
-                                  </button>
-                                </div>
-                              </div> -->
                 </div>
             </div>
         </section>

@@ -109,7 +109,7 @@ class LoanController extends Controller
     public function backSummary()
     {
         $loanId = session()->get('loanId');
-        
+
         return redirect()->route('user.loan-items', ['loanId' => Crypt::encrypt($loanId)])->with('refresh', true);
     }
 
@@ -180,5 +180,19 @@ class LoanController extends Controller
         } catch (Throwable $e) {
             report($e);
         }
+    }
+
+    public function history()
+    {
+        $user = User::findOrFail(auth()->user()->id); // Find the user by ID
+
+        $loans = Loan::withWhereHas('item_loan', function ($q) {
+            $q->has('good');
+        })
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('user.loan-history', ['loans' => $loans]);
     }
 }
