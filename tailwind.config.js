@@ -8,12 +8,14 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.js',
         './resources/views/**/*.blade.php',
+        "./node_modules/flowbite/**/*.js"
     ],
 
     theme: {
         fontFamily: {
           poppins: 'Poppins, sans-serif',
           'sans': ['ui-sans-serif', 'system-ui', '"Exo 2"'],
+          montserrat: ["Montserrat", "sans-serif"]
         },
         extend: {
           colors: {
@@ -28,12 +30,9 @@ module.exports = {
             page: '#F8F8FA',
             success: '#2ED16C',
           },
-          fontFamily: {
-            
-            montserrat: ["Montserrat", "sans-serif"]
-          }
+
         },
       },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'),require('flowbite/plugin')],
 };
