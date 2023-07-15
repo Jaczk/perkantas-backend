@@ -38,7 +38,7 @@
                     </a>
                     <a href="{{ route('user.loan.history') }}"
                         class="flex flex-row p-2 text-base rounded-lg nav-link hover:bg-slate-100 hover:text-lg">
-                        <img src="/assets/svgs/ic-briefcase.svg" alt="" />
+                        <img src="/assets/svgs/ic-flag.svg" alt="" />
                         <p class="px-3 font-normal">Riwayat Peminjaman</p>
                     </a>
                 </div>
