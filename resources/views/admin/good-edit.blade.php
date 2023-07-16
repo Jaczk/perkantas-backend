@@ -86,7 +86,7 @@
 
             Swal.fire({
                 title: 'Simpan perubahan?',
-                text: 'Kategori akan diperbarui.',
+                text: 'Data akan diperbarui.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

@@ -56,14 +56,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
 
     Route::group(['prefix' => 'fine'], function () {
         Route::get('/', [FineController::class, 'index'])->name('admin.fine');
-        Route::get('/create', [FineController::class, 'create'])->name('admin.fine.create');
-        Route::post('/store', [FineController::class, 'store'])->name('admin.fine.store');
-        Route::get('/edit/{id}', [FineController::class, 'edit'])->name('admin.fine.edit');
-        Route::put('/update/{id}', [FineController::class, 'update'])->name('admin.fine.update');
-        Route::delete('/destroy/{id}', [FineController::class, 'destroy'])->name('admin.fine.destroy');
-        Route::get('/trash', [FineController::class, 'trash'])->name('admin.fine.trash');
-        Route::put('/restore/{id}', [FineController::class, 'restore'])->name('admin.fine.restore');
-        Route::delete('/delete/{id}', [FineController::class, 'forceDelete'])->name('admin.fine.delete');
+        Route::get('/edit', [FineController::class, 'edit'])->name('admin.fine.edit');
+        Route::put('/update', [FineController::class, 'update'])->name('admin.fine.update');
     });
 
     Route::group(['prefix' => 'good'], function () {
@@ -100,10 +94,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::delete('/destroy/{id}', [ProcurementController::class, 'destroy'])->name('admin.procurement.destroy');
     });
 
-    // Route::group(['prefix' => 'loan'], function () {
-    //     Route::get('/', [ItemLoanController::class, 'index'])->name('admin.loan');
-    //     Route::delete('/destroy/{id}', [ItemLoanController::class, 'destroy'])->name('admin.loan.destroy');
-    // });
 });
 
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
