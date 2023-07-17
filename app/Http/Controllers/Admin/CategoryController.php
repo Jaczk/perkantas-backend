@@ -60,8 +60,16 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        Category::find($id)->delete();
+        $category =  Category::find($id);
 
+        $hasActiveGood = $category->has('good')->exists();
+
+        if($hasActiveGood){
+            return redirect()->route('admin.category')
+            ->with('error', 'Gagal menghapus kategori. Pastikan tidak ada barang yang terkait dengan kategori yang akan dihapus');
+        }
+
+        $category->delete();
         return redirect()->route('admin.category')->with('success', 'Kategori berhasil dihapus');
     }
 
