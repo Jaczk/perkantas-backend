@@ -54,10 +54,13 @@ class LoanController extends Controller
     {
         $fine = 0;
 
+        $date = substr($returnDate, 0, 10);
+
+        $filteredReturnDate = $date . " 00:00:00";
         $fineValue = Fine::where('fine_name', 'loan_fine')->first();
 
-        if ($returnDate < Carbon::today()) {
-            $diffInDays = Carbon::today()->diffInDays($returnDate);
+        if ($filteredReturnDate < Carbon::today()) {
+            $diffInDays = Carbon::today()->diffInDays($filteredReturnDate);
             $fine = ($diffInDays + 1) * $fineValue->value;
         }
 
@@ -89,9 +92,9 @@ class LoanController extends Controller
 
     public function addItems(Request $request, $id)
     {
+        $good = Good::findOrFail($id);
         $data  = $request->except('_token');
 
-        $good = Good::findOrFail($id);
 
         $data['loan_id'] = session()->get('loanId');
         $data['good_id'] = $good->id;

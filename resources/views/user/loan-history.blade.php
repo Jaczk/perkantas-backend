@@ -34,14 +34,14 @@
         {{-- section for flowbite --}}
         <section id="loanTableContainer">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full p-2 text-sm text-left text-gray-500 dark:text-gray-400">
+                <table class="w-full p-1 text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th class="px-6 py-3" scope="col">
                                 #
                             </th>
                             <th class="px-6 py-3" scope="col">
-                                No.Peminjaman
+                                No.Pinjam
                             </th>
                             <th class="px-6 py-3" scope="col">
                                 Barang
@@ -53,7 +53,7 @@
                                 Tenggat
                             </th>
                             <th class="px-6 py-3" scope="col">
-                                Tanggal Dikembalikan
+                                Tanggal Kembali
                             </th>
                             <th class="px-6 py-3" scope="col">
                                 Periode
@@ -83,22 +83,22 @@
                                         </li>
                                     @endforeach
                                 </td>
-                                <td class="px-6 py-3">
+                                <td class="px-6 py-3 font-bold text-slate-600">
                                     {{ date('F j, Y h:i A', strtotime($lo->created_at)) }}
                                 </td>
                                 @if ($carbon::now()->greaterThan($lo->return_date) && $lo->is_returned === 0)
-                                    <td class="px-6 py-3 text-red-700">
+                                    <td class="px-6 py-3 text-red-700 font-bold">
                                         {{ date('F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                 @else
-                                    <td class="px-6 py-3">
+                                    <td class="px-6 py-3 font-bold text-slate-600">
                                         {{ date('F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                 @endif {{-- date comparison --}}
 
                                 @if ($lo->is_returned === 1)
-                                    <td class="px-6 py-3">
+                                    <td class="px-6 py-3 font-bold text-slate-600">
                                         {{ date('F j, Y h:i A', strtotime($lo->updated_at)) }}</td>
                                 @else
-                                    <td class="px-6 py-3 text-center">-</td>
+                                    <td class="px-6 py-3 text-center text-slate-600">-</td>
                                 @endif
                                 <td class="px-6 py-3">
                                     {{ $lo->period }}
@@ -107,9 +107,9 @@
                                     {{ $lo->fine }}
                                 </td>
                                 @if ($lo->is_returned == 0)
-                                    <td class="px-6 py-3 text-red-700 uppercase font-weight-bold">{{ 'Dipinjam' }}</td>
+                                    <td class="px-6 py-3 text-red-700 uppercase font-bold">{{ 'Dipinjam' }}</td>
                                 @elseif($lo->is_returned == 1)
-                                    <td class="px-6 py-3 text-green-600 uppercase font-weight-bold">{{ 'Dikembalikan' }}
+                                    <td class="px-6 py-3 text-green-600 uppercase font-bold">{{ 'Dikembalikan' }}
                                     </td>
                                 @endif {{-- is_returned comparison --}}
                             </tr>

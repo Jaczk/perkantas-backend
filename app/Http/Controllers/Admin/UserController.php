@@ -45,15 +45,18 @@ class UserController extends Controller
         return view('admin.users', ['users' => $users, 'loans' => $loans, 'filteredLoan' => $filteredLoan]);
     }
     
-
+    
     public function calculateFine($returnDate)
     {
         $fine = 0;
 
+        $date = substr($returnDate, 0, 10);
+
+        $filteredReturnDate = $date . " 00:00:00";
         $fineValue = Fine::where('fine_name', 'loan_fine')->first();
 
-        if ($returnDate < Carbon::today()) {
-            $diffInDays = Carbon::today()->diffInDays($returnDate);
+        if ($filteredReturnDate < Carbon::today()) {
+            $diffInDays = Carbon::today()->diffInDays($filteredReturnDate);
             $fine = ($diffInDays + 1) * $fineValue->value;
         }
 
