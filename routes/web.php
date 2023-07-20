@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\GoodController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ItemLoanController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FineController;
 use App\Http\Controllers\Admin\ProcurementController;
@@ -49,9 +48,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
         Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
         Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
-        Route::get('/trash', [CategoryController::class, 'trash'])->name('admin.category.trash');
-        Route::put('/restore/{id}', [CategoryController::class, 'restore'])->name('admin.category.restore');
-        Route::delete('/delete/{id}', [CategoryController::class, 'forceDelete'])->name('admin.category.delete');
+        // Route::get('/trash', [CategoryController::class, 'trash'])->name('admin.category.trash');
+        // Route::put('/restore/{id}', [CategoryController::class, 'restore'])->name('admin.category.restore');
+        // Route::delete('/delete/{id}', [CategoryController::class, 'forceDelete'])->name('admin.category.delete');
     });
 
     Route::group(['prefix' => 'fine'], function () {
@@ -67,9 +66,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
         Route::get('/edit/{id}', [GoodController::class, 'edit'])->name('admin.good.edit');
         Route::put('/update/{id}', [GoodController::class, 'update'])->name('admin.good.update');
         Route::delete('/destroy/{id}', [GoodController::class, 'destroy'])->name('admin.good.destroy');
-        Route::get('/trash', [GoodController::class, 'trash'])->name('admin.good.trash');
-        Route::put('/restore/{id}', [GoodController::class, 'restore'])->name('admin.good.restore');
-        Route::delete('/delete/{id}', [GoodController::class, 'forceDelete'])->name('admin.good.delete');
+        // Route::get('/trash', [GoodController::class, 'trash'])->name('admin.good.trash');
+        // Route::put('/restore/{id}', [GoodController::class, 'restore'])->name('admin.good.restore');
+        // Route::delete('/delete/{id}', [GoodController::class, 'forceDelete'])->name('admin.good.delete');
     });
 
     Route::group(['prefix' => 'user'], function () {

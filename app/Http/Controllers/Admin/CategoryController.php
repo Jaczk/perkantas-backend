@@ -70,7 +70,7 @@ class CategoryController extends Controller
             ->with('error', 'Gagal menghapus kategori. Pastikan tidak ada barang yang terkait dengan kategori yang akan dihapus');
         }
 
-        $category->delete();
+        $category->forceDelete();
         return redirect()->route('admin.category')->with('success', 'Kategori berhasil dihapus');
     }
 

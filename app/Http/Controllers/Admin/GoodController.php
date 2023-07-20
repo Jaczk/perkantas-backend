@@ -140,7 +140,7 @@ class GoodController extends Controller
         }
 
         // If there are no active loans, proceed with deletion
-        $good->delete();
+        $good->forceDelete();
 
         return redirect()->route('admin.good')->with('success', 'Berhasil menghapus item barang');
     }
