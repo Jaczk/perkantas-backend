@@ -143,11 +143,14 @@ class LoanController extends Controller
     {
         $fine = 0;
 
+        $date = substr($returnDate, 0, 10);
+
+        $filteredReturnDate = $date . " 00:00:00";
         $fineValue = Fine::where('fine_name', 'loan_fine')->first();
 
-        if ($returnDate < Carbon::today()) {
-            $diffInDays = Carbon::today()->diffInDays($returnDate);
-            $fine = ($diffInDays) * $fineValue->value;
+        if ($filteredReturnDate < Carbon::today()) {
+            $diffInDays = Carbon::today()->diffInDays($filteredReturnDate);
+            $fine = ($diffInDays ) * $fineValue->value;
         }
 
         return $fine;

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Good;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 
 class CategoryController extends Controller
@@ -62,7 +63,7 @@ class CategoryController extends Controller
     {
         $category =  Category::find($id);
 
-        $hasActiveGood = $category->has('good')->exists();
+        $hasActiveGood = Good::where('category_id', $category->id)->exists();
 
         if($hasActiveGood){
             return redirect()->route('admin.category')

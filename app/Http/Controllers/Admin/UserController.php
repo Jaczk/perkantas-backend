@@ -57,7 +57,7 @@ class UserController extends Controller
 
         if ($filteredReturnDate < Carbon::today()) {
             $diffInDays = Carbon::today()->diffInDays($filteredReturnDate);
-            $fine = ($diffInDays + 1) * $fineValue->value;
+            $fine = ($diffInDays ) * $fineValue->value;
         }
 
         return $fine;
