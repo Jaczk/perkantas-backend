@@ -147,7 +147,7 @@ class LoanController extends Controller
 
         if ($returnDate < Carbon::today()) {
             $diffInDays = Carbon::today()->diffInDays($returnDate);
-            $fine = ($diffInDays + 1) * $fineValue->value;
+            $fine = ($diffInDays) * $fineValue->value;
         }
 
         return $fine;

@@ -27,14 +27,20 @@ class RegisterController extends Controller
 
         $isEmailExist = User::where('email', $request->email)->exists();
 
-        if ($isEmailExist ) {
+        if ($isEmailExist) {
             return back()->withErrors([
                 'email' => 'This email already exists'
             ])->withInput();
         }
-        $phoneNumber = $request->input('countryCode') . $request->input('phone');
-        $data['phone'] = $phoneNumber;
 
+        // Check if 'countryCode' input exists, and concatenate the phone number accordingly
+        if ($request->has('countryCode')) {
+            $phoneNumber = $request->input('countryCode') . $request->input('phone');
+        } else {
+            $phoneNumber = $request->input('phone');
+        }
+
+        $data['phone'] = $phoneNumber;
         $data['roles'] = 0;
         $data['password'] = Hash::make($request->password);
 
