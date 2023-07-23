@@ -13,14 +13,9 @@ return new class extends Migration
     {
         Schema::create('item__loans', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_loan')->unsigned();
-            $table->bigInteger('id_good')->unsigned();
-
-            //Kalo mau pake foreign key di tabel foreign 
-
-            // $table->foreign('id_loan')->references('id')->on('loans');
-            // $table->foreign('id_good')->references('id')->on('goods');
-            
+            $table->integer('loan_id')->unsigned();
+            $table->integer('good_id')->unsigned();
+            $table->integer('user_id')->unsigned();  
             $table->softDeletes();
             $table->timestamps();
         });

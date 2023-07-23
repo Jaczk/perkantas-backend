@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loans', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned();
-            $table->date('return_date')->nullable();
-            $table->integer('period');
-            $table->boolean('is_returned')->default(0);
-            $table->integer('fine');
-            $table->softDeletes();
+            $table->string('role_name');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loans');
+        Schema::dropIfExists('roles');
     }
 };

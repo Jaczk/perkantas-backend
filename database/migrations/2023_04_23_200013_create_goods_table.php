@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('goods', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_category')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->string('goods_name');
             $table->string('condition');
-            $table->boolean('is_available')->default(true);
+            $table->boolean('is_available')->default(1);
             $table->string('description')->nullable();
             $table->string('image')->nullable();
             $table->softDeletes();

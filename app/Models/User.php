@@ -27,10 +27,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'roles',
+        'role_id',
         'phone',
-        'can_loan',
-        'can_return'
+        'can_return',
+        'total_fine'
     ];
 
     /**

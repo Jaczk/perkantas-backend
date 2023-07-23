@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('procurements', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('goods_name');
-            $table->bigInteger('goods_amount');
+            $table->integer('goods_amount');
             $table->string('description')->nullable();
             $table->integer('period');
+            $table->enum('status',['added', 'not_added']);
             $table->softDeletes();
             $table->timestamps();
         });
