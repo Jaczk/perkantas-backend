@@ -29,9 +29,14 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="status" class="form-label">Tipe Pengguna</label>
-                            <select class="custom-select" name="roles">
-                                <option value=0 @selected($user->roles == '0') @class(['bg-warning text-white' => $user->roles == '0'])>User</option>
-                                <option value=1 @selected($user->roles == '1') @class(['bg-warning text-white' => $user->roles == '1'])>Admin</option>
+                            <select class="custom-select" name="role_id">
+                                {{-- <option value=1 @selected($user->roles == '1') @class(['bg-warning text-white' => $user->roles == '1'])>User</option>
+                                <option value=2 @selected($user->roles == '2') @class(['bg-warning text-white' => $user->roles == '2'])>Anggota</option> --}}
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}"
+                                        {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                        {{ $role->role_name }}</option>
+                                @endforeach
                             </select>
                         </div>
 

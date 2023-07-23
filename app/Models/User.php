@@ -77,4 +77,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Item_Loan::class);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class,'role_id', 'id');
+    }
 }

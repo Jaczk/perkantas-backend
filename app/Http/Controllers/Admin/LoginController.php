@@ -24,10 +24,10 @@ class LoginController extends Controller
         // $credentials['roles'] = '1';
 
         if (Auth::attempt($credentials)) {
-            if (auth()->user()->roles == 1) {
+            if (auth()->user()->role_id == 1) {
                 $request->session()->regenerate();
                 return redirect()->route('admin.dashboard');
-            } elseif (auth()->user()->roles == 0) {
+            } elseif (auth()->user()->role_id == 2) {
                 $request->session()->regenerate();
                 return redirect()->route('user.dashboard');
             }

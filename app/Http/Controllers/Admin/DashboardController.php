@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $brokenItem = Good::where('condition', 'broken')->count();
         $newItem = Good::where('condition', 'new')->count();
         $normalItem = Good::where('condition', 'used')->count();
-        $userActive = User::where('can_return', 1)->where('roles', 0)->count();
+        $userActive = User::where('can_return', 1)->where('role_id', 2)->count();
 
         $procurementDrop = Procurement::groupBy('period')->select('period')->get();
 

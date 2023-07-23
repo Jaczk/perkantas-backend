@@ -73,7 +73,8 @@
                                                     <i class="fas fa-check fa-lg" style="color: #19942e;"></i>
                                                 </td>
                                             @endif
-                                            <td>{{ $user->roles == 1 ? 'Admin' : ($user->roles == 0 ? 'User' : 'Deactivated User') }}
+                                            {{-- <td>{{ $user->role_id == 1 ? 'Admin' : ($user->role_id == 2 ? 'Anggota' : 'Deactivated User') }} --}}
+                                            <td>{{ $user->role->role_name}}
                                             </td>
                                             <td>
                                                 {{ $user->total_fine }}
@@ -142,7 +143,7 @@
 
             Swal.fire({
                 title: 'Reset akses pengembalian ?',
-                text: 'Aksi ini akan melakukan reset akses pengembalian pada semua pengguna.',
+                text: 'Aksi ini akan melakukan reset akses pengembalian pada semua anggota.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

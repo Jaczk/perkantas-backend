@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('return_date')->nullable();
             $table->integer('period');
             $table->boolean('is_returned')->default(0);
-            $table->integer('fine');
+            $table->integer('fine')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

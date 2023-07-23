@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\Fine;
 use App\Models\Loan;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,7 +15,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::with('role')->get();
 
         foreach ($users as $user) {
 
@@ -67,7 +68,8 @@ class UserController extends Controller
     {
         $decryptId = Crypt::decryptString($id);
         $user = User::find($decryptId);
-        return view('admin.user-edit', ['user' => $user]);
+        $roles = Role::all();
+        return view('admin.user-edit', ['user' => $user, 'roles' => $roles]);
     }
 
     public function update(Request $request, $id)
@@ -75,7 +77,7 @@ class UserController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
-            'roles'=> 'required',
+            'role_id'=> 'required',
             'phone' => 'required|max:15|regex:/^\+62\d{0,}$/',
             'can_return' => 'required'
         ]);
@@ -88,7 +90,7 @@ class UserController extends Controller
 
     public function userAccess()
     {
-        User::where('roles', 0)->update(['can_return' => 0]);
+        User::where('role_id', 2)->update(['can_return' => 0]);
 
         return redirect()->route('admin.user')->with('success', 'Reset akses peminjaman barang ke semua pengguna berhasil !');
     }
