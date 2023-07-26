@@ -18,7 +18,7 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'phone' => 'required|max:15',
+            'phone' => 'required|max:15|regex:/^[1-9][0-9]*$/',
             'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
@@ -33,15 +33,9 @@ class RegisterController extends Controller
             ])->withInput();
         }
 
-        // Check if 'countryCode' input exists, and concatenate the phone number accordingly
-        if ($request->has('countryCode')) {
-            $phoneNumber = $request->input('countryCode') . $request->input('phone');
-        } else {
-            $phoneNumber = $request->input('phone');
-        }
+        $phoneNumber = $request->input('countryCode') . $request->input('phone');
 
         $data['phone'] = $phoneNumber;
-        $data['roles'] = 0;
         $data['password'] = Hash::make($request->password);
 
         User::create($data);
