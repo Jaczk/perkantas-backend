@@ -95,7 +95,6 @@ class LoanController extends Controller
         $good = Good::findOrFail($id);
         $data  = $request->except('_token');
 
-
         $data['loan_id'] = session()->get('loanId');
         $data['good_id'] = $good->id;
         $data['user_id'] = auth()->user()->id;

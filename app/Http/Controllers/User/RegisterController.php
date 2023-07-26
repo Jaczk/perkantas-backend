@@ -29,7 +29,7 @@ class RegisterController extends Controller
 
         if ($isEmailExist) {
             return back()->withErrors([
-                'email' => 'This email already exists'
+                'email' => 'Email ini sudah digunakan!'
             ])->withInput();
         }
 

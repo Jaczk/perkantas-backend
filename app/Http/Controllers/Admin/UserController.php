@@ -39,7 +39,7 @@ class UserController extends Controller
 
             $totalFine = $filteredLoan->sum('fine');
 
-            $user->total_fine = $totalFine;
+            $user['total_fine'] = $totalFine;
             $user->save();
         }
 
