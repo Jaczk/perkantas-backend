@@ -113,7 +113,7 @@
                             </div>
                             <img src="{{ filter_var($item->good->image, FILTER_VALIDATE_URL) ? $item->good->image : asset('storage/images/' . $item->good->image) }}"
                                 alt="Image" width="150">
-                            <p class="text-center text-grey mt-[8px]">
+                            <p class="text-center text-grey mt-[8px] text-lg font-bold">
                                 {{ $item->good->goods_name }}
                             </p>
                             <div class="mt-[10px] px-5 text-dark font-semibold text-lg flex text-center">

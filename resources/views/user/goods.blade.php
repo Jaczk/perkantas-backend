@@ -74,7 +74,7 @@
                             <div class="mx-2 font-semibold text-center text-dark ">
                                 {{ $good->goods_name }}
                             </div>
-                            <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}" width="150" class="mt-5" alt="" />
+                            <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}" height="100" class="mt-5" alt="" />
                             @if ($good->condition === 'broken')
                                 <p class="mt-5 font-bold text-center text-red-600 uppercase">
                                     rusak

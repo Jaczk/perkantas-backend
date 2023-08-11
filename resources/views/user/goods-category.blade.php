@@ -57,22 +57,22 @@
                                 </div>
                                 <div>
                                     @if ($good->condition === 'broken')
-                                        <p class="font-bold text-red-600 uppercase">
+                                        <p class="mx-5 font-bold text-red-600 uppercase">
                                             rusak
                                         </p>
                                     @elseif ($good->condition === 'used')
-                                        <p class="font-bold text-orange-400 uppercase">
+                                        <p class="mx-5 font-bold text-orange-400 uppercase">
                                             normal
                                         </p>
                                     @elseif ($good->condition === 'new')
-                                        <p class="font-bold uppercase text-success">
+                                        <p class="mx-5 font-bold uppercase text-success">
                                             baru
                                         </p>
                                     @endif
                                 </div>
                             </div>
 
-                            <img src={{ $good->image }} width="150" alt="" class="py-3 my-2" />
+                            <img src="{{ filter_var($good->image, FILTER_VALIDATE_URL) ? $good->image : asset('storage/images/' . $good->image) }}" width="150" alt="" class="py-3 my-2" />
                             <p class="text-justify text-grey">{{ $good->description }}</p>
                         </div>
                     </div>
