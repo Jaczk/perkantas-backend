@@ -22,13 +22,6 @@ class ProcurementController extends Controller
         return view('user.procurement',['procurements' => $procurements]);
     }
 
-    public function edit($id)
-    {
-        $procurements = Procurement::where('user_id', Auth()->user()->id)->find($id);
-
-        return view('user.procurement-add', ['procurements'=>$procurements]);
-    }
-
     public function add()
     {
         $goods = Good::orderBy('goods_name')->get();

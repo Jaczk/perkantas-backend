@@ -73,7 +73,6 @@ class LoanController extends Controller
 
         $data['user_id'] = auth()->user()->id;
         $data['return_date'] = Carbon::now()->addDays(1);
-        $data['due_date'] = Carbon::now()->addDays(14);
         $data['period'] = Carbon::now()->format('Ym');
 
         $loan = Loan::create($data);
@@ -92,7 +91,7 @@ class LoanController extends Controller
 
     public function addItems(Request $request, $id)
     {
-        $good = Good::findOrFail($id);
+        $good = Good::where('is_available', 1)->findOrFail($id);
         $data  = $request->except('_token');
 
         $data['loan_id'] = session()->get('loanId');
@@ -114,7 +113,6 @@ class LoanController extends Controller
 
         return redirect()->route('user.loan-items', ['loanId' => Crypt::encrypt($loanId)])->with('refresh', true);
     }
-
 
     public function summary()
     {
