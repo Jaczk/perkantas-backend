@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
 
@@ -83,6 +84,7 @@ class GoodController extends Controller
         }
 
         Good::create($data);
+        Artisan::call('custom:storagelink');
         return redirect()->route('admin.good')->with('success', 'Barang berhasil ditambahkan');
     }
 
