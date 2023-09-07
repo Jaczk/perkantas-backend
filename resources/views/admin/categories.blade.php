@@ -48,10 +48,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $counter = 1; ?>
+                                    
                                     @foreach ($categories as $category)
                                         <tr>
-                                            <td>{{ $counter++ }}</td>
+                                            <td></td>
                                             {{-- <td>{{ $category->id }} </td> --}}
                                             <td>{{ $category->category_name }} </td>
                                             <td class="flex-row d-flex">
@@ -85,7 +85,20 @@
         $(document).ready(function() {
             // Initialize DataTable
             var table = $('#category').DataTable();
+            table
+                .on('order.dt search.dt', function() {
+                    var i = 1;
 
+                    table
+                        .cells(null, 0, {
+                            search: 'applied',
+                            order: 'applied'
+                        })
+                        .every(function(cell) {
+                            this.data(i++);
+                        });
+                })
+                .draw();
             // Apply event listener to all delete buttons
             $('#category').on('click', '.delete-btn', function(e) {
                 e.preventDefault();

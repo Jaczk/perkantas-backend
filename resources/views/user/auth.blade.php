@@ -12,7 +12,7 @@
 <body class="font-montserrat">
     <section class="py-[50px] flex flex-col items-center justify-center px-4">
         <!--TODO: Ganti Logo Perkantas -->
-        <img src="/assets/images/perkantas.png" style="max-width:25%" alt="" />
+        <img src="/assets/images/perkantas.png" class="w-2/3 md:w-2/5 lg:w-1/4" alt="" />
         <div class="text-[32px] font-semibold text-dark mt-[70px]">Sign In</div>
         <p class="mt-4 text-base leading-7 text-center mb-[50px] text-grey">
             Sistem Informasi Inventaris Perkantas Semarang

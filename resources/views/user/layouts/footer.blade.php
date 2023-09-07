@@ -27,12 +27,6 @@
                         <a href="https://twitter.com/PerkantasSMG" target="__blank"><img
                                 src="/assets/images/Logo_of_Twitter.svg.png" alt=""
                                 class="h-10 px-2 hover:scale-110" /></a>
-                        <!-- <a href="#"
-                ><img
-                  src="/assets/images/LINE_logo.svg (1).png"
-                  alt=""
-                  class="h-10 px-2 hover:scale-110"
-              /></a> -->
                     </div>
                 </div>
             </div>

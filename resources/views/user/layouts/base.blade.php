@@ -24,7 +24,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
-
+    @yield('sidebar-styles')
 </head>
 
 <body>
@@ -76,6 +76,20 @@
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script>
+        // JavaScript function to toggle the sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarHRIS');
+            sidebar.classList.toggle('hidden');
+        }
+    
+        // Add a click event listener to the toggle button
+        const toggleOpenSidebar = document.getElementById('toggleOpenSidebar');
+        if (toggleOpenSidebar) {
+            toggleOpenSidebar.addEventListener('click', toggleSidebar);
+        }
+    </script>
+    
 </body>
 
 </html>

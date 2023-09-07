@@ -57,10 +57,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $counter = 1; ?>
+                                    
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td>{{ $counter++ }}</td>
+                                            <td></td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->phone }}</td>
@@ -111,6 +111,21 @@
         $(document).ready(function() {
             // Initialize DataTable
             var table = $('#user').DataTable();
+
+            table
+                .on('order.dt search.dt', function() {
+                    var i = 1;
+
+                    table
+                        .cells(null, 0, {
+                            search: 'applied',
+                            order: 'applied'
+                        })
+                        .every(function(cell) {
+                            this.data(i++);
+                        });
+                })
+                .draw();
 
             // Apply event listener to all delete buttons
             $('#user').on('click', '.delete-btn', function(e) {
