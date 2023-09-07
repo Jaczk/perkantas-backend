@@ -5,10 +5,10 @@
 @section('content')
     <div>
         <!-- Main Content -->
-        <div class="lg:pr-[70px] py-[50px] px-4 lg:pl-0 lg:ml-12 w-full">
+        <div class="lg:pr-[70px] py-[50px] px-4 lg:pl-0 lg:ml-12 w-full overflow-hidden">
             <!-- Top Section -->
             <section class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row">
-                <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-4 ">
                     <a href="#" id="toggleOpenSidebar" class="lg:hidden">
                         <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +16,7 @@
                                 d="M4 6h16M4 12h16M4 18h7"></path>
                         </svg>
                     </a>
-                    <div class="text-[32px] font-semibold text-dark">
+                    <div class="text-[22px] md:text-[32px] font-semibold text-dark">
                         Peminjaman Barang
                     </div>
                 </div>
@@ -30,23 +30,23 @@
                             <div class="text-xl font-medium text-dark">Statistik</div>
                             <p class="text-grey">Daftar Peminjaman Barang</p>
                         </div>
-                        <div class="flex flex-row">
+                        <div class="flex justify-around md:justify-normal">
                             @if ($user->can_return === 0)
-                                <button class="mx-5 cursor-not-allowed btn btn-primary" onclick="alertReturn(event)">
+                                <button class="mx-1 cursor-not-allowed md:mx-5 btn btn-primary basis-1 md:basis-2" onclick="alertReturn(event)">
                                     Kembalikan Barang
                                 </button>
                             @elseif ($user->can_return === 1)
-                                <a href="{{ route('user.return') }}" class="mx-5 btn btn-primary">
+                                <a href="{{ route('user.return') }}" class="mx-1 md:mx-5 btn btn-primary basis-1 md:basis-1/2">
                                     Kembalikan Barang
                                 </a>
                             @endif
                             @if ($user->total_fine > 0)
-                                <button class="mx-2 cursor-not-allowed btn btn-primary" onclick="alertLoan(event)">
+                                <button class="mx-2 cursor-not-allowed md:mx-2 btn basis-1 md:basis-1/2 btn-primary" onclick="alertLoan(event)">
                                     Buat Peminjaman
                                 </button>
                             @elseif ($user->total_fine === 0)
                                 <form action="{{ route('user.loan.store') }}" enctype="multipart/form-data" method="POST"
-                                    class="px-5 btn btn-primary">
+                                    class="px-5 btn btn-primary basis-1 md:basis-1/2">
                                     @csrf
                                     <button type="submit">
                                         Buat Peminjaman
@@ -60,10 +60,10 @@
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-11">
                     <a href="{{ route('user.loan.history') }}">
                         <div class="card gap-y-10 hover:bg-slate-100">
-                            <div class="flex items-center justify-between">
+                            <div class="flex self-center md:self-auto">
                                 <div>
-                                    <p class="text-grey">Total Peminjaman Barang</p>
-                                    <div class="text-[32px] font-bold text-dark mt-[6px]">
+                                    <p class="text-grey text-[20px] font-semibold">Total Peminjaman Barang</p>
+                                    <div class="text-[32px] text-center md:text-left font-bold text-dark mt-[6px]">
                                         {{ count($items) }}
                                     </div>
                                 </div>
@@ -71,20 +71,20 @@
                         </div>
                     </a>
                     <div class="card gap-y-10">
-                        <div class="flex items-center justify-between">
+                        <div class="flex self-center md:self-auto">
                             <div>
-                                <p class="text-grey">Yang Masih Dipinjam</p>
-                                <div class="text-[32px] font-bold text-dark mt-[6px]">
+                                <p class="text-grey text-[20px] font-semibold">Yang Masih Dipinjam</p>
+                                <div class="text-[32px] text-center md:text-left font-bold text-dark mt-[6px]">
                                     {{ count($filteredItems) }}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card gap-y-10">
-                        <div class="flex items-center justify-between">
+                        <div class="flex self-center md:self-auto">
                             <div>
-                                <p class="text-grey">Yang Sudah Dikembalikan</p>
-                                <div class="text-[32px] font-bold text-dark mt-[6px]">
+                                <p class="text-grey text-[20px] font-semibold">Yang Sudah Dikembalikan</p>
+                                <div class="text-[32px] text-center md:text-left font-bold text-dark mt-[6px]">
                                     {{ count($items) - count($filteredItems) }}
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:gap-10 lg:gap-3">
                     <!-- Card -->
                     @foreach ($filteredItems as $item)
                         <div class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0">

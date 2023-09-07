@@ -46,17 +46,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $counter = 1; ?>
                                     @foreach ($procurements as $proc)
                                         <tr>
-                                            <td>{{ $counter++ }}</td>
+                                            <td></td>
                                             {{-- <td>{{ $proc->id }}</td> --}}
                                             <td>{{ $proc->user->name }}</td>
                                             <td>{{ $proc->goods_name }}</td>
                                             <td>{{ $proc->goods_amount }}</td>
                                             <td class="text-justify">{{ $proc->description }}</td>
                                             <td>{{ $proc->period }}</td>
-                                            <td class="text-bold">{{ date('D, F j, Y h:i A', strtotime($proc->created_at)) }}</td>
+                                            <td class="text-bold">
+                                                {{ date('D, F j, Y h:i A', strtotime($proc->created_at)) }}</td>
                                             {{-- <td class="text-justify">{{ $proc->message }}</td> --}}
                                             @if ($proc->status == 'added')
                                                 <td class="text-success font-weight-bold">{{ 'TERSEDIA' }}</td>
@@ -95,10 +95,64 @@
 
     <script>
         $(document).ready(function() {
-            $('#good').DataTable({
+            var table = $('#good').DataTable({
                 dom: 'lBfrtipl',
-                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6,
+                                7] // Include columns 1 to 5 in the copy report
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'Daftar Pengadaan Barang Baru Perkantas',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6,
+                                7] // Include columns 1 to 5, 6, 7 in the Excel report
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'Daftar Pengadaan Barang Baru Perkantas',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6,
+                                7] // Include columns 1 to 5, 6, 7 in the PDF report
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Daftar Pengadaan Barang Baru Perkantas',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6,
+                            7] // Include columns 1 to 5 in the printed report
+                        }
+                    }
+                ],
+                columnDefs: [{
+                    searchable: false,
+                    orderable: false,
+                    targets: 0
+                }],
+                order: [
+                    [1, 'asc']
+                ]
             });
+
+            table
+                .on('order.dt search.dt', function() {
+                    var i = 1;
+
+                    table
+                        .cells(null, 0, {
+                            search: 'applied',
+                            order: 'applied'
+                        })
+                        .every(function(cell) {
+                            this.data(i++);
+                        });
+                })
+                .draw();
         });
     </script>
 @endsection

@@ -87,7 +87,7 @@
                                     {{ date('F j, Y h:i A', strtotime($lo->created_at)) }}
                                 </td>
                                 @if ($carbon::now()->greaterThan($lo->return_date) && $lo->is_returned === 0)
-                                    <td class="px-6 py-3 text-red-700 font-bold">
+                                    <td class="px-6 py-3 font-bold text-red-700">
                                         {{ date('F j, Y h:i A', strtotime($lo->return_date)) }}</td>
                                 @else
                                     <td class="px-6 py-3 font-bold text-slate-600">
@@ -107,9 +107,9 @@
                                     {{ $lo->fine }}
                                 </td>
                                 @if ($lo->is_returned == 0)
-                                    <td class="px-6 py-3 text-red-700 uppercase font-bold">{{ 'Dipinjam' }}</td>
+                                    <td class="px-6 py-3 font-bold text-red-700 uppercase">{{ 'Dipinjam' }}</td>
                                 @elseif($lo->is_returned == 1)
-                                    <td class="px-6 py-3 text-green-600 uppercase font-bold">{{ 'Dikembalikan' }}
+                                    <td class="px-6 py-3 font-bold text-green-600 uppercase">{{ 'Dikembalikan' }}
                                     </td>
                                 @endif {{-- is_returned comparison --}}
                             </tr>

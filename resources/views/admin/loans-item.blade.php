@@ -73,10 +73,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $counter = 1; ?>
                                     @foreach ($loans as $lo)
                                         <tr>
-                                            <td>{{ $counter++ }}</td>
+                                            <td></td>
                                             <td class="text-center">{{ $lo->id }}</td>
                                             <td>{{ $lo->user->name }}</td>
                                             <td>
@@ -146,8 +145,58 @@
             // Initialize DataTable
             var table = $('#loan').DataTable({
                 dom: 'lBfrtipl',
-                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                buttons: [{
+                            extend: 'copy',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Include columns 1 to 5 in the copy report
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            title: 'Daftar Peminjaman Perkantas',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Include columns 1 to 5in the Excel report
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            title: 'Daftar Peminjaman Perkantas',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Include columns 1 to 5 in the PDF report
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            title: 'Daftar Peminjaman Perkantas',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Include columns 1 to 5 in the printed report
+                            }
+                        }
+                    ],
+                    columnDefs: [{
+                    searchable: false,
+                    orderable: false,
+                    targets: 0
+                }],
+                order: [
+                    [1, 'asc']
+                ]
             });
+
+            table
+                .on('order.dt search.dt', function() {
+                    var i = 1;
+
+                    table
+                        .cells(null, 0, {
+                            search: 'applied',
+                            order: 'applied'
+                        })
+                        .every(function(cell) {
+                            this.data(i++);
+                        });
+                })
+                .draw();
 
             // Apply event listener to return buttons
             $('#loan').on('click', '.return-btn', function(e) {

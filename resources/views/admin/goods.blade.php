@@ -92,10 +92,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $counter = 1; ?>
+                                        
                                         @foreach ($goods as $good)
                                             <tr>
-                                                <td>{{ $counter++ }}</td>
+                                                <td></td>
                                                 {{-- <td>{{ $good->id }}</td> --}}
                                                 <td>{{ $good->goods_name }}</td>
                                                 <td>{{ $good->category->category_name ?? '-' }}</td>
@@ -152,8 +152,59 @@
                 // Initialize DataTable
                 var table = $('#good').DataTable({
                     dom: 'lBfrtipl',
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                    buttons: [{
+                            extend: 'copy',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5] // Include columns 1 to 5 in the copy report
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            title: 'Daftar Barang Perkantas',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5] // Include columns 1 to 5 in the Excel report
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            title: 'Daftar Barang Perkantas',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5] // Include columns 1 to 5 in the PDF report
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            title: 'Daftar Barang Perkantas',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5] // Include columns 1 to 5 in the printed report
+                            }
+                        }
+                    ],
+                    columnDefs: [{
+                        searchable: false,
+                        orderable: false,
+                        targets: 0
+                    }],
+                    order: [
+                        [1, 'asc']
+                    ]
                 });
+
+                table
+                    .on('order.dt search.dt', function() {
+                        var i = 1;
+
+                        table
+                            .cells(null, 0, {
+                                search: 'applied',
+                                order: 'applied'
+                            })
+                            .every(function(cell) {
+                                this.data(i++);
+                            });
+                    })
+                    .draw();
+
 
                 // Apply event listener to all delete buttons
                 $('#good').on('click', '.delete-btn', function(e) {
